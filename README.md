@@ -20,14 +20,17 @@ Also the persons who audit, calculate incomes and spending (ሂሣብ ያዥ)
 *(other roles in the Idir to be identified)
 
 Plan – Steps 
-Front end
-i.	First we start off by building the basic skeletal structure of the application program by using java 
-ii.	Identifying what the objects in the GUI of the program do and how the function (1st week)
-
 Back end
-iii.	Identifying the entities in the Idir system and build based on the relational database model and build everything from identifying entities to making ER-Diagrams to mapping to relational tables (2nd week)
-iv.	After making the theoretical work of the database then build the database by using SQL in MySQL database management system.
-(Which we have to learn from scratch btw) (3th-4th week)
-v.	Connecting the java program with the database making the objects in the GUI function properly and effectively and finalizing. (5th week)
-vi.	Testing (6th week)
+i.	Identifying the entities in the Idir system and build based on the relational database model and build everything from identifying entities to making ER-Diagrams to mapping to relational tables (1st week)
+ii.	After making the theoretical work of the database then build the database by using SQL in MySQL database management system.
+(Which we have to learn from scratch btw) (2nd week)
 
+Front end
+
+iii.Then we start off by building the basic skeletal structure of the application program by using java 
+iv.	Identifying what the objects in the GUI of the program do and how the function (3rd week)
+
+Connecting
+
+v.	Connecting the java program with the database making the objects in the GUI function properly and effectively and finalizing. (4th week)
+vi.	Testing (5th week)
