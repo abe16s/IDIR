@@ -15,22 +15,22 @@ public class DemoPage extends JFrame {
     private InvisibleButton settings;
     private InvisibleButton info;
 
-    Image familyIcon = new ImageIcon("icons8-family-64.png").getImage();
-    Icon homeIcon = new ImageIcon(new ImageIcon("icons8-home-48.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
-    Icon membersIcon = new ImageIcon(new ImageIcon("icons8-contacts-50.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-    Icon rulesIcon = new ImageIcon(new ImageIcon("icons8-book-48.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
-    Icon agendasIcon = new ImageIcon(new ImageIcon("icons8-note-50.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-    Icon officialsIcon = new ImageIcon(new ImageIcon("icons8-administrator-male-50.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-    Icon settingsIcon = new ImageIcon(new ImageIcon("icons8-tools-100.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-    Icon infoIcon = new ImageIcon(new ImageIcon("icons8-info-100.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Image familyIcon = new ImageIcon("Icons/icons8-family-64.png").getImage();
+    Icon homeIcon = new ImageIcon(new ImageIcon("Icons/icons8-home-48.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
+    Icon membersIcon = new ImageIcon(new ImageIcon("Icons/icons8-contacts-50.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon rulesIcon = new ImageIcon(new ImageIcon("Icons/icons8-book-48.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
+    Icon agendasIcon = new ImageIcon(new ImageIcon("Icons/icons8-note-50.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon officialsIcon = new ImageIcon(new ImageIcon("Icons/icons8-administrator-male-50.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon settingsIcon = new ImageIcon(new ImageIcon("Icons/icons8-tools-100.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon infoIcon = new ImageIcon(new ImageIcon("Icons/icons8-info-100.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
 
-    Icon homeIconFilled = new ImageIcon(new ImageIcon("icons8-home-48 (1).png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
-    Icon membersIconFilled = new ImageIcon(new ImageIcon("icons8-contacts-50 (1).png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-    Icon rulesIconFilled = new ImageIcon(new ImageIcon("icons8-book-64 (2).png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
-    Icon agendasIconFilled = new ImageIcon(new ImageIcon("icons8-note-50 (1).png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-    Icon officialsIconFilled = new ImageIcon(new ImageIcon("icons8-administrator-male-50 (1).png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-    Icon settingsIconFilled = new ImageIcon(new ImageIcon("icons8-tools-50 (1).png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-    Icon infoIconFilled = new ImageIcon(new ImageIcon("icons8-info-50.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon homeIconFilled = new ImageIcon(new ImageIcon("Icons/icons8-home-48 (1).png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
+    Icon membersIconFilled = new ImageIcon(new ImageIcon("Icons/icons8-contacts-50 (1).png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon rulesIconFilled = new ImageIcon(new ImageIcon("Icons/icons8-book-64 (2).png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
+    Icon agendasIconFilled = new ImageIcon(new ImageIcon("Icons/icons8-note-50 (1).png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon officialsIconFilled = new ImageIcon(new ImageIcon("Icons/icons8-administrator-male-50 (1).png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon settingsIconFilled = new ImageIcon(new ImageIcon("Icons/icons8-tools-50 (1).png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+    Icon infoIconFilled = new ImageIcon(new ImageIcon("Icons/icons8-info-50.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
 
     Toolkit kit = Toolkit.getDefaultToolkit();
     Dimension screenSize = kit.getScreenSize();
