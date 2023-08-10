@@ -1,3 +1,4 @@
+package Java_GUI;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -37,8 +38,6 @@ class RoundedPanel extends JPanel {
         int width = getWidth();
         int height = getHeight();
         int shadowGap = this.shadowGap;
-        Color shadowColorA = new Color(shadowColor.getRed(),
-            shadowColor.getGreen(), shadowColor.getBlue(), shadowAlpha);
         Graphics2D graphics = (Graphics2D) g;
 
         //Sets antialiasing if HQ.
@@ -46,20 +45,6 @@ class RoundedPanel extends JPanel {
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
         }
-        /* 
-        //Draws shadow borders if any.
-        if (shady) {
-            graphics.setColor(shadowColorA);
-            graphics.fillRoundRect(
-                    shadowOffset,// X position
-                    shadowOffset,// Y position
-                    width - strokeSize - shadowOffset, // width
-                    height - strokeSize - shadowOffset, // height
-                    arcs.width, arcs.height);// arc Dimension
-        } else {
-            shadowGap = 1;
-        }
-        */
 
         //Draws the rounded opaque panel with borders.
         graphics.setColor(getBackground());
@@ -93,7 +78,8 @@ class InvisibleButton extends JButton {
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
         this.setFocusable(false);
-        this.setFont(new Font("Arial", Font.PLAIN,40 ));
+        this.setFont(new Font("Times New Roman", Font.ITALIC|Font.BOLD, 15));
+
 
     }
 
@@ -102,7 +88,7 @@ class InvisibleButton extends JButton {
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
         this.setFocusable(false);
-        this.setFont(new Font("Arial", Font.ITALIC,40 ));
+        this.setFont(new Font("Times New Roman", Font.ITALIC|Font.BOLD, 15));
     }
 }
 
