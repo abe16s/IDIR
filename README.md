@@ -13,6 +13,6 @@ Thus our program will try to overcome these problems.
   
     •	Have an interactive GUI that can easily be understood and used by the wide society.
     •	Have a database for the data of the members of the Idir and can easily retrieve,
-    manipulate, access and add information in the database
+      manipulate, access and add information in the database
 
 3.	 we will use Java for the application program with java swing for the GUI and SQl for the database (probably with MySQL). 
