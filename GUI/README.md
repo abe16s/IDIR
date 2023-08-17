@@ -1,10 +1,12 @@
-#Folder Structure
+# GUI Folder
 
-This folder contains the files and folders needed to create a graphical user interface (GUI) for a project.
-The folder structure is as follows:
+This repository contains the source code and assets for a graphical user interface (GUI) project. The project is organized into the following folders:
 
-  icons: This folder contains the images used for the buttons in the GUI. There are two subfolders inside this folder:
-    colored: This folder contains the same images as the dark folder, but colored. These images are used when the buttons are clicked.
-    dark: This folder contains the images used for the buttons in their default state. These images are black and white.
+## Folder Structure
 
-  src: This folder contains the classes needed to create the GUI. For more detailed information, please refer to the readme file inside this folder.
+- `icon`: This folder contains icon assets that are used in the GUI.
+  - `colored`: Contains colored icon images for buttons when they are clicked.
+  - `dark`: Contains dark-themed icon images, same as the ones in `colored`.
+
+- `src`: This folder contains the source code classes required to create the GUI.
+  - `README.md`: Detailed information about the classes and their usage can be found in the [source folder's README].
