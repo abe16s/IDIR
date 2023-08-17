@@ -31,17 +31,14 @@ public final class ImageIcons {
 
     public static final ImageIcon EDIT = new ImageIcon("GUI\Icons\dark\edit-account.png");
 
-    public static final ImageIcon OFFICIAL = new ImageIcon("GUI\\Icons\\colored\\administrator-male.png");
+    public static final ImageIcon SAVE = new ImageIcon("GUI\Icons\dark\save.png");
 
-    public static final ImageIcon OFFICIAL = new ImageIcon("GUI\\Icons\\colored\\administrator-male.png");
-
-    public static final ImageIcon OFFICIAL = new ImageIcon("GUI\\Icons\\colored\\administrator-male.png");
-    
+    public static final ImageIcon UNKNOWN = new ImageIcon("GUI\Icons\dark\unknown photo.png");
 
 
     public static ImageIcon reSizeImageIcon(ImageIcon icon, int width, int height){
         Image image = icon.getImage();
-        Image newImage = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+        Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(newImage);
     }
 
