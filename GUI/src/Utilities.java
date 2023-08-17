@@ -134,6 +134,6 @@ class MainPanelChanger implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        SkeletalPage.cardlayout.show(SkeletalPage.MainPanel, this.btn);
+        SkeletalPage.CardLayout.show(SkeletalPage.MainPanel, this.btn);
     }
 }
