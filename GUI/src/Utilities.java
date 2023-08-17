@@ -76,7 +76,7 @@ class InvisibleButton extends JButton {
         this.setFocusable(false);
         this.setFont(new Font("Times New Roman", Font.ITALIC|Font.BOLD, 15));
         this.addMouseListener(new EnlargeText(this));
-        this.addActionListener(new mainPanelChanger(text)); // This action listener only works when the constraint
+        this.addActionListener(new MainPanelChanger(text)); // This action listener only works when the constraint
         //of the panel to be shown in the main panel has exactly the same string as the text assigned to this button
         //so be sure to use the same text for the button and to the constraint of the panel it forwards to.  
     }
@@ -88,7 +88,7 @@ class InvisibleButton extends JButton {
         this.setFocusable(false);
         this.setFont(new Font("Times New Roman", Font.ITALIC|Font.BOLD, 15));
         this.addMouseListener(new EnlargeText(this));
-        this.addActionListener(new mainPanelChanger(text));
+        this.addActionListener(new MainPanelChanger(text));
 
     }
 
@@ -123,17 +123,17 @@ class EnlargeText extends MouseAdapter {
 }
 
 
-class mainPanelChanger implements ActionListener {
+class MainPanelChanger implements ActionListener {
     /*An action listener that changes the content in the static panel 
     of the skeletal "mainPanel" according to the button function*/
 
     private String btn;
 
-    public mainPanelChanger(String s) {
+    public MainPanelChanger(String s) {
         this.btn = s;
     }
 
     public void actionPerformed(ActionEvent e) {
-        //SkeletalPage.cardlayout.show(SkeletalPage.MainPanel, this.btn);
+        SkeletalPage.cardlayout.show(SkeletalPage.MainPanel, this.btn);
     }
 }
