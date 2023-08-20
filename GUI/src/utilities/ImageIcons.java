@@ -1,4 +1,4 @@
-package GUI.src;
+package GUI.src.utilities;
 
 import java.awt.Image;
 
@@ -36,7 +36,7 @@ public final class ImageIcons {
     public static final ImageIcon UNKNOWN = new ImageIcon("GUI\\Icons\\dark\\unknown photo.png");
 
 
-    public static ImageIcon reSizeImageIcon(ImageIcon icon, int width, int height){
+    public static ImageIcon reSize(ImageIcon icon, int width, int height){
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(newImage);
