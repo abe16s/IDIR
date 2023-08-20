@@ -14,6 +14,8 @@ public class ColoredButton extends HoverableButton {
 
     public ColoredButton(String text, JPanel parent) {
         super(text, parent);
+
+        background.add(this);
         setNormalColor(Color.black);
         setSelectedColor(Color.white);
     }
@@ -29,6 +31,9 @@ public class ColoredButton extends HoverableButton {
         this.selectedColor = color;
     }
 
+    public RoundedPanel getWhole(){
+        return background;
+    }
 
     @Override
     public void showEffect() {
