@@ -3,6 +3,8 @@ package GUI.src.utilities;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 
+import GUI.src.MenuBar;
+
 public class TransparentButton extends HoverableButton {
     private Icon selectedIcon;
 

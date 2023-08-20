@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+import GUI.src.BasePanel;
+
 public class ColoredButton extends HoverableButton {
     private RoundedPanel background = new RoundedPanel();
     private Color normalColor;

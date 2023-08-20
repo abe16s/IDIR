@@ -1,4 +1,4 @@
-package GUI.src.utilities;
+package GUI.src;
 
 import java.awt.*;
 

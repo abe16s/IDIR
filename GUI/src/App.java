@@ -24,7 +24,7 @@ public class App {
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,25,25));
         window.getMenu().addTab(MEMBERS, temp);
 
-        TransparentButton OFFICIAL = new TransparentButton("Official", ImageIcons.reSize(ImageIcons.OFFICIALdark,25,25), window.getMenu());
+        TransparentButton OFFICIAL = new TransparentButton("Officials", ImageIcons.reSize(ImageIcons.OFFICIALdark,25,25), window.getMenu());
         OFFICIAL.setSelectedIcon(ImageIcons.reSize(ImageIcons.OFFICIAL,25,25));
         window.getMenu().addTab (OFFICIAL, temp);
 
@@ -32,11 +32,11 @@ public class App {
         FINANCIALdata.setSelectedIcon(ImageIcons.reSize(ImageIcons.COINS,25,25));
         window.getMenu().addTab(FINANCIALdata, temp);
 
-        TransparentButton AGENDA = new TransparentButton("Agenda", ImageIcons.reSize(ImageIcons.NOTEdark,25,25), window.getMenu());
+        TransparentButton AGENDA = new TransparentButton("Agendas", ImageIcons.reSize(ImageIcons.NOTEdark,25,25), window.getMenu());
         AGENDA.setSelectedIcon(ImageIcons.reSize(ImageIcons.NOTE,25,25));
         window.getMenu().addTab(AGENDA, temp);
 
-        TransparentButton RULE = new TransparentButton("Rule", ImageIcons.reSize(ImageIcons.RULESdark,25,25), window.getMenu());
+        TransparentButton RULE = new TransparentButton("Rules", ImageIcons.reSize(ImageIcons.RULESdark,25,25), window.getMenu());
         RULE.setSelectedIcon(ImageIcons.reSize(ImageIcons.RULES,25,25));
         window.getMenu().addTab(RULE, temp);
 

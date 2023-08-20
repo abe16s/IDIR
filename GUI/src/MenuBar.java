@@ -1,10 +1,13 @@
-package GUI.src.utilities;
+package GUI.src;
 
 import java.awt.*;
 
 import java.util.ArrayList;
 
 import javax.swing.*;
+
+import GUI.src.utilities.HoverableButton;
+
 
 
 public class MenuBar extends JPanel {
