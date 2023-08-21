@@ -1,6 +1,7 @@
 package GUI.src.utilities;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
@@ -15,6 +16,7 @@ public class ColoredButton extends HoverableButton {
     public ColoredButton(String text, JPanel parent) {
         super(text, parent);
 
+        background.setMaximumSize(new Dimension(getMaximumSize().width,getMaximumSize().height+6));
         background.add(this);
         setNormalColor(Color.black);
         setSelectedColor(Color.white);
