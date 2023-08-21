@@ -29,7 +29,7 @@ public class App {
 
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
         HOME.setSelectedIcon(ImageIcons.reSize(ImageIcons.HOME,25,25));
-        window.getMenu().addTab(HOME, temp);
+        window.getMenu().addTab(HOME, new Home(window.getBasePanel()));
 
         TransparentButton MEMBERS = new TransparentButton("Members", ImageIcons.reSize(ImageIcons.CONTACTSdark,25,25), window.getMenu());
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,25,25));
