@@ -21,6 +21,7 @@ public class SkeletalWindow extends JFrame{
         add(contentPanel,BorderLayout.CENTER);
 
         menu = new MenuBar(contentPanel);
+        menu.setPreferredSize(new Dimension(140,1080));
         add(this.menu,BorderLayout.WEST);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
