@@ -22,7 +22,7 @@ public class TransparentButton extends HoverableButton {
         }
 
         try {
-            ((MenuBar) super.parent).showMyTab(this.getName());
+            ((ParentPanel) super.parent).showMyTab(this.getName());
         } catch (Exception e) {}
     }
 

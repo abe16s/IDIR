@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import GUI.src.utilities.HoverableButton;
+import GUI.src.utilities.ParentPanel;
 
 
 
-public class MenuBar extends JPanel {
+public class MenuBar extends JPanel implements ParentPanel{
 
     private ArrayList<HoverableButton> buttons = new ArrayList<HoverableButton>();
     
@@ -49,8 +50,6 @@ public class MenuBar extends JPanel {
                 x.unselect();
                 x.removeEffect();
             }
-            
         }
     }
-
 }
