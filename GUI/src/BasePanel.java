@@ -20,4 +20,8 @@ public class BasePanel extends JPanel {
         add(clickedPanel, buttonName);
     }
 
+    public void addIndividualProfile(IndividualProfile individualProfile, String MemberID) {
+        add(individualProfile, MemberID);
+    }
+
 }

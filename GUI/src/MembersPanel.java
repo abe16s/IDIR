@@ -97,6 +97,8 @@ public class MembersPanel extends JPanel implements ParentPanel {
         MembersList.setShowGrid(false);
         MembersList.setDefaultEditor(Object.class, null);
 
+
+        MembersList.getSelectionModel().addListSelectionListener(new MembersTableListener(MembersList, this));
         /* 
         MembersList.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         TableColumnModel columnModel = MembersList.getColumnModel();
@@ -154,5 +156,10 @@ public class MembersPanel extends JPanel implements ParentPanel {
             }
             
         }
+    }
+
+    public void createIndividualProfile(IndividualProfile individualProfile, String MemberID) {
+        displayPanel.addIndividualProfile(individualProfile, MemberID);
+        displayPanel.showMyTab(MemberID);
     }
 }

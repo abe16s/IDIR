@@ -4,6 +4,7 @@ import java.awt.*;
 
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,13 +16,17 @@ public class AddMemberPanel extends JPanel {
     private JLabel title;
     private JPanel photoPanel;
     private JPanel inputPanel;
+    private ArrayList<queryPanel> fields = new ArrayList<queryPanel>();
+
     
     public AddMemberPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBackground(new Color(228, 228, 228));
         title = new JLabel("Add Member");
         title.setFont(new Font("Arial", Font.BOLD, 15));
 
         photoPanel = new JPanel();
+        photoPanel.setOpaque(false);
         photoPanel.setPreferredSize(new Dimension(300, 300));
         photoPanel.setMaximumSize(photoPanel.getPreferredSize());
 
@@ -53,36 +58,28 @@ public class AddMemberPanel extends JPanel {
 
         photoPanel.add(title);
         photoPanel.add(unknownPhoto);
-        photoPanel.add(choosePhoto.getWhole());
+        photoPanel.add(choosePanel);
 
         this.add(photoPanel);
 
         inputPanel = new JPanel(new BorderLayout());
         inputPanel.setBorder(new EmptyBorder(new Insets(30, 100, 0, 20)));
+        inputPanel.setBackground(this.getBackground());
 
         JPanel generalInput = new JPanel();
-
         generalInput.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 15));
-        generalInput.setBorder(new EmptyBorder(new Insets(70, 0, 0, 0)));
-        generalInput.setPreferredSize(new Dimension(300, 300));
+        generalInput.setBackground(this.getBackground());
+        generalInput.setPreferredSize(new Dimension(250, 300));
         generalInput.setMaximumSize(generalInput.getPreferredSize());
 
-        JLabel fullName = new JLabel("Full Name:    ");
-        fullName.setBackground(Color.LIGHT_GRAY);
-        fullName.setOpaque(true);
-        JTextField nameField = new JTextField(20);
-        
-        JLabel Address = new JLabel("Address:       ");
-        JTextField AddressField = new JTextField(20);
-
-        JLabel phone = new JLabel("Phone:          ");
-        JTextField phoneField = new JTextField(20);
-
-        JLabel occupation = new JLabel("Occupation:  ");
-        JTextField occupationField = new JTextField(20);  
-        
-        JLabel religion = new JLabel("Religion:       ");
-        JTextField religionField = new JTextField(20);
+        String nextAvailableIDExample = "122";
+        queryPanel ID = new queryPanel("ID", nextAvailableIDExample, Color.LIGHT_GRAY, generalInput);
+        queryPanel fullName = new queryPanel("Full Name", 20, Color.LIGHT_GRAY, generalInput);
+        queryPanel address = new queryPanel("Address", 20, Color.LIGHT_GRAY, generalInput);
+        queryPanel phone = new queryPanel("Phone", 20, Color.LIGHT_GRAY, generalInput);
+        queryPanel Age = new queryPanel("Age", 20, Color.LIGHT_GRAY, generalInput);
+        queryPanel occupation = new queryPanel("Occupation", 20, Color.LIGHT_GRAY, generalInput);
+        queryPanel religion = new queryPanel("Religion", 20, Color.LIGHT_GRAY, generalInput);
 
         ColoredButton save = new ColoredButton("Save", inputPanel);
         save.setNormalColor(Color.cyan);
@@ -90,22 +87,29 @@ public class AddMemberPanel extends JPanel {
         //RoundedPanel savePanel = save.getWhole();
         //savePanel.setBorder(new EmptyBorder(50, 0, 0, 0));
         
-        generalInput.add(fullName);
-        generalInput.add(nameField);
-        generalInput.add(Address);
-        generalInput.add(AddressField);
+        generalInput.add(ID);        
+        fields.add(ID);
+        generalInput.add(fullName);        
+        fields.add(fullName);
+        generalInput.add(address);
+        fields.add(address);
         generalInput.add(phone);
-        generalInput.add(phoneField);
+        fields.add(phone);
+        generalInput.add(Age);
+        fields.add(Age);
         generalInput.add(occupation);
-        generalInput.add(occupationField);
+        fields.add(occupation);
         generalInput.add(religion);
-        generalInput.add(religionField);
+        fields.add(religion);
         generalInput.add(save.getWhole());
+
 
         
         JPanel familyInput = new JPanel();
         BoxLayout bcx = new BoxLayout(familyInput, BoxLayout.Y_AXIS);
         familyInput.setLayout(bcx);
+        familyInput.setBackground(this.getBackground());
+
         familyInput.setBorder(new EmptyBorder(new Insets(40, 0, 0, 0)));
         
         ColoredButton addFamily = new ColoredButton("Add Family", familyInput);
@@ -116,8 +120,9 @@ public class AddMemberPanel extends JPanel {
         addFamilyPanel.setMaximumSize(addFamilyPanel.getPreferredSize());
 
         JPanel familyQn = new JPanel();
+        familyQn.setBackground(this.getBackground());
 
-        String[] Relations = {"Mother", "Father", "Spouse","Brother", "Sister"};
+        String[] Relations = {"Mother", "Father", "Spouse","Brother", "Sister", "Mother-in-law", "Father-in-Law","Brother-in-law","Sister-in-law"};
         familyQn.add(new JTextField(20));
         familyQn.add(new JTextField(12));
         familyQn.add(new JComboBox<String>(Relations));
@@ -147,9 +152,13 @@ public class AddMemberPanel extends JPanel {
         familyHeader.setBackground(Color.LIGHT_GRAY);
         familyHeader.setMaximumSize(new Dimension(400, 30));
 
-        familyInput.add(familyHeader, BorderLayout.NORTH);
-        familyInput.add(familyQn, BorderLayout.CENTER);
-        familyInput.add(addFamilyPanel, BorderLayout.SOUTH);
+        JLabel familyTitle = new JLabel("Family Members");
+        familyTitle.setFont(new Font("Arial", Font.BOLD, 15));
+        
+        familyInput.add(familyTitle);
+        familyInput.add(familyHeader);
+        familyInput.add(familyQn);
+        familyInput.add(addFamilyPanel);
         
         inputPanel.add(generalInput, BorderLayout.WEST);
         inputPanel.add(familyInput, BorderLayout.EAST);
