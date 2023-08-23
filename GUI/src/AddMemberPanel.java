@@ -197,9 +197,12 @@ public class AddMemberPanel extends JPanel {
         Component[] family = familyQn.getComponents();
         int j = 0;
         for (int i = 0; i < familiesExample.length; i++) {
-            ((JTextField) family[j++]).setText(familiesExample[i][0]);
-            ((JTextField) family[j++]).setText(familiesExample[i][1]);
-            ((JComboBox<String>) family[j++]).setSelectedItem(familiesExample[i][2]);
+            
+            try {
+                ((JTextField) family[j++]).setText(familiesExample[i][0]);
+                ((JTextField) family[j++]).setText(familiesExample[i][1]);
+                ((JComboBox<String>) family[j++]).setSelectedItem(familiesExample[i][2]);
+            } catch (Exception e) {}
         }
         
     }

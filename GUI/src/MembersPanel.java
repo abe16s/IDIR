@@ -5,9 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import javax.swing.table.*;
-
-
 import GUI.src.utilities.*;
 
 public class MembersPanel extends JPanel implements ParentPanel {
