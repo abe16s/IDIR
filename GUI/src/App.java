@@ -4,6 +4,7 @@ package GUI.src;
 import java.awt.Color;
 
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import GUI.src.utilities.*;
 
@@ -11,6 +12,12 @@ public class App {
     private SkeletalWindow window;
     
     App(String title){
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
         window = new SkeletalWindow(title);
         window.setIconImage(ImageIcons.LOGO.getImage());
         JPanel temp = new JPanel();
