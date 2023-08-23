@@ -32,4 +32,12 @@ public class queryPanel extends JPanel{
         this.add(this.caption, BorderLayout.WEST);
         this.setPreferredSize(new Dimension(parent.getPreferredSize().width, this.getPreferredSize().height+5));
     }
+
+    public JTextField getTextField() {
+        return this.captionField;
+    }
+
+    public JLabel getInfoLabel() {
+        return this.info;
+    }
 }

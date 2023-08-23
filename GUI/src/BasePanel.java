@@ -24,4 +24,14 @@ public class BasePanel extends JPanel {
         add(individualProfile, MemberID);
     }
 
+    public void addEditMember(AddMemberPanel addMemberPanel, String MemberID) {
+        add(addMemberPanel, MemberID+"edit");
+        showMyTab(MemberID+"edit");   
+    }
+
+    public void createIndividualProfile(IndividualProfile individualProfile, String MemberID) {
+        addIndividualProfile(individualProfile, MemberID);
+        showMyTab(MemberID);
+    }
+
 }

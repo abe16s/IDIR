@@ -1,22 +1,21 @@
 package GUI.src.utilities;
 
-import java.util.Arrays;
-
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.event.*;
 import javax.swing.table.TableModel;
 
+import GUI.src.BasePanel;
 import GUI.src.IndividualProfile;
-import GUI.src.MembersPanel;
 
 public class MembersTableListener implements ListSelectionListener{
     private JTable table;
-    private MembersPanel showPanel;
+    private BasePanel showPanel;
+    private TransparentButton MembersButton;
     
-    public MembersTableListener(JTable table, MembersPanel membersPanel) {
+    public MembersTableListener(JTable table, BasePanel membersPanel, TransparentButton MembersButton) {
         this.table = table;   
         this.showPanel = membersPanel;
+        this.MembersButton = MembersButton;
     }
 
     @Override
@@ -26,7 +25,10 @@ public class MembersTableListener implements ListSelectionListener{
             if (selectedRow != -1) { 
                 TableModel model = table.getModel();
                 String MemberID = (String) model.getValueAt(selectedRow, 0);
-                this.showPanel.createIndividualProfile(new IndividualProfile(MemberID), MemberID);
+                this.showPanel.createIndividualProfile(new IndividualProfile(MemberID, this.showPanel), MemberID);
+                this.table.clearSelection();
+                this.MembersButton.removeEffect();
+                this.MembersButton.unselect();
             }
         }
     }

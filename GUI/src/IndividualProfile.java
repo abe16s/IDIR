@@ -1,6 +1,8 @@
 package GUI.src;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -18,9 +20,9 @@ public class IndividualProfile extends JPanel {
     private ArrayList<queryPanel> fields = new ArrayList<queryPanel>();
 
 
-    public IndividualProfile(String MemberID) {
+    public IndividualProfile(String MemberID, BasePanel displayPanel) {
 
-        String[] exampleSelected = {"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox", "C:\\Users\\HP\\Desktop\\20191014_174217.jpg"};
+        String[] exampleSelected = {"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox", "GUI\\Icons\\dark\\Example-Photo.jpg"};
         String[][] familiesExample = {
             {"Kassaye W/Medhin Kidane", "0911111111", "Mother"},
             {"Seifu Dula Kara", "0911111111", "Father"}, 
@@ -29,12 +31,12 @@ public class IndividualProfile extends JPanel {
         
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(228, 228, 228));
-        title = new JLabel("Individual Profile" + MemberID);
+        title = new JLabel("Profile of " + MemberID);
         title.setFont(new Font("Arial", Font.BOLD, 15));
 
         photoPanel = new JPanel();
         photoPanel.setOpaque(false);
-        photoPanel.setPreferredSize(new Dimension(300, 300));
+        photoPanel.setPreferredSize(new Dimension(250, 300));
         photoPanel.setMaximumSize(photoPanel.getPreferredSize());
 
         JLabel photo = new JLabel(ImageIcons.reSize(new ImageIcon(exampleSelected[7]),200,200));
@@ -43,7 +45,7 @@ public class IndividualProfile extends JPanel {
 
         this.add(photoPanel);
 
-        infoPanel = new JPanel(new BorderLayout());
+        infoPanel = new JPanel(new BorderLayout(20,0));
         infoPanel.setBorder(new EmptyBorder(new Insets(30, 100, 0, 20)));
         infoPanel.setBackground(this.getBackground());
         
@@ -53,7 +55,7 @@ public class IndividualProfile extends JPanel {
         generalInfo.setPreferredSize(new Dimension(300, 300));
         generalInfo.setMaximumSize(generalInfo.getPreferredSize());
 
-        queryPanel ID = new queryPanel("ID", exampleSelected[0], Color.LIGHT_GRAY, generalInfo);
+        queryPanel ID = new queryPanel("ID", MemberID, Color.LIGHT_GRAY, generalInfo);
         queryPanel fullName = new queryPanel("Full Name", exampleSelected[1], Color.LIGHT_GRAY, generalInfo);
         queryPanel address = new queryPanel("Address", exampleSelected[2], Color.LIGHT_GRAY, generalInfo);
         queryPanel phone = new queryPanel("Phone", exampleSelected[3], Color.LIGHT_GRAY, generalInfo);
@@ -64,6 +66,14 @@ public class IndividualProfile extends JPanel {
         ColoredButton edit = new ColoredButton("Edit", infoPanel);
         edit.setNormalColor(Color.cyan);
 
+        edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayPanel.addEditMember(new AddMemberPanel(displayPanel, MemberID), MemberID);
+            }
+            
+        });
+        
         generalInfo.add(ID);        
         fields.add(ID);
         generalInfo.add(fullName);        

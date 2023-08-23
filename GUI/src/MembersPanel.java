@@ -16,10 +16,12 @@ public class MembersPanel extends JPanel implements ParentPanel {
     private JPanel titleBar;
     private ArrayList<HoverableButton> buttons = new ArrayList<HoverableButton>();
     private BasePanel displayPanel;
+    private TransparentButton MembersButton;
 
 
-    public MembersPanel(BasePanel displayPanel) {
+    public MembersPanel(BasePanel displayPanel, TransparentButton MembersButton) {
         this.displayPanel = displayPanel;
+        this.MembersButton = MembersButton;
         
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(228, 228, 228));
@@ -34,8 +36,8 @@ public class MembersPanel extends JPanel implements ParentPanel {
         TransparentButton AddMemeber = new TransparentButton("Add member", ImageIcons.reSize(ImageIcons.ADD_MEMBER, 25, 25), this);
         AddMemeber.setBorder(BorderFactory.createEmptyBorder(5,0,5,40));
         
-        
-        this.addTab(AddMemeber, new AddMemberPanel());
+        titleBar.add(AddMemeber, BorderLayout.EAST);
+        buttons.add(AddMemeber);
 
         this.add(titleBar, BorderLayout.NORTH);
         
@@ -98,36 +100,7 @@ public class MembersPanel extends JPanel implements ParentPanel {
         MembersList.setDefaultEditor(Object.class, null);
 
 
-        MembersList.getSelectionModel().addListSelectionListener(new MembersTableListener(MembersList, this));
-        /* 
-        MembersList.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        TableColumnModel columnModel = MembersList.getColumnModel();
-        int totalWidth = MembersList.getWidth();
-
-        for (int column = 0; column < MembersList.getColumnCount(); column++) {
-            TableColumn tableColumn = columnModel.getColumn(column);
-            int minimumWidth = tableColumn.getWidth();
-
-            for (int row = 0; row < MembersList.getRowCount(); row++) {
-                TableCellRenderer cellRenderer = MembersList.getCellRenderer(row, column);
-                Component component = MembersList.prepareRenderer(cellRenderer, row, column);
-                minimumWidth = Math.max(minimumWidth, component.getPreferredSize().width);
-            }
-
-            tableColumn.setMinWidth(minimumWidth);
-            totalWidth -= minimumWidth;
-        }
-
-        int averageWidth = totalWidth / MembersList.getColumnCount();
-        for (int columnIndex = 0; columnIndex < MembersList.getColumnCount(); columnIndex++) {
-            TableColumn column = columnModel.getColumn(columnIndex);
-            int preferredWidth = column.getPreferredWidth();
-        
-            if (preferredWidth < averageWidth) {
-                column.setPreferredWidth(averageWidth);
-            }
-        }*/
-
+        MembersList.getSelectionModel().addListSelectionListener(new MembersTableListener(MembersList, this.displayPanel, this.MembersButton));
 
         JScrollPane ScrollList = new JScrollPane(MembersList);
         this.add(ScrollList, BorderLayout.CENTER);
@@ -135,20 +108,20 @@ public class MembersPanel extends JPanel implements ParentPanel {
 
     @Override
     public void addTab(HoverableButton button, JPanel clickedPanel){
-        titleBar.add(button, BorderLayout.EAST);
-        buttons.add(button);
         displayPanel.addMyTab(clickedPanel,button.getName());
     }
 
     @Override
     public void showMyTab(String buttonName){
         prepare(buttonName);
+        MembersButton.removeEffect();
+        MembersButton.unselect();
+        this.addTab(buttons.get(0), new AddMemberPanel(this.displayPanel));
         displayPanel.showMyTab(buttonName);
     }
 
 
     private void prepare(String buttonName){
-
         for(HoverableButton x : buttons){
             if (x.getName().equalsIgnoreCase(buttonName)){
                 x.unselect();
@@ -158,8 +131,9 @@ public class MembersPanel extends JPanel implements ParentPanel {
         }
     }
 
-    public void createIndividualProfile(IndividualProfile individualProfile, String MemberID) {
-        displayPanel.addIndividualProfile(individualProfile, MemberID);
-        displayPanel.showMyTab(MemberID);
+    
+
+    public void addEditMember(AddMemberPanel panel, String MemberID) {
+        
     }
 }
