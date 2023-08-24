@@ -13,6 +13,7 @@ public class App {
     private SkeletalWindow window;
     
     App(String title){
+        //This block of code is to make the whole GUI look and feel like the operating system. Can be seen in the scrollpanes and the file choosers
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
@@ -24,14 +25,12 @@ public class App {
         JPanel temp = new JPanel();
         temp.setBackground(new Color(228,228,228));
 
-
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
         HOME.setSelectedIcon(ImageIcons.reSize(ImageIcons.HOME,25,25));
         window.getMenu().addTab(HOME, temp);
 
         TransparentButton MEMBERS = new TransparentButton("Members", ImageIcons.reSize(ImageIcons.CONTACTSdark,25,25), window.getMenu());
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,25,25));
-        
         MembersPanel membersPanel = new MembersPanel(window.getBasePanel(),MEMBERS);
         window.getMenu().addTab(MEMBERS, membersPanel);
 
@@ -55,7 +54,7 @@ public class App {
         HELP.setSelectedIcon(ImageIcons.reSize(ImageIcons.HELP,25,25));
         window.getMenu().addTab(HELP, temp);
 
-        window.getMenu().setPreferredSize(new Dimension(140, window.getMenu().getPreferredSize().height));
+        window.getMenu().setPreferredSize(new Dimension(140, window.getMenu().getPreferredSize().height)); //set the size of the MenuBar so as to not increase when financial data is hovered over
     }
 
     public static void main(String[] args) {

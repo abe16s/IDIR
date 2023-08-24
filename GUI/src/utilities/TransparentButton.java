@@ -21,7 +21,7 @@ public class TransparentButton extends HoverableButton {
         }
 
         try {
-            ((ParentPanel) super.parent).showMyTab(this.getName());
+            ((ParentPanel) super.parent).showMyTab(this.getName()); //Changed the cast for MenuBar to ParentPanel to include the MembersPanel
         } catch (Exception e) {}
     }
 

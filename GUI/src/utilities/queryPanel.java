@@ -6,6 +6,13 @@ import java.awt.*;
 
 
 public class queryPanel extends JPanel{
+    /*
+     * This custom panel is to be used in the adding members and showing individual members
+     * It has two constructors / two versions for receiving and showing information
+     * i. for creating query panel with caption label and a text field
+     * ii. for showing information with caption and info to be showed labels
+     */
+    
     private JLabel caption;
     private JTextField captionField;
     private JLabel info;

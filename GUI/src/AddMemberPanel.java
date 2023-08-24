@@ -19,28 +19,28 @@ public class AddMemberPanel extends JPanel {
     private JPanel inputPanel;
     private ArrayList<queryPanel> fields = new ArrayList<queryPanel>();
     private ColoredButton save;
-    private ActionListener addListener;
+    private ActionListener addMemberListener;
     private JPanel familyQn;
     
     public AddMemberPanel(BasePanel displayPanel) {
+        /*This constructor is used when adding new members */
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(228, 228, 228));
-        title = new JLabel("Add Member");
-        title.setFont(new Font("Arial", Font.BOLD, 15));
 
-        photoPanel = new JPanel();
+        photoPanel = new JPanel(); //An upper panel with 3 components title, unkownPhoto & choosefile button
         photoPanel.setOpaque(false);
         photoPanel.setPreferredSize(new Dimension(250, 300));
         photoPanel.setMaximumSize(photoPanel.getPreferredSize());
-
+        
+        title = new JLabel("Add Member");
+        title.setFont(new Font("Arial", Font.BOLD, 15));
         
         unknownPhoto = new JLabel(ImageIcons.reSize(ImageIcons.UNKNOWN,200,200));
 
         ColoredButton choosePhoto = new ColoredButton("Choose Photo", photoPanel);
         choosePhoto.setNormalColor(Color.CYAN);
         RoundedPanel choosePanel = choosePhoto.getWhole();
-        choosePanel.setPreferredSize(new Dimension(100, 40));
-        choosePanel.setMaximumSize(choosePanel.getPreferredSize()); 
 
         choosePhoto.addActionListener(new ActionListener() {
             @Override
@@ -49,9 +49,7 @@ public class AddMemberPanel extends JPanel {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setDialogTitle("Choose Member Photo");
                 fileChooser.setFileFilter(filter);
-
                 int result = fileChooser.showOpenDialog(null);
-
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     unknownPhoto.setIcon(ImageIcons.reSize(new ImageIcon(selectedFile.getAbsolutePath()),200,200));
@@ -65,17 +63,17 @@ public class AddMemberPanel extends JPanel {
 
         this.add(photoPanel);
 
-        inputPanel = new JPanel(new BorderLayout());
+        inputPanel = new JPanel(new BorderLayout()); //The lower panel for receiving information / input panel divided into two general & family input
         inputPanel.setBorder(new EmptyBorder(new Insets(30, 100, 0, 20)));
         inputPanel.setBackground(this.getBackground());
 
-        JPanel generalInput = new JPanel();
+        JPanel generalInput = new JPanel(); // The left part of the input panel for receiving general information
         generalInput.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 15));
         generalInput.setBackground(this.getBackground());
         generalInput.setPreferredSize(new Dimension(250, 300));
         generalInput.setMaximumSize(generalInput.getPreferredSize());
 
-        String nextAvailableIDExample = "122";
+        String nextAvailableIDExample = "122"; 
         queryPanel ID = new queryPanel("ID", nextAvailableIDExample, Color.LIGHT_GRAY, generalInput);
         queryPanel fullName = new queryPanel("Full Name", 20, Color.LIGHT_GRAY, generalInput);
         queryPanel address = new queryPanel("Address", 20, Color.LIGHT_GRAY, generalInput);
@@ -87,8 +85,8 @@ public class AddMemberPanel extends JPanel {
         save = new ColoredButton("Save", inputPanel);
         save.setNormalColor(Color.CYAN);
 
-        addListener = new saveLitsener("add", displayPanel, nextAvailableIDExample);
-        save.addActionListener(addListener);
+        addMemberListener = new saveLitsener("add", displayPanel, nextAvailableIDExample);
+        save.addActionListener(addMemberListener);
 
         ColoredButton discard = new ColoredButton("Discard", inputPanel);
         discard.setNormalColor(Color.CYAN);
@@ -96,9 +94,11 @@ public class AddMemberPanel extends JPanel {
         discard.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayPanel.showMyTab("Members");
-            }
-            
+                int result = JOptionPane.showConfirmDialog(displayPanel,"This will discard every unsaved changes. Do you wish to continue?", "Discard Changes", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    displayPanel.showMyTab("Members");
+                }
+            } 
         });
         
         
@@ -118,36 +118,15 @@ public class AddMemberPanel extends JPanel {
         fields.add(religion);
         generalInput.add(save.getWhole());
         generalInput.add(discard.getWhole());
-
-
         
-        JPanel familyInput = new JPanel();
+        JPanel familyInput = new JPanel(); // The right part of the input panel for receiving family information
         BoxLayout bcx = new BoxLayout(familyInput, BoxLayout.Y_AXIS);
         familyInput.setLayout(bcx);
         familyInput.setBackground(this.getBackground());
-
         familyInput.setBorder(new EmptyBorder(new Insets(40, 0, 0, 0)));
         
-        ColoredButton addFamily = new ColoredButton("Add Family", familyInput);
-        addFamily.setNormalColor(Color.CYAN);
-        
-        RoundedPanel addFamilyPanel = addFamily.getWhole();
-        addFamilyPanel.setPreferredSize(new Dimension(100, 40));
-        addFamilyPanel.setMaximumSize(addFamilyPanel.getPreferredSize());
-
-        familyQn = new JPanel();
-        familyQn.setBackground(this.getBackground());
-        familyQn.setPreferredSize(new Dimension(500,100));
-        familyQn.setMaximumSize(familyQn.getPreferredSize());
-
-        familyQuery();
-        addFamily.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e){
-                familyQuery();
-                ((ColoredButton) e.getSource()).removeEffect();
-                ((ColoredButton) e.getSource()).unselect();
-            }
-        });
+        JLabel familyTitle = new JLabel("Family Members");
+        familyTitle.setFont(new Font("Arial", Font.BOLD, 15));
 
         JPanel familyHeader = new JPanel(new FlowLayout(FlowLayout.CENTER, 80, 10)); 
         familyHeader.add(new JLabel("Full Name"));
@@ -156,8 +135,25 @@ public class AddMemberPanel extends JPanel {
         familyHeader.setBackground(Color.LIGHT_GRAY);
         familyHeader.setMaximumSize(new Dimension(400, 30));
 
-        JLabel familyTitle = new JLabel("Family Members");
-        familyTitle.setFont(new Font("Arial", Font.BOLD, 15));
+        familyQn = new JPanel(); //This panel is used for the organization of the query of the family info
+        familyQn.setBackground(this.getBackground());
+        familyQn.setPreferredSize(new Dimension(500,100));
+        familyQn.setMaximumSize(familyQn.getPreferredSize());
+
+        familyQuery();
+
+        ColoredButton addFamily = new ColoredButton("Add Family", familyInput);
+        addFamily.setNormalColor(Color.CYAN);
+        RoundedPanel addFamilyPanel = addFamily.getWhole();
+        addFamilyPanel.setPreferredSize(new Dimension(100, 40));
+        addFamilyPanel.setMaximumSize(addFamilyPanel.getPreferredSize());
+        addFamily.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+                familyQuery();
+                ((ColoredButton) e.getSource()).removeEffect();
+                ((ColoredButton) e.getSource()).unselect();
+            }
+        });
         
         familyInput.add(familyTitle);
         familyInput.add(familyHeader);
@@ -175,7 +171,11 @@ public class AddMemberPanel extends JPanel {
 
 
     public AddMemberPanel(BasePanel displayPanel, String MemberID) {
+        /*This constructor is used when editing existing members*/
+
         this(displayPanel);
+        this.title.setText("Edit Member");
+
         String[] exampleToBeEdited = {"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox", "GUI\\Icons\\dark\\Example-Photo.jpg"};
         String[][] familiesExample = {
             {"Kassaye W/Medhin Kidane", "0911111111", "Mother"},
@@ -183,12 +183,13 @@ public class AddMemberPanel extends JPanel {
             {"Ermiyas Seifu Dula", "0911111111", "Brother"}
         };
 
+        //including the existing data in the photo and textfields
         fields.get(0).getInfoLabel().setText(MemberID);
         for (int i = 1; i < fields.size(); i++) {
             fields.get(i).getTextField().setText(exampleToBeEdited[i]); 
         }
         unknownPhoto.setIcon(ImageIcons.reSize(new ImageIcon(exampleToBeEdited[7]),200,200));
-        save.removeActionListener(addListener);
+        save.removeActionListener(addMemberListener);
         save.addActionListener(new saveLitsener("edit", displayPanel, MemberID));
 
         for (int i = 1; i < familiesExample.length; i++) {
@@ -197,7 +198,6 @@ public class AddMemberPanel extends JPanel {
         Component[] family = familyQn.getComponents();
         int j = 0;
         for (int i = 0; i < familiesExample.length; i++) {
-            
             try {
                 ((JTextField) family[j++]).setText(familiesExample[i][0]);
                 ((JTextField) family[j++]).setText(familiesExample[i][1]);
@@ -220,15 +220,20 @@ public class AddMemberPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (todo.equalsIgnoreCase("edit")) {
                 System.out.println("Edited");
+                JOptionPane.showMessageDialog(this.displayPanel,"Edited Successfully!", "Edit Member", JOptionPane.INFORMATION_MESSAGE);
             } else if (todo.equalsIgnoreCase("add")) {
                 System.out.println("Added");
+                JOptionPane.showMessageDialog(this.displayPanel,"Added New Member Successfully!", "Add Member", JOptionPane.INFORMATION_MESSAGE);
+
             }
             this.displayPanel.createIndividualProfile(new IndividualProfile(MemberID, this.displayPanel), MemberID);
         }
     }
 
     private void familyQuery() {
-        String[] Relations = {"Mother", "Father", "Spouse","Brother", "Sister", "Mother-in-law", "Father-in-Law","Brother-in-law","Sister-in-law"};
+        /*A function for organized adding the two text fields and JCombobox in the familyQn panel above for the family input*/
+
+        String[] Relations = {"Mother", "Father", "Spouse","Son","Daughter","Brother", "Sister", "Mother-in-law", "Father-in-Law","Brother-in-law","Sister-in-law"};
         JTextField name = new JTextField(20);
         JTextField phone = new JTextField(12);
         JComboBox<String> relation = new JComboBox<String>(Relations);
@@ -248,5 +253,4 @@ public class AddMemberPanel extends JPanel {
             familyQn.setMaximumSize(familyQn.getPreferredSize());
         }
     }
-
 }

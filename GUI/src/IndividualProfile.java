@@ -8,17 +8,13 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import GUI.src.utilities.ColoredButton;
-import GUI.src.utilities.CustomTableCellRenderer;
-import GUI.src.utilities.ImageIcons;
-import GUI.src.utilities.queryPanel;
+import GUI.src.utilities.*;
 
 public class IndividualProfile extends JPanel {
     private JLabel title;
     private JPanel photoPanel;
     private JPanel infoPanel;
     private ArrayList<queryPanel> fields = new ArrayList<queryPanel>();
-
 
     public IndividualProfile(String MemberID, BasePanel displayPanel) {
 
@@ -31,15 +27,17 @@ public class IndividualProfile extends JPanel {
         
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(228, 228, 228));
-        title = new JLabel("Profile of " + MemberID);
-        title.setFont(new Font("Arial", Font.BOLD, 15));
 
         photoPanel = new JPanel();
         photoPanel.setOpaque(false);
         photoPanel.setPreferredSize(new Dimension(250, 300));
         photoPanel.setMaximumSize(photoPanel.getPreferredSize());
 
+        title = new JLabel("Profile of " + MemberID);
+        title.setFont(new Font("Arial", Font.BOLD, 15));
+
         JLabel photo = new JLabel(ImageIcons.reSize(new ImageIcon(exampleSelected[7]),200,200));
+        
         photoPanel.add(title);
         photoPanel.add(photo);
 
@@ -90,13 +88,14 @@ public class IndividualProfile extends JPanel {
         fields.add(religion);
         generalInfo.add(edit.getWhole());
 
-
         JPanel familyInfo = new JPanel();
         BoxLayout bcx = new BoxLayout(familyInfo, BoxLayout.Y_AXIS);
         familyInfo.setLayout(bcx);
         familyInfo.setBackground(this.getBackground());
-
         familyInfo.setBorder(new EmptyBorder(new Insets(40, 0, 0, 0)));
+
+        JLabel familyTitle = new JLabel("Family Members");
+        familyTitle.setFont(new Font("Arial", Font.BOLD, 15));
 
         JPanel familyHeader = new JPanel(new FlowLayout(FlowLayout.CENTER, 80, 10)); 
         familyHeader.add(new JLabel("Full Name"));
@@ -107,21 +106,14 @@ public class IndividualProfile extends JPanel {
 
         String[] columnNames = {"Full Name", "Phone", "Relation"};
         JTable familiesList = new JTable(familiesExample, columnNames);
-
-        CustomTableCellRenderer renderer = new CustomTableCellRenderer();
-        
+        CustomTableCellRenderer renderer = new CustomTableCellRenderer(Color.WHITE, new Color(228, 228, 228));
         familiesList.setDefaultRenderer(Object.class, renderer);
         familiesList.setShowGrid(false);
         familiesList.setDefaultEditor(Object.class, null);
-
-        JLabel familyTitle = new JLabel("Family Members");
-        familyTitle.setFont(new Font("Arial", Font.BOLD, 15));
         
         familyInfo.add(familyTitle);
         familyInfo.add(familyHeader);
         familyInfo.add(familiesList);
-
-
 
         infoPanel.add(generalInfo, BorderLayout.WEST);
         infoPanel.add(familyInfo, BorderLayout.EAST);
@@ -130,6 +122,5 @@ public class IndividualProfile extends JPanel {
         ScrollInfo.setBorder(null);
         
         this.add(ScrollInfo);
-
     }
 }

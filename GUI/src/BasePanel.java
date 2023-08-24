@@ -20,17 +20,15 @@ public class BasePanel extends JPanel {
         add(clickedPanel, buttonName);
     }
 
-    public void addIndividualProfile(IndividualProfile individualProfile, String MemberID) {
-        add(individualProfile, MemberID);
-    }
-
     public void addEditMember(AddMemberPanel addMemberPanel, String MemberID) {
+        /*For adding an edit panel of an existing member*/
         add(addMemberPanel, MemberID+"edit");
         showMyTab(MemberID+"edit");   
     }
 
     public void createIndividualProfile(IndividualProfile individualProfile, String MemberID) {
-        addIndividualProfile(individualProfile, MemberID);
+        /*For adding and showing an individual profile panel*/
+        add(individualProfile, MemberID);
         showMyTab(MemberID);
     }
 

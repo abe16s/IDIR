@@ -28,17 +28,16 @@ public class MembersPanel extends JPanel implements ParentPanel {
         
         title = new JLabel("   Members");
         title.setFont(new Font("Arial", Font.BOLD, 15));
-        titleBar.add(title, BorderLayout.WEST);
 
         TransparentButton AddMemeber = new TransparentButton("Add member", ImageIcons.reSize(ImageIcons.ADD_MEMBER, 25, 25), this);
         AddMemeber.setBorder(BorderFactory.createEmptyBorder(5,0,5,40));
         
+        titleBar.add(title, BorderLayout.WEST);
         titleBar.add(AddMemeber, BorderLayout.EAST);
         buttons.add(AddMemeber);
 
         this.add(titleBar, BorderLayout.NORTH);
         
-
         String[] columnNames = {"ID", "Full Name", "Address", "Phone No", "Age", "Occupation", "Religion"};
         String[][] exampleData = {
             {"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
@@ -90,13 +89,11 @@ public class MembersPanel extends JPanel implements ParentPanel {
         };
     
         MembersList = new JTable(exampleData, columnNames);
-        CustomTableCellRenderer renderer = new CustomTableCellRenderer();
-        
+        CustomTableCellRenderer renderer = new CustomTableCellRenderer(Color.WHITE, new Color(228, 228, 228));
         MembersList.setDefaultRenderer(Object.class, renderer);
         MembersList.setShowGrid(false);
         MembersList.setDefaultEditor(Object.class, null);
-
-
+        MembersList.getTableHeader().setDefaultRenderer(new CustomTableCellRenderer(Color.LIGHT_GRAY, Color.LIGHT_GRAY));
         MembersList.getSelectionModel().addListSelectionListener(new MembersTableListener(MembersList, this.displayPanel, this.MembersButton));
 
         JScrollPane ScrollList = new JScrollPane(MembersList);
@@ -117,20 +114,12 @@ public class MembersPanel extends JPanel implements ParentPanel {
         displayPanel.showMyTab(buttonName);
     }
 
-
     private void prepare(String buttonName){
         for(HoverableButton x : buttons){
             if (x.getName().equalsIgnoreCase(buttonName)){
                 x.unselect();
                 x.removeEffect();
             }
-            
         }
-    }
-
-    
-
-    public void addEditMember(AddMemberPanel panel, String MemberID) {
-        
     }
 }
