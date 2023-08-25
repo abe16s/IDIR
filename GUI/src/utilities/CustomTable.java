@@ -21,6 +21,7 @@ public class CustomTable extends JTable {
         setDefaultRenderer(Object.class, new CustomTableCellRenderer(color1, color2));
         setShowGrid(false);
         setDefaultEditor(Object.class, null);
+        setRowSelectionAllowed(false);
     }
 
     private class CustomTableCellRenderer extends DefaultTableCellRenderer {
