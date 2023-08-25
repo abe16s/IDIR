@@ -3,7 +3,6 @@ package GUI.src.utilities;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 
-import GUI.src.MenuBar;
 
 public class TransparentButton extends HoverableButton {
     private Icon selectedIcon;
@@ -22,7 +21,7 @@ public class TransparentButton extends HoverableButton {
         }
 
         try {
-            ((MenuBar) super.parent).showMyTab(this.getName());
+            ((ParentPanel) super.parent).showMyTab(this.getName()); //Changed the cast for MenuBar to ParentPanel to include the MembersPanel
         } catch (Exception e) {}
     }
 

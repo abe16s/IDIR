@@ -2,8 +2,10 @@ package GUI.src;
 
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import GUI.src.utilities.*;
 
@@ -11,10 +13,19 @@ public class App {
     private SkeletalWindow window;
     
     App(String title){
+        //This block of code is to make the whole GUI look and feel like the operating system. Can be seen in the scrollpanes and the file choosers
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
         window = new SkeletalWindow(title);
         window.setIconImage(ImageIcons.LOGO.getImage());
         JPanel temp = new JPanel();
         temp.setBackground(new Color(228,228,228));
+
+        MembersPanel membersPanel = new MembersPanel(window.getBasePanel());
 
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
         HOME.setSelectedIcon(ImageIcons.reSize(ImageIcons.HOME,25,25));
@@ -22,7 +33,7 @@ public class App {
 
         TransparentButton MEMBERS = new TransparentButton("Members", ImageIcons.reSize(ImageIcons.CONTACTSdark,25,25), window.getMenu());
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,25,25));
-        window.getMenu().addTab(MEMBERS, temp);
+        window.getMenu().addTab(MEMBERS, membersPanel);
 
         TransparentButton OFFICIAL = new TransparentButton("Officials", ImageIcons.reSize(ImageIcons.OFFICIALdark,25,25), window.getMenu());
         OFFICIAL.setSelectedIcon(ImageIcons.reSize(ImageIcons.OFFICIAL,25,25));
@@ -44,6 +55,7 @@ public class App {
         HELP.setSelectedIcon(ImageIcons.reSize(ImageIcons.HELP,25,25));
         window.getMenu().addTab(HELP, temp);
 
+        window.getMenu().setPreferredSize(new Dimension(140, window.getMenu().getPreferredSize().height)); //set the size of the MenuBar so as to not increase when financial data is hovered over
     }
 
     public static void main(String[] args) {

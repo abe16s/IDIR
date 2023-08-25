@@ -23,5 +23,13 @@ This file (module) contains the classes that are useful for the interaction of t
 
 - **ImageIcons**: A static final class that provides a collection of image icons as static fields from images stored in two subfolders under the icon folder: 'color' and 'dark'. It has a static method `reSizeImageIcon` to resize any given image icon to a specified width and height.
 
+- **CustomTable**: A custom table that colors itself with a palette (mixed style) of two types of colors.
+
+- **MembersTableListener**: This table litsener creates and shows an individual profile page based on the row touched in the MembersList JTable in MembersPanel which is the list of all the members.
+
+- **ParentPanel**: An interface is created for the generalization of showEffect method in the TransparentButton
+
+- **queryPanel**: A custom panel is to be used in the adding members and showing individual members. It has two versions for recieving and showing information.
+
 ### Classes 
 Further descriptions about the classes can be found in their respective class comments.

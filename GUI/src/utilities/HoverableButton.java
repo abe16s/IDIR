@@ -31,8 +31,7 @@ public abstract class HoverableButton extends JButton {
 
 
             @Override
-            public void mouseExited(MouseEvent e) { 
-                
+            public void mouseExited(MouseEvent e) {  
                 if (! isSelected()){
                     ReduceText();
                 }}
@@ -40,12 +39,10 @@ public abstract class HoverableButton extends JButton {
 
             @Override
             public void  mouseClicked(MouseEvent e){
-                    
-                if (! isSelected()){
-                    setSelected(true);
-                    ReduceText();
-                    showPanel();
-                }     
+                setSelected(true);
+                ReduceText();
+                showPanel();
+                   
     }};
 
    
@@ -64,7 +61,7 @@ public abstract class HoverableButton extends JButton {
 
     public HoverableButton(String text, JPanel parent) {
         super(text);
-
+        super.setName(text);
         this.parent = parent;
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);

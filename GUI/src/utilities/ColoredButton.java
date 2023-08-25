@@ -5,8 +5,6 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import GUI.src.BasePanel;
-
 public class ColoredButton extends HoverableButton {
     private RoundedPanel background = new RoundedPanel();
     private Color normalColor;
@@ -42,7 +40,7 @@ public class ColoredButton extends HoverableButton {
         super.setSelected(true);
         this.background.setBackground(selectedColor);
         try {
-            ((BasePanel) super.parent).showMyTab(this.getName());
+            ((ParentPanel) super.parent).showMyTab(this.getName());
         } catch (Exception e) {
            
         }

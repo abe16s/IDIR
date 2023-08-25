@@ -33,7 +33,10 @@ public final class ImageIcons {
 
     public static final ImageIcon SAVE = new ImageIcon("GUI\\Icons\\dark\\save.png");
 
-    public static final ImageIcon UNKNOWN = new ImageIcon("GUI\\Icons\\dark\\unknown photo.png");
+    public static final ImageIcon UNKNOWN = new ImageIcon("GUI\\Icons\\dark\\unknonwn-photo.png");
+
+    public static final ImageIcon ADD_MEMBER = new ImageIcon("GUI\\Icons\\dark\\add-user-male.png");
+
 
 
     public static ImageIcon reSize(ImageIcon icon, int width, int height){
