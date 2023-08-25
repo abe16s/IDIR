@@ -131,8 +131,8 @@ public class AddMemberPanel extends JPanel {
         ColoredButton addFamily = new ColoredButton("Add Family", familyInput);
         addFamily.setNormalColor(new Color(147, 175, 207));
         RoundedPanel addFamilyPanel = addFamily.getWhole();
-        addFamilyPanel.setPreferredSize(new Dimension(100, 40));
-        addFamilyPanel.setMaximumSize(addFamilyPanel.getPreferredSize());
+        // addFamilyPanel.setPreferredSize(new Dimension(100, 40));
+        // addFamilyPanel.setMaximumSize(addFamilyPanel.getPreferredSize());
         addFamily.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 familyQuery();

@@ -15,8 +15,8 @@ import GUI.src.utilities.ImageIcons;
 public class Home extends JPanel{
     private JLabel background = new JLabel(ImageIcons.reSize(ImageIcons.LOGObackground, 200, 200));
     private  JLabel welcome = new JLabel("Welcome");
-    private ColoredButton paymentHistory = new ColoredButton("paymentHistory",this);
-    private ColoredButton collectPayment = new ColoredButton("collectPayment",this);
+    private ColoredButton paymentHistory = new ColoredButton("Payment history",this);
+    private ColoredButton collectPayment = new ColoredButton("Collect monthly payment ",this);
     
     
     private BasePanel displayPanel;
@@ -34,18 +34,24 @@ public class Home extends JPanel{
 
         welcome.setFont(new Font("Serif", Font.BOLD, 30));
         add(welcome);
-        add(Box.createVerticalStrut(20));
+        add(Box.createVerticalStrut(40));
 
-        paymentHistory.setAlignmentX(Component.CENTER_ALIGNMENT);
-        paymentHistory.setSelectedColor(new Color(79,170,255));
-        paymentHistory.setNormalColor(new Color(147,175,207));
-        add(paymentHistory.getWhole());
+        JPanel p = new JPanel();
+        p.setBackground(new Color(228,228,228));
+        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        p.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        collectPayment.setAlignmentX(Component.CENTER_ALIGNMENT);
+        collectPayment.setAlignmentX(Component.LEFT_ALIGNMENT);
         collectPayment.setSelectedColor(new Color(79,170,255));
         collectPayment.setNormalColor(new Color(147,175,207));
         add(collectPayment.getWhole());
 
+        paymentHistory.setAlignmentX(Component.LEFT_ALIGNMENT);
+        paymentHistory.setSelectedColor(new Color(79,170,255));
+        paymentHistory.setNormalColor(new Color(147,175,207));
+        add(paymentHistory.getWhole());
+        
+        add(p);
         setVisible(true);
     }  
 }

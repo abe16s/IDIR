@@ -76,10 +76,11 @@ public class MembersPanel extends JPanel implements ParentPanel {
         JPanel addBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         addBar.setBackground(new Color(217, 217, 217));
         addBar.setBorder(new EmptyBorder(new Insets(0, 0, 0, 10)));
-        addBar.setPreferredSize(new Dimension(addBar.getPreferredSize().width, 40));
+        addBar.setPreferredSize(new Dimension(addBar.getPreferredSize().width, 30));
 
         AddMember = new ColoredButton("Add Member", this);
         AddMember.setNormalColor(new Color(147, 175, 207));
+        AddMember.setSelectedColor(new Color(79,170,255));
 
         addBar.add(AddMember.getWhole());
 

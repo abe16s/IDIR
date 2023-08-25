@@ -2,6 +2,10 @@ package GUI.src.utilities;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JPanel;
 
@@ -13,9 +17,11 @@ public class ColoredButton extends HoverableButton {
 
     public ColoredButton(String text, JPanel parent) {
         super(text, parent);
-
+        
+        background.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         background.setMaximumSize(new Dimension(getMaximumSize().width,getMaximumSize().height+6));
         background.add(this);
+
         setNormalColor(Color.black);
         setSelectedColor(Color.white);
     }
@@ -37,13 +43,22 @@ public class ColoredButton extends HoverableButton {
 
     @Override
     public void showEffect() {
-        super.setSelected(true);
         this.background.setBackground(selectedColor);
-        try {
-            ((ParentPanel) super.parent).showMyTab(this.getName());
+
+    ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor ();
+
+    Runnable task = new Runnable () {
+    @Override
+    public void run () {            try {
+            ((ParentPanel) parent).showMyTab(getName());
         } catch (Exception e) {
            
         }
+background.setBackground(normalColor);}};
+
+    executor.schedule (task, 150, TimeUnit.MILLISECONDS);
+    executor.shutdown ();
+
     }
 
     @Override
