@@ -25,13 +25,14 @@ public class App {
         JPanel temp = new JPanel();
         temp.setBackground(new Color(228,228,228));
 
+        MembersPanel membersPanel = new MembersPanel(window.getBasePanel());
+
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
         HOME.setSelectedIcon(ImageIcons.reSize(ImageIcons.HOME,25,25));
         window.getMenu().addTab(HOME, temp);
 
         TransparentButton MEMBERS = new TransparentButton("Members", ImageIcons.reSize(ImageIcons.CONTACTSdark,25,25), window.getMenu());
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,25,25));
-        MembersPanel membersPanel = new MembersPanel(window.getBasePanel(),MEMBERS);
         window.getMenu().addTab(MEMBERS, membersPanel);
 
         TransparentButton OFFICIAL = new TransparentButton("Officials", ImageIcons.reSize(ImageIcons.OFFICIALdark,25,25), window.getMenu());

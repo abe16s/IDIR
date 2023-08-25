@@ -23,7 +23,7 @@ This file (module) contains the classes that are useful for the interaction of t
 
 - **ImageIcons**: A static final class that provides a collection of image icons as static fields from images stored in two subfolders under the icon folder: 'color' and 'dark'. It has a static method `reSizeImageIcon` to resize any given image icon to a specified width and height.
 
-- **CustomTableCellRenderer**: A cell renderer that colors a JTable with a palette (mixed style) of two types of colors.
+- **CustomTable**: A custom table that colors itself with a palette (mixed style) of two types of colors.
 
 - **MembersTableListener**: This table litsener creates and shows an individual profile page based on the row touched in the MembersList JTable in MembersPanel which is the list of all the members.
 

@@ -13,7 +13,7 @@ public class RoundedPanel extends JPanel {
     /*A Rounded panel that has curved edges and extends the JPanel class */
 
     /** Stroke size. it is recommended to set it to 1 for better view */
-    protected int strokeSize = 1;
+    protected int strokeSize = 0;
     /** Color of shadow */
     protected Color shadowColor = Color.black;
     /** Sets if it drops shadow */

@@ -16,12 +16,10 @@ public class MembersTableListener implements ListSelectionListener{
      */
     private JTable table;
     private BasePanel showPanel;
-    private TransparentButton MembersButton;
     
-    public MembersTableListener(JTable table, BasePanel membersPanel, TransparentButton MembersButton) {
+    public MembersTableListener(JTable table, BasePanel showPanel) {
         this.table = table;   
-        this.showPanel = membersPanel;
-        this.MembersButton = MembersButton;
+        this.showPanel = showPanel;
     }
 
     @Override
@@ -31,10 +29,8 @@ public class MembersTableListener implements ListSelectionListener{
             if (selectedRow != -1) { 
                 TableModel model = table.getModel();
                 String MemberID = (String) model.getValueAt(selectedRow, 0);
-                this.showPanel.createIndividualProfile(new IndividualProfile(MemberID, this.showPanel), MemberID);
+                this.showPanel.createIndividualProfile(new IndividualProfile(MemberID, this.showPanel));
                 this.table.clearSelection();
-                this.MembersButton.removeEffect();
-                this.MembersButton.unselect();
             }
         }
     }

@@ -24,9 +24,13 @@ public class AddMemberPanel extends JPanel {
     
     public AddMemberPanel(BasePanel displayPanel) {
         /*This constructor is used when adding new members */
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(228, 228, 228));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        JPanel Contents = new JPanel();
+        BoxLayout contentBox = new BoxLayout(Contents, BoxLayout.Y_AXIS);
+        Contents.setLayout(contentBox);
+        Contents.setBackground(getBackground());
 
         photoPanel = new JPanel(); //An upper panel with 3 components title, unkownPhoto & choosefile button
         photoPanel.setOpaque(false);
@@ -39,7 +43,7 @@ public class AddMemberPanel extends JPanel {
         unknownPhoto = new JLabel(ImageIcons.reSize(ImageIcons.UNKNOWN,200,200));
 
         ColoredButton choosePhoto = new ColoredButton("Choose Photo", photoPanel);
-        choosePhoto.setNormalColor(Color.CYAN);
+        choosePhoto.setNormalColor(new Color(147, 175, 207));
         RoundedPanel choosePanel = choosePhoto.getWhole();
 
         choosePhoto.addActionListener(new ActionListener() {
@@ -61,46 +65,25 @@ public class AddMemberPanel extends JPanel {
         photoPanel.add(unknownPhoto);
         photoPanel.add(choosePanel);
 
-        this.add(photoPanel);
-
         inputPanel = new JPanel(new BorderLayout()); //The lower panel for receiving information / input panel divided into two general & family input
-        inputPanel.setBorder(new EmptyBorder(new Insets(30, 100, 0, 20)));
+        inputPanel.setBorder(new EmptyBorder(new Insets(0, 200, 0, 50)));
         inputPanel.setBackground(this.getBackground());
 
         JPanel generalInput = new JPanel(); // The left part of the input panel for receiving general information
-        generalInput.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 15));
+        BoxLayout inputBox = new BoxLayout(generalInput, BoxLayout.Y_AXIS);
+        generalInput.setLayout(inputBox);
         generalInput.setBackground(this.getBackground());
         generalInput.setPreferredSize(new Dimension(250, 300));
         generalInput.setMaximumSize(generalInput.getPreferredSize());
 
         String nextAvailableIDExample = "122"; 
-        queryPanel ID = new queryPanel("ID", nextAvailableIDExample, Color.LIGHT_GRAY, generalInput);
-        queryPanel fullName = new queryPanel("Full Name", 20, Color.LIGHT_GRAY, generalInput);
-        queryPanel address = new queryPanel("Address", 20, Color.LIGHT_GRAY, generalInput);
-        queryPanel phone = new queryPanel("Phone", 20, Color.LIGHT_GRAY, generalInput);
-        queryPanel Age = new queryPanel("Age", 20, Color.LIGHT_GRAY, generalInput);
-        queryPanel occupation = new queryPanel("Occupation", 20, Color.LIGHT_GRAY, generalInput);
-        queryPanel religion = new queryPanel("Religion", 20, Color.LIGHT_GRAY, generalInput);
-
-        save = new ColoredButton("Save", inputPanel);
-        save.setNormalColor(Color.CYAN);
-
-        addMemberListener = new saveLitsener("add", displayPanel, nextAvailableIDExample);
-        save.addActionListener(addMemberListener);
-
-        ColoredButton discard = new ColoredButton("Discard", inputPanel);
-        discard.setNormalColor(Color.CYAN);
-
-        discard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int result = JOptionPane.showConfirmDialog(displayPanel,"This will discard every unsaved changes. Do you wish to continue?", "Discard Changes", JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION) {
-                    displayPanel.showMyTab("Members");
-                }
-            } 
-        });
-        
+        queryPanel ID = new queryPanel("ID", nextAvailableIDExample, Color.LIGHT_GRAY);
+        queryPanel fullName = new queryPanel("Full Name", 20, Color.LIGHT_GRAY);
+        queryPanel address = new queryPanel("Address", 15, Color.LIGHT_GRAY);
+        queryPanel phone = new queryPanel("Phone", 10, Color.LIGHT_GRAY);
+        queryPanel Age = new queryPanel("Age", 2, Color.LIGHT_GRAY);
+        queryPanel occupation = new queryPanel("Occupation", 10, Color.LIGHT_GRAY);
+        queryPanel religion = new queryPanel("Religion", 10, Color.LIGHT_GRAY);
         
         generalInput.add(ID);        
         fields.add(ID);
@@ -116,12 +99,15 @@ public class AddMemberPanel extends JPanel {
         fields.add(occupation);
         generalInput.add(religion);
         fields.add(religion);
-        generalInput.add(save.getWhole());
-        generalInput.add(discard.getWhole());
+        
+        Component[] components = generalInput.getComponents();
+        for (Component c : components) {
+            ((queryPanel)c).setAlignmentX(LEFT_ALIGNMENT);
+        }
         
         JPanel familyInput = new JPanel(); // The right part of the input panel for receiving family information
-        BoxLayout bcx = new BoxLayout(familyInput, BoxLayout.Y_AXIS);
-        familyInput.setLayout(bcx);
+        BoxLayout familyBox = new BoxLayout(familyInput, BoxLayout.Y_AXIS);
+        familyInput.setLayout(familyBox);
         familyInput.setBackground(this.getBackground());
         familyInput.setBorder(new EmptyBorder(new Insets(40, 0, 0, 0)));
         
@@ -143,7 +129,7 @@ public class AddMemberPanel extends JPanel {
         familyQuery();
 
         ColoredButton addFamily = new ColoredButton("Add Family", familyInput);
-        addFamily.setNormalColor(Color.CYAN);
+        addFamily.setNormalColor(new Color(147, 175, 207));
         RoundedPanel addFamilyPanel = addFamily.getWhole();
         addFamilyPanel.setPreferredSize(new Dimension(100, 40));
         addFamilyPanel.setMaximumSize(addFamilyPanel.getPreferredSize());
@@ -156,17 +142,47 @@ public class AddMemberPanel extends JPanel {
         });
         
         familyInput.add(familyTitle);
+        familyTitle.setAlignmentX(CENTER_ALIGNMENT);
         familyInput.add(familyHeader);
         familyInput.add(familyQn);
         familyInput.add(addFamilyPanel);
         
         inputPanel.add(generalInput, BorderLayout.WEST);
         inputPanel.add(familyInput, BorderLayout.EAST);
-
-        JScrollPane ScrollInput = new JScrollPane(inputPanel);
-        ScrollInput.setBorder(null);
         
-        this.add(ScrollInput);
+        JPanel footer = new JPanel();
+        footer.setBackground(getBackground());
+
+        save = new ColoredButton("Save", inputPanel);
+        save.setNormalColor(new Color(147, 175, 207));
+
+        addMemberListener = new saveLitsener("add", displayPanel, nextAvailableIDExample);
+        save.addActionListener(addMemberListener);
+
+        ColoredButton discard = new ColoredButton("Discard", inputPanel);
+        discard.setNormalColor(new Color(147, 175, 207));
+
+        discard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(displayPanel,"This will discard every unsaved changes. Do you wish to continue?", "Discard Changes", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    displayPanel.showMyTab("Members");
+                }
+            } 
+        });
+        
+        footer.add(save.getWhole());
+        footer.add(discard.getWhole());
+
+        Contents.add(photoPanel);
+        Contents.add(inputPanel);
+        Contents.add(footer);
+
+        JScrollPane ScrollContents = new JScrollPane(Contents);
+        ScrollContents.setBorder(null);
+
+        this.add(ScrollContents);
     }
 
 
@@ -219,14 +235,12 @@ public class AddMemberPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (todo.equalsIgnoreCase("edit")) {
-                System.out.println("Edited");
                 JOptionPane.showMessageDialog(this.displayPanel,"Edited Successfully!", "Edit Member", JOptionPane.INFORMATION_MESSAGE);
             } else if (todo.equalsIgnoreCase("add")) {
-                System.out.println("Added");
                 JOptionPane.showMessageDialog(this.displayPanel,"Added New Member Successfully!", "Add Member", JOptionPane.INFORMATION_MESSAGE);
 
             }
-            this.displayPanel.createIndividualProfile(new IndividualProfile(MemberID, this.displayPanel), MemberID);
+            this.displayPanel.createIndividualProfile(new IndividualProfile(MemberID, this.displayPanel));
         }
     }
 

@@ -4,7 +4,9 @@ import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
-public class BasePanel extends JPanel {
+import GUI.src.utilities.ParentPanel;
+
+public class BasePanel extends JPanel implements ParentPanel{
     private CardLayout cardLayout = new CardLayout();
 
     public BasePanel(){
@@ -20,16 +22,16 @@ public class BasePanel extends JPanel {
         add(clickedPanel, buttonName);
     }
 
-    public void addEditMember(AddMemberPanel addMemberPanel, String MemberID) {
+    public void addEditMember(AddMemberPanel addMemberPanel) {
         /*For adding an edit panel of an existing member*/
-        add(addMemberPanel, MemberID+"edit");
-        showMyTab(MemberID+"edit");   
+        add(addMemberPanel, "editMember");
+        showMyTab("editMember");   
     }
 
-    public void createIndividualProfile(IndividualProfile individualProfile, String MemberID) {
+    public void createIndividualProfile(IndividualProfile individualProfile) {
         /*For adding and showing an individual profile panel*/
-        add(individualProfile, MemberID);
-        showMyTab(MemberID);
+        add(individualProfile, "Profile");
+        showMyTab("Profile");
     }
 
 }
