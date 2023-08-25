@@ -68,8 +68,8 @@ public class MembersPanel extends JPanel implements ParentPanel {
             {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"}
         };
     
-        MembersList = new CustomTable(exampleData, columnNames, Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
-        MembersList.getSelectionModel().addListSelectionListener(new MembersTableListener(MembersList, this.displayPanel));
+        MembersList = new CustomTable(displayPanel,exampleData, columnNames, Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
+
 
         JScrollPane ScrollList = new JScrollPane(MembersList);
 

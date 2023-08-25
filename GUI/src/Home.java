@@ -33,6 +33,7 @@ public class Home extends JPanel{
         add(Box.createVerticalStrut(50));
 
         welcome.setFont(new Font("Serif", Font.BOLD, 30));
+        welcome.setForeground(new Color(125, 125, 125));
         add(welcome);
         add(Box.createVerticalStrut(40));
 
@@ -44,12 +45,12 @@ public class Home extends JPanel{
         collectPayment.setAlignmentX(Component.LEFT_ALIGNMENT);
         collectPayment.setSelectedColor(new Color(79,170,255));
         collectPayment.setNormalColor(new Color(147,175,207));
-        add(collectPayment.getWhole());
+        p.add(collectPayment.getWhole());
 
         paymentHistory.setAlignmentX(Component.LEFT_ALIGNMENT);
         paymentHistory.setSelectedColor(new Color(79,170,255));
         paymentHistory.setNormalColor(new Color(147,175,207));
-        add(paymentHistory.getWhole());
+        p.add(paymentHistory.getWhole());
         
         add(p);
         setVisible(true);

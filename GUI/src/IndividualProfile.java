@@ -102,7 +102,7 @@ public class IndividualProfile extends JPanel {
         familyHeader.setMaximumSize(new Dimension(500, 30));
 
         String[] columnNames = {"Full Name", "Phone", "Relation"};
-        JTable familiesList = new CustomTable(familiesExample, columnNames, Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
+        JTable familiesList = new CustomTable(displayPanel,familiesExample, columnNames, Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
         
         familyInfo.add(familyTitle);
         familyTitle.setAlignmentX(CENTER_ALIGNMENT);
