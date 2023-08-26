@@ -131,8 +131,7 @@ public class AddMemberPanel extends JPanel {
         ColoredButton addFamily = new ColoredButton("Add Family", familyInput);
         addFamily.setNormalColor(new Color(147, 175, 207));
         RoundedPanel addFamilyPanel = addFamily.getWhole();
-        // addFamilyPanel.setPreferredSize(new Dimension(100, 40));
-        // addFamilyPanel.setMaximumSize(addFamilyPanel.getPreferredSize());
+        
         addFamily.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 familyQuery();
@@ -154,12 +153,14 @@ public class AddMemberPanel extends JPanel {
         footer.setBackground(getBackground());
 
         save = new ColoredButton("Save", inputPanel);
+        save.setIcon(ImageIcons.reSize(ImageIcons.SAVE, 15, 15));
         save.setNormalColor(new Color(147, 175, 207));
 
         addMemberListener = new saveLitsener("add", displayPanel, nextAvailableIDExample);
         save.addActionListener(addMemberListener);
 
         ColoredButton discard = new ColoredButton("Discard", inputPanel);
+        discard.setIcon(ImageIcons.reSize(ImageIcons.ADD_MEMBER, 15, 15));
         discard.setNormalColor(new Color(147, 175, 207));
 
         discard.addActionListener(new ActionListener() {

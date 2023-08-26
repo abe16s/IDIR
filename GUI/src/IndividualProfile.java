@@ -102,7 +102,8 @@ public class IndividualProfile extends JPanel {
         familyHeader.setMaximumSize(new Dimension(500, 30));
 
         String[] columnNames = {"Full Name", "Phone", "Relation"};
-        JTable familiesList = new CustomTable(displayPanel,familiesExample, columnNames, Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
+        CustomTable familiesList = new CustomTable(displayPanel,familiesExample, columnNames,"Members");
+        familiesList.setAlternatingColor( Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
         
         familyInfo.add(familyTitle);
         familyTitle.setAlignmentX(CENTER_ALIGNMENT);
@@ -116,6 +117,7 @@ public class IndividualProfile extends JPanel {
         footer.setBackground(getBackground());
 
         ColoredButton edit = new ColoredButton("Edit", infoPanel);
+        edit.setIcon(ImageIcons.reSize(ImageIcons.EDIT, 15, 15));
         edit.setNormalColor(new Color(147, 175, 207));
 
         edit.addActionListener(new ActionListener() {
