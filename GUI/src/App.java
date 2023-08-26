@@ -13,7 +13,7 @@ public class App {
     private SkeletalWindow window;
     
     App(String title){
-        //This block of code is to make the whole GUI look and feel like the operating system. Can be seen in the scrollpanes and the file choosers
+        //This block of code is to make the whole GUI look and feel like the operating system. Can be seen in the ScrollPane and the file choosers
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
@@ -37,7 +37,7 @@ public class App {
 
         TransparentButton OFFICIAL = new TransparentButton("Officials", ImageIcons.reSize(ImageIcons.OFFICIALdark,25,25), window.getMenu());
         OFFICIAL.setSelectedIcon(ImageIcons.reSize(ImageIcons.OFFICIAL,25,25));
-        window.getMenu().addTab (OFFICIAL, temp);
+        window.getMenu().addTab (OFFICIAL, new OfficialsPanel(window.getBasePanel()));
 
         TransparentButton FINANCIALdata = new TransparentButton("Financial data", ImageIcons.reSize(ImageIcons.COINSdark,20,20), window.getMenu());
         FINANCIALdata.setSelectedIcon(ImageIcons.reSize(ImageIcons.COINS,25,25));
