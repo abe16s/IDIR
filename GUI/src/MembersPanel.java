@@ -77,7 +77,7 @@ public class MembersPanel extends JPanel implements ParentPanel {
         addBar.setBackground(new Color(241,241,241));
 
         AddMember = new ColoredButton("Add Member", this);
-        AddMember.setIcon(ImageIcons.reSize(ImageIcons.ADD_MEMBER, 15, 15));
+        AddMember.setIcon(ImageIcons.reSize(ImageIcons.ADD_MEMBER, 20, 20));
         AddMember.setNormalColor(new Color(147, 175, 207));
         AddMember.setSelectedColor(new Color(79,170,255));
 

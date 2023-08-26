@@ -45,7 +45,7 @@ public class AddMemberPanel extends JPanel {
         ColoredButton choosePhoto = new ColoredButton("Choose Photo", photoPanel);
         choosePhoto.setNormalColor(new Color(147, 175, 207));
         RoundedPanel choosePanel = choosePhoto.getWhole();
-
+        choosePanel.setPreferredSize(new Dimension(choosePanel.getPreferredSize().width, 30));
         choosePhoto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -131,7 +131,7 @@ public class AddMemberPanel extends JPanel {
         ColoredButton addFamily = new ColoredButton("Add Family", familyInput);
         addFamily.setNormalColor(new Color(147, 175, 207));
         RoundedPanel addFamilyPanel = addFamily.getWhole();
-        
+        addFamilyPanel.setPreferredSize(new Dimension(addFamilyPanel.getPreferredSize().width, 30));
         addFamily.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 familyQuery();
@@ -153,14 +153,14 @@ public class AddMemberPanel extends JPanel {
         footer.setBackground(getBackground());
 
         save = new ColoredButton("Save", inputPanel);
-        save.setIcon(ImageIcons.reSize(ImageIcons.SAVE, 15, 15));
+        save.setIcon(ImageIcons.reSize(ImageIcons.SAVE, 20, 20));
         save.setNormalColor(new Color(147, 175, 207));
 
         addMemberListener = new saveLitsener("add", displayPanel, nextAvailableIDExample);
         save.addActionListener(addMemberListener);
 
         ColoredButton discard = new ColoredButton("Discard", inputPanel);
-        discard.setIcon(ImageIcons.reSize(ImageIcons.ADD_MEMBER, 15, 15));
+        discard.setIcon(ImageIcons.reSize(ImageIcons.ADD_MEMBER, 20, 20));
         discard.setNormalColor(new Color(147, 175, 207));
 
         discard.addActionListener(new ActionListener() {

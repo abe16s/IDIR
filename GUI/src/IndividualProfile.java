@@ -117,9 +117,8 @@ public class IndividualProfile extends JPanel {
         footer.setBackground(getBackground());
 
         ColoredButton edit = new ColoredButton("Edit", infoPanel);
-        edit.setIcon(ImageIcons.reSize(ImageIcons.EDIT, 15, 15));
+        edit.setIcon(ImageIcons.reSize(ImageIcons.EDIT, 20, 20));
         edit.setNormalColor(new Color(147, 175, 207));
-
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
