@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
-import GUI.src.BasePanel;
 import GUI.src.IndividualProfile;
 
 public class CustomTable extends JTable {

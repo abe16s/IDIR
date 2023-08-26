@@ -4,6 +4,9 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import GUI.src.utilities.BasePanel;
+import GUI.src.utilities.MenuBar;
+
 public class SkeletalWindow extends JFrame{
 
     private MenuBar menu;

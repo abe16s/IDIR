@@ -1,9 +1,11 @@
-package GUI.src;
+package GUI.src.utilities;
 
 import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
+import GUI.src.AddMemberPanel;
+import GUI.src.IndividualProfile;
 import GUI.src.utilities.ParentPanel;
 
 public class BasePanel extends JPanel implements ParentPanel{

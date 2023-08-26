@@ -1,14 +1,10 @@
-package GUI.src;
+package GUI.src.utilities;
 
 import java.awt.*;
 
 import java.util.ArrayList;
 
 import javax.swing.*;
-
-import GUI.src.utilities.HoverableButton;
-import GUI.src.utilities.ParentPanel;
-
 
 
 public class MenuBar extends JPanel implements ParentPanel{
@@ -17,7 +13,7 @@ public class MenuBar extends JPanel implements ParentPanel{
     
     private BasePanel displayPanel;
 
-    MenuBar(BasePanel displayPanel){
+    public MenuBar(BasePanel displayPanel){
         this.displayPanel = displayPanel;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));     
