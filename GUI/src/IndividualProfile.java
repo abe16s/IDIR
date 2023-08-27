@@ -10,13 +10,20 @@ import javax.swing.border.EmptyBorder;
 
 import GUI.src.utilities.*;
 
-public class IndividualProfile extends JPanel {
+public class IndividualProfile extends JPanel implements ParentPanel{
+    private BasePanel displayPanel;
+    private AddMemberPanel editable;
     private JLabel title;
     private JPanel photoPanel;
     private JPanel infoPanel;
     private ArrayList<queryPanel> fields = new ArrayList<queryPanel>();
 
-    public IndividualProfile(String MemberID, BasePanel displayPanel) {
+    public IndividualProfile(BasePanel displayPanel) {
+        this.displayPanel = displayPanel;
+        editable = new AddMemberPanel(displayPanel,"1");
+    }
+    public void updateData(String memberID){
+        removeAll();
 
         String[] exampleSelected = {"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox", "GUI\\Icons\\dark\\Example-Photo.jpg"};
         String[][] familiesExample = {
@@ -38,7 +45,7 @@ public class IndividualProfile extends JPanel {
         photoPanel.setPreferredSize(new Dimension(250, 300));
         photoPanel.setMaximumSize(photoPanel.getPreferredSize());
 
-        title = new JLabel("Profile of " + MemberID);
+        title = new JLabel("Profile of " + memberID);
         title.setFont(new Font("Arial", Font.BOLD, 15));
 
         JLabel photo = new JLabel(ImageIcons.reSize(new ImageIcon(exampleSelected[7]),200,200));
@@ -57,7 +64,7 @@ public class IndividualProfile extends JPanel {
         generalInfo.setPreferredSize(new Dimension(300, 300));
         generalInfo.setMaximumSize(generalInfo.getPreferredSize());
 
-        queryPanel ID = new queryPanel("ID", MemberID, Color.LIGHT_GRAY);
+        queryPanel ID = new queryPanel("ID", memberID, Color.LIGHT_GRAY);
         queryPanel fullName = new queryPanel("Full Name", exampleSelected[1], Color.LIGHT_GRAY);
         queryPanel address = new queryPanel("Address", exampleSelected[2], Color.LIGHT_GRAY);
         queryPanel phone = new queryPanel("Phone", exampleSelected[3], Color.LIGHT_GRAY);
@@ -102,8 +109,8 @@ public class IndividualProfile extends JPanel {
         familyHeader.setMaximumSize(new Dimension(500, 30));
 
         String[] columnNames = {"Full Name", "Phone", "Relation"};
-        CustomTable familiesList = new CustomTable(displayPanel,familiesExample, columnNames,"Members");
-        familiesList.setAlternatingColor( Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
+        CustomTable familiesList = new CustomTable(this,familiesExample, columnNames);
+        familiesList.setAlternatingColor(Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
         
         familyInfo.add(familyTitle);
         familyTitle.setAlignmentX(CENTER_ALIGNMENT);
@@ -122,7 +129,11 @@ public class IndividualProfile extends JPanel {
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayPanel.addEditMember(new AddMemberPanel(displayPanel, MemberID));
+                displayPanel.remove(editable);
+                editable = new AddMemberPanel(displayPanel, memberID);
+                addTab(edit, editable);
+
+                showMyTab(edit.getName());
             }
         });
         
@@ -136,5 +147,19 @@ public class IndividualProfile extends JPanel {
         ScrollContent.setBorder(null);
 
         this.add(ScrollContent);
+
+        repaint();
+    }
+    @Override
+    public void showMyTab(String buttonName) {
+        displayPanel.showMyTab(buttonName);
+    }
+
+    @Override
+    public void showMyTab(String[] values, int source) {
+    }
+    @Override
+    public void addTab(JButton button, JPanel clickedPanel) {
+        displayPanel.addMyTab(clickedPanel,button.getName());
     }
 }

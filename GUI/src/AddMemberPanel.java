@@ -12,7 +12,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import GUI.src.utilities.*;
 
-public class AddMemberPanel extends JPanel {
+public class AddMemberPanel extends JPanel implements ParentPanel {
+    private BasePanel displayPanel;
     private JLabel title;
     private JLabel unknownPhoto;
     private JPanel photoPanel;
@@ -21,11 +22,13 @@ public class AddMemberPanel extends JPanel {
     private ColoredButton save;
     private ActionListener addMemberListener;
     private JPanel familyQn;
+    private IndividualProfile savedProfile;
     
     public AddMemberPanel(BasePanel displayPanel) {
         /*This constructor is used when adding new members */
         this.setBackground(new Color(228, 228, 228));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.displayPanel = displayPanel;
 
         JPanel Contents = new JPanel();
         BoxLayout contentBox = new BoxLayout(Contents, BoxLayout.Y_AXIS);
@@ -241,7 +244,13 @@ public class AddMemberPanel extends JPanel {
                 JOptionPane.showMessageDialog(this.displayPanel,"Added New Member Successfully!", "Add Member", JOptionPane.INFORMATION_MESSAGE);
 
             }
-            this.displayPanel.createIndividualProfile(new IndividualProfile(MemberID, this.displayPanel));
+            if (savedProfile != null){displayPanel.remove(savedProfile);
+
+            }else{savedProfile = new IndividualProfile(displayPanel);}
+
+            savedProfile.updateData(MemberID);
+            addTab(save, savedProfile);
+            showMyTab(save.getName());
         }
     }
 
@@ -267,5 +276,23 @@ public class AddMemberPanel extends JPanel {
             familyQn.setPreferredSize(new Dimension(500,size/3*30));
             familyQn.setMaximumSize(familyQn.getPreferredSize());
         }
+    }
+
+
+    @Override
+    public void showMyTab(String buttonName) {
+        displayPanel.showMyTab(buttonName);
+    }
+
+
+    @Override
+    public void showMyTab(String[] values, int source) {
+
+    }
+
+
+    @Override
+    public void addTab(JButton button, JPanel clickedPanel) {
+        displayPanel.addMyTab(clickedPanel, button.getName());
     }
 }
