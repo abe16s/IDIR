@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.*;
 
 public class AddMemberPanel extends JPanel implements ParentPanel {
