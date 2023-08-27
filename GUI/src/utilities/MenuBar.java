@@ -26,9 +26,10 @@ public class MenuBar extends JPanel implements ParentPanel{
     }
 
 
-    public void addTab(HoverableButton button, JPanel clickedPanel){
-        add(button);
-        buttons.add(button);
+    public void addTab(JButton button, JPanel clickedPanel){
+
+        add((HoverableButton)button);
+        buttons.add((HoverableButton)button);
         displayPanel.addMyTab(clickedPanel,button.getName());
     }
 
@@ -47,5 +48,12 @@ public class MenuBar extends JPanel implements ParentPanel{
                 x.removeEffect();
             }
         }
+    }
+
+
+    @Override
+    public void showMyTab(String[] values, int source) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
     }
 }

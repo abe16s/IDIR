@@ -2,11 +2,9 @@ package GUI.src.utilities;
 
 import java.awt.CardLayout;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import GUI.src.AddMemberPanel;
-import GUI.src.IndividualProfile;
-import GUI.src.utilities.ParentPanel;
 
 public class BasePanel extends JPanel implements ParentPanel{
     private CardLayout cardLayout = new CardLayout();
@@ -24,16 +22,16 @@ public class BasePanel extends JPanel implements ParentPanel{
         add(clickedPanel, buttonName);
     }
 
-    public void addEditMember(AddMemberPanel addMemberPanel) {
-        /*For adding an edit panel of an existing member*/
-        add(addMemberPanel, "editMember");
-        showMyTab("editMember");   
+
+    @Override
+    public void showMyTab(String[] values, int source) {
+
     }
 
-    public void createIndividualProfile(IndividualProfile individualProfile) {
-        /*For adding and showing an individual profile panel*/
-        add(individualProfile, "Profile");
-        showMyTab("Profile");
+    @Override
+    public void addTab(JButton button, JPanel clickedPanel) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addTab'");
     }
 
 }
