@@ -1,18 +1,22 @@
 package GUI.src;
 
 import java.awt.*;
+import java.io.File;
 
 import javax.swing.*;
 
+import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.*;
 
 public class MembersPanel extends JPanel implements ParentPanel {
-    private CustomTable MembersList;
     private BasePanel displayPanel;
+    private IndividualProfile individualProfile;
+    private CustomTable MembersList;
     private ColoredButton AddMember;
 
     public MembersPanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
+        individualProfile = new IndividualProfile(displayPanel);
         
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(228, 228, 228));
@@ -67,7 +71,7 @@ public class MembersPanel extends JPanel implements ParentPanel {
             {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"}
         };
     
-        MembersList = new CustomTable(displayPanel,exampleData, columnNames,"Members");
+        MembersList = new CustomTable(this,exampleData, columnNames);
         MembersList.setAlternatingColor( Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
 
         JScrollPane ScrollList = new JScrollPane(MembersList);
@@ -82,20 +86,38 @@ public class MembersPanel extends JPanel implements ParentPanel {
         AddMember.setSelectedColor(new Color(79,170,255));
 
         addBar.add(AddMember.getWhole());
+        addTab(AddMember, new AddMemberPanel(this.displayPanel));
 
         this.add(addBar, BorderLayout.SOUTH);
         this.add(ScrollList, BorderLayout.CENTER);
     }
 
-    public void addTab(ColoredButton button, JPanel clickedPanel){
-        displayPanel.addMyTab(clickedPanel,button.getName());
+    
+    @Override
+    public void showMyTab(String buttonName){
+                displayPanel.showMyTab(buttonName);
+    }
+
+
+    @Override
+    public void showMyTab(String[] values, int source) {
+        displayPanel.remove(individualProfile);
+        
+        individualProfile.updateData(values[0]);
+        displayPanel.addMyTab(individualProfile,values[0]);
+        displayPanel.showMyTab(values[0]);
     }
 
     @Override
-    public void showMyTab(String buttonName){
-        AddMember.unselect();
-        AddMember.removeEffect();
-        addTab(AddMember, new AddMemberPanel(this.displayPanel));
-        displayPanel.showMyTab(buttonName);
+    public void addTab(JButton button, JPanel clickedPanel) {
+        displayPanel.addMyTab(clickedPanel,button.getName());
     }
+
+
+    @Override
+    public void workWithFileChosen(File selectedFile) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+    }
+    
 }

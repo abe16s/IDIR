@@ -1,11 +1,13 @@
 package GUI.src;
 
 import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
-import GUI.src.utilities.BasePanel;
-import GUI.src.utilities.MenuBar;
+import GUI.src.utilities.HoverableButton;
+import GUI.src.utilities.ParentPanel;
 
 public class SkeletalWindow extends JFrame{
 
@@ -63,5 +65,98 @@ public class SkeletalWindow extends JFrame{
     public BasePanel getBasePanel(){
         return this.contentPanel;
     }
+    public class BasePanel extends JPanel implements ParentPanel{
+        private CardLayout cardLayout = new CardLayout();
 
+        public BasePanel(){
+            setLayout(cardLayout);
+        }
+
+        public void showMyTab(String buttonName) {
+            cardLayout.show(this, buttonName);
+        }
+
+
+        public void addMyTab(JPanel clickedPanel, String buttonName){
+            add(clickedPanel, buttonName);
+        }
+
+
+        @Override
+        public void showMyTab(String[] values, int source) {
+
+        }
+
+        @Override
+        public void addTab(JButton button, JPanel clickedPanel) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'addTab'");
+        }
+
+        @Override
+        public void workWithFileChosen(File selectedFile) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+        }
+
+    }
+
+
+    public class MenuBar extends JPanel implements ParentPanel{
+
+        private ArrayList<HoverableButton> buttons = new ArrayList<HoverableButton>();
+        
+        private BasePanel displayPanel;
+
+        public MenuBar(BasePanel displayPanel){
+            this.displayPanel = displayPanel;
+
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));     
+            setBackground(new Color(244,244,244));
+        }
+        
+
+        public void setSize(int Width){
+            setSize(Width, 1080);
+        }
+
+
+        public void addTab(JButton button, JPanel clickedPanel){
+
+            add((HoverableButton)button);
+            buttons.add((HoverableButton)button);
+            displayPanel.addMyTab(clickedPanel,button.getName());
+        }
+
+
+        public void showMyTab(String buttonName){
+            prepare(buttonName);
+            displayPanel.showMyTab(buttonName);
+        }
+
+
+        private void prepare(String buttonName){
+
+            for(HoverableButton x : buttons){
+                if (x.getName() != buttonName){
+                    x.unselect();
+                    x.removeEffect();
+                }
+            }
+        }
+
+
+        @Override
+        public void showMyTab(String[] values, int source) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
+        }
+
+
+        @Override
+        public void workWithFileChosen(File selectedFile) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+        }
+    }
 }

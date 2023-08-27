@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
+import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.*;
 
-public class AddMemberPanel extends JPanel {
+public class AddMemberPanel extends JPanel implements ParentPanel {
+    private BasePanel displayPanel;
     private JLabel title;
     private JLabel unknownPhoto;
     private JPanel photoPanel;
@@ -21,11 +22,13 @@ public class AddMemberPanel extends JPanel {
     private ColoredButton save;
     private ActionListener addMemberListener;
     private JPanel familyQn;
+    private IndividualProfile savedProfile;
     
     public AddMemberPanel(BasePanel displayPanel) {
         /*This constructor is used when adding new members */
         this.setBackground(new Color(228, 228, 228));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.displayPanel = displayPanel;
 
         JPanel Contents = new JPanel();
         BoxLayout contentBox = new BoxLayout(Contents, BoxLayout.Y_AXIS);
@@ -42,25 +45,11 @@ public class AddMemberPanel extends JPanel {
         
         unknownPhoto = new JLabel(ImageIcons.reSize(ImageIcons.UNKNOWN,200,200));
 
-        ColoredButton choosePhoto = new ColoredButton("Choose Photo", photoPanel);
+        ColoredFileChooser choosePhoto = new ColoredFileChooser("Choose Photo", this, "Choose Member Photo", "jpg", "img");
         choosePhoto.setNormalColor(new Color(147, 175, 207));
         RoundedPanel choosePanel = choosePhoto.getWhole();
         choosePanel.setPreferredSize(new Dimension(choosePanel.getPreferredSize().width, 30));
-        choosePhoto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & IMG Images", "jpg", "img");
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Choose Member Photo");
-                fileChooser.setFileFilter(filter);
-                int result = fileChooser.showOpenDialog(null);
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    unknownPhoto.setIcon(ImageIcons.reSize(new ImageIcon(selectedFile.getAbsolutePath()),200,200));
-                }
-            }
-        });
-
+        
         photoPanel.add(title);
         photoPanel.add(unknownPhoto);
         photoPanel.add(choosePanel);
@@ -241,7 +230,13 @@ public class AddMemberPanel extends JPanel {
                 JOptionPane.showMessageDialog(this.displayPanel,"Added New Member Successfully!", "Add Member", JOptionPane.INFORMATION_MESSAGE);
 
             }
-            this.displayPanel.createIndividualProfile(new IndividualProfile(MemberID, this.displayPanel));
+            if (savedProfile != null){displayPanel.remove(savedProfile);
+
+            }else{savedProfile = new IndividualProfile(displayPanel);}
+
+            savedProfile.updateData(MemberID);
+            addTab(save, savedProfile);
+            showMyTab(save.getName());
         }
     }
 
@@ -267,5 +262,29 @@ public class AddMemberPanel extends JPanel {
             familyQn.setPreferredSize(new Dimension(500,size/3*30));
             familyQn.setMaximumSize(familyQn.getPreferredSize());
         }
+    }
+
+
+    @Override
+    public void showMyTab(String buttonName) {
+        displayPanel.showMyTab(buttonName);
+    }
+
+
+    @Override
+    public void showMyTab(String[] values, int source) {
+
+    }
+
+
+    @Override
+    public void addTab(JButton button, JPanel clickedPanel) {
+        displayPanel.addMyTab(clickedPanel, button.getName());
+    }
+
+
+    @Override
+    public void workWithFileChosen(File selectedFile) {
+        unknownPhoto.setIcon(ImageIcons.reSize(new ImageIcon(selectedFile.getAbsolutePath()),200,200));
     }
 }

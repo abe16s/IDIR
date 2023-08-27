@@ -7,9 +7,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 
-import GUI.src.IndividualProfile;
 
 public class CustomTable extends JTable {
     /*
@@ -20,19 +18,19 @@ public class CustomTable extends JTable {
      * And this render works to change the color of JTable header with desired color in color1 variable
      * It also have features like not editable cells, invisible grid lines
     */
-    public String TableID;
+    public ParentPanel parent;
     private Color color1 = Color.BLACK;
     private Color color2 = Color.WHITE;
 
-    public CustomTable(BasePanel displayPanel,Object[][] rowData, Object[] columnNames,String TableID) {
+    public CustomTable(ParentPanel parent,Object[][] rowData, Object[] columnNames) {
         super(rowData, columnNames);
-        this.TableID = TableID;
+        this.parent = parent;
 
         setShowGrid(false);
         setDefaultEditor(Object.class, null);
         setRowSelectionAllowed(false);
 
-        getSelectionModel().addListSelectionListener(new TableListener(this, displayPanel));
+        getSelectionModel().addListSelectionListener(new TableListener());
     }
 
 
@@ -104,6 +102,8 @@ public class CustomTable extends JTable {
             return cellComponent;
         }
     }
+
+
     public void updateRowHeights() {
         setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
@@ -119,37 +119,31 @@ public class CustomTable extends JTable {
     }
 
 
+    public String[] getRowValue(int rowIndex) {
 
+        int columnCount = getColumnCount();
+        String[] rowValue = new String[columnCount];
+        for (int i = 0; i < columnCount; i++) { 
+          rowValue[i] = getValueAt(rowIndex, i).toString(); 
+        }
+        return rowValue;
+      }
 
     public class TableListener implements ListSelectionListener{
     /*
      * This table listener creates and shows an individual custom page based on the row touched in and table id
      */
-    private CustomTable table;
-    private BasePanel displayPanel;
-    
-    public TableListener(CustomTable table, BasePanel displayPanel) {
-        this.table = table;   
-        this.displayPanel = displayPanel;
-    }
 
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            int selectedRow = table.getSelectedRow();            
+            int selectedRow = getSelectedRow();   
+            int selectedColumn = getSelectedColumn();        
+
             if (selectedRow != -1) { 
-                TableModel model = table.getModel();
-                if (table.TableID == "Members"){
-                    String MemberID = (String) model.getValueAt(selectedRow, 0);
-                    this.displayPanel.createIndividualProfile(new IndividualProfile(MemberID, this.displayPanel));
-                }else if (table.TableID == "Officials"){
-                    String MemberID = (String) model.getValueAt(selectedRow, 1);
-                    this.displayPanel.createIndividualProfile(new IndividualProfile(MemberID, this.displayPanel));
-                }
-                
-                
-                this.table.clearSelection();
+                parent.showMyTab(getRowValue(selectedRow),selectedColumn);
+                clearSelection();
             }
         }
     }}

@@ -51,8 +51,9 @@ public class ColoredButton extends HoverableButton {
     @Override
     public void run () {            
         try {((ParentPanel) parent).showMyTab(getName());} catch (Exception e) {}
-        background.setBackground(normalColor);}};
-        setSelected(false);
+        removeEffect();
+    }};
+
 
     executor.schedule (task, 150, TimeUnit.MILLISECONDS);
     executor.shutdown ();
