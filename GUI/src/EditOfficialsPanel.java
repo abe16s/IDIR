@@ -106,7 +106,7 @@ public class EditOfficialsPanel extends JPanel implements ParentPanel{
 
     @Override
     public void showMyTab(String[] values, int source) {
-        if (source == 4 & values[0].equals(""))new PopUpMembers(this,values[3]);
+        if (source == 4 & !values[0].equals(""))new PopUpMembers(this,values[3]);
     }
 
     @Override
