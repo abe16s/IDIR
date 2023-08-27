@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import GUI.src.utilities.BasePanel;
+import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.ColoredButton;
 import GUI.src.utilities.CustomTable;
 import GUI.src.utilities.ImageIcons;
