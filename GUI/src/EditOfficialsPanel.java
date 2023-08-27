@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -227,6 +228,19 @@ public class EditOfficialsPanel extends JPanel implements ParentPanel{
 
                 setLocationRelativeTo(null);
 
-    }}}
+    }}
+
+
+        @Override
+        public void workWithFileChosen(File selectedFile) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+        }}
+
+    @Override
+    public void workWithFileChosen(File selectedFile) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+    }
 
 }

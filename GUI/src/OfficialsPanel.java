@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -85,6 +86,12 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
     }
 
     public void updateData() {
+    }
+
+    @Override
+    public void workWithFileChosen(File selectedFile) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
     }
 
 }
