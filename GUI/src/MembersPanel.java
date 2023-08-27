@@ -4,17 +4,18 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.*;
 
 public class MembersPanel extends JPanel implements ParentPanel {
-private BasePanel displayPanel;
+    private BasePanel displayPanel;
     private IndividualProfile individualProfile;
     private CustomTable MembersList;
-        private ColoredButton AddMember;
+    private ColoredButton AddMember;
 
     public MembersPanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
-individualProfile = new IndividualProfile(displayPanel);
+        individualProfile = new IndividualProfile(displayPanel);
         
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(228, 228, 228));
@@ -84,7 +85,7 @@ individualProfile = new IndividualProfile(displayPanel);
         AddMember.setSelectedColor(new Color(79,170,255));
 
         addBar.add(AddMember.getWhole());
-addTab(AddMember, new AddMemberPanel(this.displayPanel));
+        addTab(AddMember, new AddMemberPanel(this.displayPanel));
 
         this.add(addBar, BorderLayout.SOUTH);
         this.add(ScrollList, BorderLayout.CENTER);

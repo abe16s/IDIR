@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.*;
 
 public class IndividualProfile extends JPanel implements ParentPanel{
