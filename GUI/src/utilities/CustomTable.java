@@ -41,6 +41,13 @@ public class CustomTable extends JTable {
         repaint();
     }
 
+    public void setAlternatingColor(Color headerColor, Color color1, Color color2, int headersize){
+        getTableHeader().setDefaultRenderer(new BoldHeaderRenderer(headerColor,headersize));
+        this.color1 = color1;
+        this.color2 = color2;
+        repaint();
+    }
+
 
     @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
@@ -103,6 +110,24 @@ public class CustomTable extends JTable {
         }
     }
 
+    class BoldHeaderRenderer extends DefaultTableCellRenderer {
+        private Color color;
+        private int textSize;
+        public BoldHeaderRenderer(Color color,int textSize) {
+            this.color= color;
+            this.textSize = textSize;
+            setHorizontalAlignment(SwingConstants.CENTER); 
+        }
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            component.setFont(new Font("Arial", Font.BOLD, textSize));
+            component.setBackground(color);
+            return component;
+        }
+    }
 
     public void updateRowHeights() {
         setAutoResizeMode(JTable.AUTO_RESIZE_OFF);

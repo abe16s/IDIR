@@ -27,8 +27,11 @@ public class EditOfficialsPanel extends JPanel implements ParentPanel{
     private ImageIcon change = ImageIcons.reSize(ImageIcons.CHANGE,20,20);
     private Object[][] data = {
                                 {ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0001","Alice frank", "Chairman",change},
+                                {"","","","","",""},
                                 {ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0002","Bob frank", "Vise chairman",change},
+                                {"","","","","",""},
                                 { ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0003","Charlie frank","Auditor",change},
+                                {"","","","","",""},
                                 { ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0003","Charlie frank","Secretary",change}};
 
     private Object[] columnNames = {"", "ID","Full Name","Title",""};
@@ -38,14 +41,14 @@ public class EditOfficialsPanel extends JPanel implements ParentPanel{
         setLayout(new BorderLayout());
 
         CustomTable officialTable = new CustomTable(this, data, columnNames);
-        officialTable.setAlternatingColor( new Color(0,0,0,0), new Color(241,241,241), Color.white);
+        officialTable.setAlternatingColor( new Color(0,0,0,0), new Color(241,241,241), Color.white,15);
         officialTable.updateRowHeights();
 
         JScrollPane ScrollList = new JScrollPane(officialTable );
         ScrollList.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
 
         JPanel gap = new JPanel();
-        gap.setPreferredSize(new Dimension(100,60));
+        gap.setPreferredSize(new Dimension(100,20));
         add(gap,BorderLayout.NORTH);
         add( ScrollList,BorderLayout.CENTER);
 
