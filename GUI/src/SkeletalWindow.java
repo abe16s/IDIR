@@ -1,6 +1,7 @@
 package GUI.src;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -92,6 +93,12 @@ public class SkeletalWindow extends JFrame{
             throw new UnsupportedOperationException("Unimplemented method 'addTab'");
         }
 
+        @Override
+        public void workWithFileChosen(File selectedFile) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+        }
+
     }
 
 
@@ -143,6 +150,13 @@ public class SkeletalWindow extends JFrame{
         public void showMyTab(String[] values, int source) {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
+        }
+
+
+        @Override
+        public void workWithFileChosen(File selectedFile) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
         }
     }
 }

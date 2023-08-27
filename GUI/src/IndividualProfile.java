@@ -3,6 +3,7 @@ package GUI.src;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -162,5 +163,10 @@ public class IndividualProfile extends JPanel implements ParentPanel{
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
         displayPanel.addMyTab(clickedPanel,button.getName());
+    }
+    @Override
+    public void workWithFileChosen(File selectedFile) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
     }
 }

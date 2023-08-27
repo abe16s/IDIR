@@ -1,5 +1,7 @@
 package GUI.src.utilities;
 
+import java.io.File;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -14,5 +16,7 @@ public interface ParentPanel{
     public void showMyTab(String[] values,int source);
 
     public void addTab(JButton button, JPanel clickedPanel);
+
+    public void workWithFileChosen(File selectedFile);
 
 }

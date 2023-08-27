@@ -1,6 +1,7 @@
 package GUI.src;
 
 import java.awt.*;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -110,6 +111,13 @@ public class MembersPanel extends JPanel implements ParentPanel {
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
         displayPanel.addMyTab(clickedPanel,button.getName());
+    }
+
+
+    @Override
+    public void workWithFileChosen(File selectedFile) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
     }
     
 }

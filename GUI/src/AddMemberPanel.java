@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.*;
@@ -46,25 +45,11 @@ public class AddMemberPanel extends JPanel implements ParentPanel {
         
         unknownPhoto = new JLabel(ImageIcons.reSize(ImageIcons.UNKNOWN,200,200));
 
-        ColoredButton choosePhoto = new ColoredButton("Choose Photo", photoPanel);
+        ColoredFileChooser choosePhoto = new ColoredFileChooser("Choose Photo", this, "Choose Member Photo", "jpg", "img");
         choosePhoto.setNormalColor(new Color(147, 175, 207));
         RoundedPanel choosePanel = choosePhoto.getWhole();
         choosePanel.setPreferredSize(new Dimension(choosePanel.getPreferredSize().width, 30));
-        choosePhoto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & IMG Images", "jpg", "img");
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Choose Member Photo");
-                fileChooser.setFileFilter(filter);
-                int result = fileChooser.showOpenDialog(null);
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    unknownPhoto.setIcon(ImageIcons.reSize(new ImageIcon(selectedFile.getAbsolutePath()),200,200));
-                }
-            }
-        });
-
+        
         photoPanel.add(title);
         photoPanel.add(unknownPhoto);
         photoPanel.add(choosePanel);
@@ -295,5 +280,11 @@ public class AddMemberPanel extends JPanel implements ParentPanel {
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
         displayPanel.addMyTab(clickedPanel, button.getName());
+    }
+
+
+    @Override
+    public void workWithFileChosen(File selectedFile) {
+        unknownPhoto.setIcon(ImageIcons.reSize(new ImageIcon(selectedFile.getAbsolutePath()),200,200));
     }
 }
