@@ -40,6 +40,8 @@ public final class ImageIcons {
     
     public static final ImageIcon CHANGE = new ImageIcon("GUI\\Icons\\colored\\change.png");
 
+    public static final ImageIcon FILE = new ImageIcon("GUI\\Icons\\colored\\file.png");
+
 
     public static ImageIcon reSize(ImageIcon icon, int width, int height){
         Image image = icon.getImage();
