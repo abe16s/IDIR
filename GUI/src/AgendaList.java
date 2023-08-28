@@ -107,7 +107,7 @@ public class AgendaList extends JPanel implements ParentPanel {
         addBar.setBackground(new Color(241,241,241));
 
         addAgenda = new ColoredButton("Add Agenda", this);
-        addAgenda.setIcon(ImageIcons.reSize(ImageIcons.ADD_MEMBER, 20, 20));
+        addAgenda.setIcon(ImageIcons.reSize(ImageIcons.NOTEdark, 20, 20));
         addAgenda.setNormalColor(new Color(147, 175, 207));
         addAgenda.setSelectedColor(new Color(79,170,255));
 
@@ -204,7 +204,7 @@ public class AgendaList extends JPanel implements ParentPanel {
             save.setNormalColor(new Color(147, 175, 207));
 
             ColoredButton discard = new ColoredButton("Discard",this);
-            discard.setIcon(ImageIcons.reSize(ImageIcons.ADD_MEMBER, 18, 18));
+            discard.setIcon(ImageIcons.reSize(ImageIcons.Discard_FILE, 18, 18));
             discard.setNormalColor(new Color(147, 175, 207));
 
             footer.add(save.getWhole());
