@@ -49,7 +49,7 @@ public class App {
 
         TransparentButton RULE = new TransparentButton("Rules", ImageIcons.reSize(ImageIcons.RULESdark,25,25), window.getMenu());
         RULE.setSelectedIcon(ImageIcons.reSize(ImageIcons.RULES,25,25));
-        window.getMenu().addTab(RULE, temp);
+        window.getMenu().addTab(RULE, new RulesPanel(window.getBasePanel()));
 
         TransparentButton HELP = new TransparentButton("Help", ImageIcons.reSize(ImageIcons.HELPdark,25,25), window.getMenu());
         HELP.setSelectedIcon(ImageIcons.reSize(ImageIcons.HELP,25,25));
