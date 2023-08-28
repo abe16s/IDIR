@@ -53,7 +53,7 @@ public class App {
 
         TransparentButton HELP = new TransparentButton("Help", ImageIcons.reSize(ImageIcons.HELPdark,25,25), window.getMenu());
         HELP.setSelectedIcon(ImageIcons.reSize(ImageIcons.HELP,25,25));
-        window.getMenu().addTab(HELP, temp);
+        window.getMenu().addTab(HELP, new Help(window.getBasePanel()));
 
         window.getMenu().setPreferredSize(new Dimension(140, window.getMenu().getPreferredSize().height)); //set the size of the MenuBar so as to not increase when financial data is hovered over
     }

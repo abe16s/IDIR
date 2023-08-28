@@ -1,0 +1,115 @@
+Help
+Welcome to Edirr, your all-in-one electronic document management solution. This help guide will walk you through the various features
+and functionalities of the application, helping you organize, store, and retrieve your digital documents efficiently.
+
+Table of Contents
+Getting Started
+
+Installing the Application
+Creating an Account
+Logging In
+Uploading Documents
+
+Importing Files
+Organizing Folders
+Adding Tags
+Managing Documents
+
+Viewing Documents
+Editing Document Information
+Searching for Documents
+Sorting and Filtering
+Collaboration
+
+Sharing Documents
+Permissions and Access Control
+Comments and Annotations
+Advanced Features
+
+Document Versioning
+Document Archiving
+Integrations with Other Apps
+Settings
+
+Profile Management
+Notification Preferences
+Security Settings
+FAQs
+
+Common Questions and Troubleshooting
+1. Getting Started
+Installing the Application
+Visit our official website to download the eDirr app for your operating system (Windows, macOS, or Linux). Follow the installation 
+instructions to complete the setup.
+
+Creating an Account
+Open the app and click on the "Sign Up" button. Provide your email address, create a secure password, and follow the prompts to create
+ your account.
+
+Logging In
+Launch the app and click on "Log In." Enter your registered email and password to access your eDirr account.
+
+2. Uploading Documents
+Importing Files
+Click the "Upload" button to add documents to eDirr. You can drag and drop files or select them from your computer. Supported formats
+ include PDF, DOCX, PNG, and more.
+
+Organizing Folders
+Create folders to organize your documents. Click "New Folder," give it a name, and choose a parent folder if needed. Drag and drop
+ documents to the desired folders.
+
+Adding Tags
+Enhance document search by adding tags. Tags are keywords that describe the content of a document. Assign tags during upload or by
+ editing document details.
+
+3. Managing Documents
+Viewing Documents
+Double-click a document to open it in the integrated viewer. Use navigation tools to move through multi-page documents. Close the 
+viewer to return to the document list.
+
+Editing Document Information
+Right-click a document and select "Edit Details" to modify metadata such as title, description, and tags. Click "Save" to apply changes.
+
+Searching for Documents
+Use the search bar to find documents by title, content, tags, or other criteria. Search results will update as you type.
+
+Sorting and Filtering
+Sort documents by name, date, or size by clicking the column headers. Apply filters to narrow down documents by date range, file type,
+ or other attributes.
+
+4. Collaboration
+Sharing Documents
+Right-click a document, choose "Share," and enter recipient emails. Select permission levels: view-only or edit. Recipients will
+ receive a link to access the document.
+
+Permissions and Access Control
+Manage document access by setting permissions. You can revoke access, change permission levels, or add more collaborators.
+
+Comments and Annotations
+Collaborators can leave comments on documents. Use annotation tools to highlight text, add notes, or draw shapes. Annotations
+ are visible to authorized users.
+
+5. Advanced Features
+Document Versioning
+Upload updated versions of documents without losing previous versions. View version history and revert to earlier versions if needed.
+
+Document Archiving
+Archive documents you no longer need regularly. Archived documents remain accessible but are separated from active files.
+
+Integrations with Other Apps
+Sync eDirr with cloud storage services like Dropbox or Google Drive. Export documents to other apps seamlessly.
+
+6. Settings
+Profile Management
+Click on your profile picture to access your profile settings. Update personal information, change profile picture, and manage 
+linked accounts.
+
+Notification Preferences
+Customize notification settings for new comments, shared documents, and system updates.
+
+Security Settings
+Enable two-factor authentication (2FA) for enhanced account security. Regularly update your password.
+
+7. FAQs
+For answers to common questions and troubleshooting assistance, refer to our FAQ section on the eDirr website or contact our
+ support team at support@edirrapp.com.
