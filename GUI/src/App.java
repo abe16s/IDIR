@@ -29,7 +29,7 @@ public class App {
 
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
         HOME.setSelectedIcon(ImageIcons.reSize(ImageIcons.HOME,25,25));
-        window.getMenu().addTab(HOME, temp);
+        window.getMenu().addTab(HOME, new HomePage(window.getBasePanel()));
 
         TransparentButton MEMBERS = new TransparentButton("Members", ImageIcons.reSize(ImageIcons.CONTACTSdark,25,25), window.getMenu());
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,25,25));
@@ -45,7 +45,7 @@ public class App {
 
         TransparentButton AGENDA = new TransparentButton("Agendas", ImageIcons.reSize(ImageIcons.NOTEdark,25,25), window.getMenu());
         AGENDA.setSelectedIcon(ImageIcons.reSize(ImageIcons.NOTE,25,25));
-        window.getMenu().addTab(AGENDA, temp);
+        window.getMenu().addTab(AGENDA, new AgendaList(window.getBasePanel()));
 
         TransparentButton RULE = new TransparentButton("Rules", ImageIcons.reSize(ImageIcons.RULESdark,25,25), window.getMenu());
         RULE.setSelectedIcon(ImageIcons.reSize(ImageIcons.RULES,25,25));
