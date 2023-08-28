@@ -45,7 +45,7 @@ public class App {
 
         TransparentButton AGENDA = new TransparentButton("Agendas", ImageIcons.reSize(ImageIcons.NOTEdark,25,25), window.getMenu());
         AGENDA.setSelectedIcon(ImageIcons.reSize(ImageIcons.NOTE,25,25));
-        window.getMenu().addTab(AGENDA, temp);
+        window.getMenu().addTab(AGENDA, new AgendaList(window.getBasePanel()));
 
         TransparentButton RULE = new TransparentButton("Rules", ImageIcons.reSize(ImageIcons.RULESdark,25,25), window.getMenu());
         RULE.setSelectedIcon(ImageIcons.reSize(ImageIcons.RULES,25,25));
