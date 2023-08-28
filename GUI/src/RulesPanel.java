@@ -3,20 +3,17 @@ package GUI.src;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import GUI.src.SkeletalWindow.BasePanel;
-import GUI.src.utilities.ParentPanel;
 
-public class RulesPanel extends JPanel implements ParentPanel{
+public class RulesPanel extends JPanel{
     private JTextArea textArea;
 
     public RulesPanel(BasePanel displayPanel) {
@@ -43,24 +40,4 @@ public class RulesPanel extends JPanel implements ParentPanel{
 
 
     }
-    @Override
-    public void showMyTab(String buttonName) {
-        throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
-    }
-
-    @Override
-    public void showMyTab(String[] values, int source) {
-        throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
-    }
-
-    @Override
-    public void addTab(JButton button, JPanel clickedPanel) {
-        throw new UnsupportedOperationException("Unimplemented method 'addTab'");
-    }
-
-    @Override
-    public void workWithFileChosen(File selectedFile) {
-        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
-    }
-    
 }
