@@ -29,7 +29,7 @@ public class CustomTable extends JTable {
         setShowGrid(false);
         setDefaultEditor(Object.class, null);
         setRowSelectionAllowed(false);
-
+        setFocusable(false);
         getSelectionModel().addListSelectionListener(new TableListener());
     }
 
@@ -167,7 +167,7 @@ public class CustomTable extends JTable {
             int selectedColumn = getSelectedColumn();        
 
             if (selectedRow != -1) { 
-                parent.showMyTab(getRowValue(selectedRow),selectedColumn);
+                parent.showMyTab(CustomTable.this, getRowValue(selectedRow),selectedColumn);
                 clearSelection();
             }
         }

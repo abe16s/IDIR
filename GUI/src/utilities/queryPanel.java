@@ -44,8 +44,6 @@ public class queryPanel extends JPanel{
         this.info.setOpaque(true);
         this.info.setBackground(Color.WHITE);
         this.add(this.info);
-        this.info.setPreferredSize(new Dimension(this.info.getPreferredSize().width+5, this.info.getPreferredSize().height+5));
-        this.info.setMaximumSize(this.info.getPreferredSize());
     }
 
     public JTextField getTextField() {
@@ -54,5 +52,9 @@ public class queryPanel extends JPanel{
 
     public JLabel getInfoLabel() {
         return this.info;
+    }
+
+    public JLabel getCaption() {
+        return this.caption;
     }
 }

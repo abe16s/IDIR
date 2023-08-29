@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import GUI.src.utilities.CustomTable;
 import GUI.src.utilities.HoverableButton;
 import GUI.src.utilities.ParentPanel;
 
@@ -83,7 +84,7 @@ public class SkeletalWindow extends JFrame{
 
 
         @Override
-        public void showMyTab(String[] values, int source) {
+        public void showMyTab(CustomTable table, String[] values, int source) {
 
         }
 
@@ -135,7 +136,7 @@ public class SkeletalWindow extends JFrame{
         }
 
 
-        private void prepare(String buttonName){
+        void prepare(String buttonName){
 
             for(HoverableButton x : buttons){
                 if (x.getName() != buttonName){
@@ -147,7 +148,7 @@ public class SkeletalWindow extends JFrame{
 
 
         @Override
-        public void showMyTab(String[] values, int source) {
+        public void showMyTab(CustomTable table, String[] values, int source) {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
         }
