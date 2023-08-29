@@ -2,6 +2,7 @@ package GUI.src;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.ColoredButton;
 import GUI.src.utilities.CustomTable;
 import GUI.src.utilities.ImageIcons;
@@ -44,30 +44,44 @@ public class HomePage extends JPanel implements ParentPanel{
 
         welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
         welcome.setFont(new Font("Serif", Font.BOLD, 30));
+        welcome.setForeground(new Color(125,125,125));
         add(welcome);
         add(Box.createVerticalStrut(40));
-    
-        paymentHistory.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
+        buttonsPanel.setAlignmentX(CENTER_ALIGNMENT);
+        buttonsPanel.setOpaque(false);
+        
         paymentHistory.setSelectedColor(new Color(79,170,255));
         paymentHistory.setNormalColor(new Color(147,175,207));
-        add(paymentHistory.getWhole());
+        buttonsPanel.add(paymentHistory.getWhole());
+        buttonsPanel.add(Box.createRigidArea(new Dimension(5, 10)));
         addTab(paymentHistory, new PaymentHistoryPanel(this.windowPanel.getBasePanel()));
         paymentHistory.addActionListener(new changeButtonEffect("Financial Data"));
 
-        writeReceipt.setAlignmentX(Component.LEFT_ALIGNMENT);
         writeReceipt.setSelectedColor(new Color(79,170,255));
         writeReceipt.setNormalColor(new Color(147,175,207));
-        add(writeReceipt.getWhole());
+        buttonsPanel.add(writeReceipt.getWhole());
+        buttonsPanel.add(Box.createRigidArea(new Dimension(5, 10)));
         addTab(writeReceipt, new IndividualReceiptPanel(this.windowPanel.getBasePanel()));
         writeReceipt.addActionListener(new changeButtonEffect("Financial Data"));
 
-        AddMember.setAlignmentX(Component.LEFT_ALIGNMENT);
         AddMember.setSelectedColor(new Color(79,170,255));
         AddMember.setNormalColor(new Color(147,175,207));
-        add(AddMember.getWhole());
+        buttonsPanel.add(AddMember.getWhole());
         addTab(AddMember, new AddMemberPanel(this.windowPanel.getBasePanel()));
         AddMember.addActionListener(new changeButtonEffect("Members"));
+
+        Component[] components = buttonsPanel.getComponents();
+        for (Component c : components) {
+            try{
+                ((JPanel)c).setAlignmentX(LEFT_ALIGNMENT);
+            } catch (Exception e) {}
+        }
         
+        add(buttonsPanel);
         setVisible(true);
     }  
 
