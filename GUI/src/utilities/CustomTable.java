@@ -29,7 +29,7 @@ public class CustomTable extends JTable {
         setShowGrid(false);
         setDefaultEditor(Object.class, null);
         setRowSelectionAllowed(false);
-
+        setFocusable(false);
         getSelectionModel().addListSelectionListener(new TableListener());
     }
 

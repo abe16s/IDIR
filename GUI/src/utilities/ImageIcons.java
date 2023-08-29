@@ -51,7 +51,7 @@ public final class ImageIcons {
     
     public static final ImageIcon RECEIPT = new ImageIcon("GUI\\Icons\\dark\\receipt.png");
 
-    public static final ImageIcon PAYMENT_HISTORY = new ImageIcon("GUI\\Icons\\dark\\payment-history.png");
+    public static final ImageIcon PAYMENT_HISTORY = new ImageIcon("GUI\\Icons\\dark\\history.png");
 
     public static ImageIcon reSize(ImageIcon icon, int width, int height){
         Image image = icon.getImage();

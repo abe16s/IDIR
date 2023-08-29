@@ -154,9 +154,6 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         Contents.add(header, BorderLayout.NORTH);
         Contents.add(body, BorderLayout.CENTER);
 
-        JScrollPane ScrollContents = new JScrollPane(Contents);
-        ScrollContents.setBorder(null);
-
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         buttons = new JPanel();
@@ -205,6 +202,9 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         footer.add(buttons);
         footer.add(delete.getWhole());
 
+        JScrollPane ScrollContents = new JScrollPane(Contents);
+        ScrollContents.setBorder(null);
+        
         this.add(ScrollContents);
         this.add(footer, BorderLayout.SOUTH);
     } 
