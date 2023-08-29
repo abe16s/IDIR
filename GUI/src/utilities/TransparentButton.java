@@ -29,5 +29,9 @@ public class TransparentButton extends HoverableButton {
     public void removeEffect() {
         this.setIcon(super.normalIcon);
     }
+
+    public Icon getSelectedIcon() {
+        return this.selectedIcon;
+    }
     
 }
