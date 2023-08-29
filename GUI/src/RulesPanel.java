@@ -28,7 +28,7 @@ public class RulesPanel extends JPanel{
         add(scrollPane, BorderLayout.CENTER);
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("GUI\\src\\Sample Agenda.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("GUI\\src\\Sample Rule.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 textArea.append(line + "\n");

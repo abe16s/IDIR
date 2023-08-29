@@ -231,7 +231,7 @@ public class AgendaList extends JPanel implements ParentPanel {
 
 
             @Override
-            public void showMyTab(String[] values, int source) {
+            public void showMyTab(CustomTable table, String[] values, int source) {
                 throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
             }
 
@@ -255,7 +255,7 @@ public class AgendaList extends JPanel implements ParentPanel {
 
 
     @Override
-    public void showMyTab(String[] values, int source) {
+    public void showMyTab(CustomTable table, String[] values, int source) {
         displayPanel.remove(individualAgenda);
         
         individualAgenda.updateData(values[0]);

@@ -44,6 +44,14 @@ public final class ImageIcons {
 
     public static final ImageIcon Discard_FILE = new ImageIcon("GUI\\Icons\\dark\\file discard.png");
     
+    public static final ImageIcon DOWN_ARROW = new ImageIcon("GUI\\Icons\\dark\\down-arrow.png");
+    public static final ImageIcon RIGHT_ARROW = new ImageIcon("GUI\\Icons\\dark\\right-arrow.png");
+
+    public static final ImageIcon DISCARD_RECEIPT = new ImageIcon("GUI\\Icons\\dark\\delete-receipt.png");
+    
+    public static final ImageIcon RECEIPT = new ImageIcon("GUI\\Icons\\dark\\receipt.png");
+
+    public static final ImageIcon PAYMENT_HISTORY = new ImageIcon("GUI\\Icons\\dark\\history.png");
 
     public static ImageIcon reSize(ImageIcon icon, int width, int height){
         Image image = icon.getImage();

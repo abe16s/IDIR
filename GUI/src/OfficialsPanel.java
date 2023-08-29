@@ -71,7 +71,7 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
 
 
     @Override
-    public void showMyTab(String[] values, int source) {
+    public void showMyTab(CustomTable table, String[] values, int source) {
         if(!values[0].equals("")){
         displayPanel.remove(official);
         official.updateData(values[1]);

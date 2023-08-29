@@ -26,6 +26,7 @@ public class App {
         temp.setBackground(new Color(228,228,228));
 
         MembersPanel membersPanel = new MembersPanel(window.getBasePanel());
+        FinancePanel financePanel = new FinancePanel(window.getBasePanel());
 
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
         HOME.setSelectedIcon(ImageIcons.reSize(ImageIcons.HOME,25,25));
@@ -41,7 +42,7 @@ public class App {
 
         TransparentButton FINANCIALdata = new TransparentButton("Financial data", ImageIcons.reSize(ImageIcons.COINSdark,20,20), window.getMenu());
         FINANCIALdata.setSelectedIcon(ImageIcons.reSize(ImageIcons.COINS,25,25));
-        window.getMenu().addTab(FINANCIALdata, temp);
+        window.getMenu().addTab(FINANCIALdata, financePanel);
 
         TransparentButton AGENDA = new TransparentButton("Agendas", ImageIcons.reSize(ImageIcons.NOTEdark,25,25), window.getMenu());
         AGENDA.setSelectedIcon(ImageIcons.reSize(ImageIcons.NOTE,25,25));
