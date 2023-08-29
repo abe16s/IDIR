@@ -105,7 +105,7 @@ public class EditOfficialsPanel extends JPanel implements ParentPanel{
 
 
     @Override
-    public void showMyTab(String[] values, int source) {
+    public void showMyTab(CustomTable table, String[] values, int source) {
         if (source == 4 & !values[0].equals(""))new PopUpMembers(this,values[3]);
     }
 
@@ -195,7 +195,7 @@ public class EditOfficialsPanel extends JPanel implements ParentPanel{
     
     
         @Override
-        public void showMyTab(String[] values, int source) {
+        public void showMyTab(CustomTable table, String[] values, int source) {
             parent.updateData(values[1]);
             dialog.setVisible(false);;
             
