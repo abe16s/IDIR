@@ -22,9 +22,9 @@ import GUI.src.utilities.ParentPanel;
 import GUI.src.utilities.TransparentButton;
 
 public class HomePage extends JPanel implements ParentPanel{
-    private JLabel background = new JLabel(ImageIcons.reSize(ImageIcons.LOGObackground, 200, 200));
+    private JLabel background = new JLabel(ImageIcons.reSize(ImageIcons.LOGObackground, 220, 220));
     private  JLabel welcome = new JLabel("Welcome");
-    private ColoredButton paymentHistory = new ColoredButton("Payment history",this);
+    private ColoredButton paymentHistory = new ColoredButton("Member payment history",this);
     private ColoredButton writeReceipt = new ColoredButton("Write Receipt",this);
     private ColoredButton AddMember = new ColoredButton("Add Member",this);
     private ArrayList<TransparentButton> affectedButtons = new ArrayList<>();
@@ -36,11 +36,11 @@ public class HomePage extends JPanel implements ParentPanel{
         setBackground(new Color(228,228,228));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
-        add(Box.createVerticalStrut(50));
+        add(Box.createVerticalStrut(40));
 
         background.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(background);
-        add(Box.createVerticalStrut(50));
+        add(Box.createVerticalStrut(35));
 
         welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
         welcome.setFont(new Font("Serif", Font.BOLD, 30));
@@ -57,14 +57,14 @@ public class HomePage extends JPanel implements ParentPanel{
         paymentHistory.setSelectedColor(new Color(79,170,255));
         paymentHistory.setNormalColor(new Color(147,175,207));
         buttonsPanel.add(paymentHistory.getWhole());
-        buttonsPanel.add(Box.createRigidArea(new Dimension(5, 10)));
+        buttonsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         addTab(paymentHistory, new PaymentHistoryPanel(this.windowPanel.getBasePanel()));
         paymentHistory.addActionListener(new changeButtonEffect("Financial Data"));
 
         writeReceipt.setSelectedColor(new Color(79,170,255));
         writeReceipt.setNormalColor(new Color(147,175,207));
         buttonsPanel.add(writeReceipt.getWhole());
-        buttonsPanel.add(Box.createRigidArea(new Dimension(5, 10)));
+        buttonsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         addTab(writeReceipt, new IndividualReceiptPanel(this.windowPanel.getBasePanel()));
         writeReceipt.addActionListener(new changeButtonEffect("Financial Data"));
 
