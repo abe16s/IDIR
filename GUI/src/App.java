@@ -1,12 +1,7 @@
 package GUI.src;
 
-
-import java.awt.Color;
 import java.awt.Dimension;
-
-import javax.swing.JPanel;
 import javax.swing.UIManager;
-
 import GUI.src.utilities.*;
 
 public class App {
@@ -22,19 +17,16 @@ public class App {
         
         window = new SkeletalWindow(title);
         window.setIconImage(ImageIcons.LOGO.getImage());
-        JPanel temp = new JPanel();
-        temp.setBackground(new Color(228,228,228));
 
-        MembersPanel membersPanel = new MembersPanel(window.getBasePanel());
-        FinancePanel financePanel = new FinancePanel(window.getBasePanel());
+        HomePage homePage = new HomePage(window);
 
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
         HOME.setSelectedIcon(ImageIcons.reSize(ImageIcons.HOME,25,25));
-        window.getMenu().addTab(HOME, new HomePage(window.getBasePanel()));
+        window.getMenu().addTab(HOME, homePage);
 
         TransparentButton MEMBERS = new TransparentButton("Members", ImageIcons.reSize(ImageIcons.CONTACTSdark,25,25), window.getMenu());
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,25,25));
-        window.getMenu().addTab(MEMBERS, membersPanel);
+        window.getMenu().addTab(MEMBERS, new MembersPanel(window.getBasePanel()));
 
         TransparentButton OFFICIAL = new TransparentButton("Officials", ImageIcons.reSize(ImageIcons.OFFICIALdark,25,25), window.getMenu());
         OFFICIAL.setSelectedIcon(ImageIcons.reSize(ImageIcons.OFFICIAL,25,25));
@@ -42,7 +34,7 @@ public class App {
 
         TransparentButton FINANCIALdata = new TransparentButton("Financial data", ImageIcons.reSize(ImageIcons.COINSdark,20,20), window.getMenu());
         FINANCIALdata.setSelectedIcon(ImageIcons.reSize(ImageIcons.COINS,25,25));
-        window.getMenu().addTab(FINANCIALdata, financePanel);
+        window.getMenu().addTab(FINANCIALdata, new FinancePanel(window.getBasePanel()));
 
         TransparentButton AGENDA = new TransparentButton("Agendas", ImageIcons.reSize(ImageIcons.NOTEdark,25,25), window.getMenu());
         AGENDA.setSelectedIcon(ImageIcons.reSize(ImageIcons.NOTE,25,25));
@@ -57,6 +49,10 @@ public class App {
         window.getMenu().addTab(HELP, new Help(window.getBasePanel()));
 
         window.getMenu().setPreferredSize(new Dimension(140, window.getMenu().getPreferredSize().height)); //set the size of the MenuBar so as to not increase when financial data is hovered over
+        homePage.giveAffectedButtons(MEMBERS);
+        homePage.giveAffectedButtons(FINANCIALdata);
+        HOME.showEffect();
+        HOME.setSelected(true);
     }
 
     public static void main(String[] args) {

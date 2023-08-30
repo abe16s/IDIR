@@ -136,7 +136,7 @@ public class SkeletalWindow extends JFrame{
         }
 
 
-        private void prepare(String buttonName){
+        void prepare(String buttonName){
 
             for(HoverableButton x : buttons){
                 if (x.getName() != buttonName){
