@@ -14,15 +14,142 @@ import GUI.src.utilities.*;
 
 public class IndividualProfile extends JPanel implements ParentPanel{
     private BasePanel displayPanel;
-    private AddMemberPanel editable;
-    private JLabel title;
-    private JPanel photoPanel;
-    private JPanel infoPanel;
-    private ArrayList<queryPanel> fields = new ArrayList<queryPanel>();
+
+    private JLabel photo;
+    private ColoredFileChooser choosePhoto;
+    
+    private JLabel fullName;
+    
+    private ArrayList<queryPanel> personalInfoInputFields;
+
+    private JPanel familyList;
+    private ColoredButton addFamily;
+
+    private ArrayList<queryPanel> familyInfoInputFields;
+
 
     public IndividualProfile(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
-        editable = new AddMemberPanel(displayPanel,"1");
+        personalInfoInputFields = new ArrayList<queryPanel>();
+
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBackground(new Color(228, 228, 228));       
+
+        JPanel photoPanel = new JPanel();
+        photoPanel.setLayout(new BoxLayout(photoPanel,BoxLayout.Y_AXIS));
+        photoPanel.setOpaque(false);
+        photoPanel.setPreferredSize(new Dimension(250, 300));
+        photoPanel.setMaximumSize(photoPanel.getPreferredSize());
+
+        photo = new JLabel();
+
+        fullName = new JLabel();
+        fullName.setFont(new Font("Arial", Font.BOLD, 15));
+        fullName.setOpaque(false);
+        fullName.setVisible(false);
+
+        choosePhoto = new ColoredFileChooser("choosePhoto", this, "Choose Member Photo", "jpg", "img");
+        choosePhoto.setVisible(false);
+
+        photoPanel.add(photo);
+        photoPanel.add(fullName);
+        photoPanel.add(choosePhoto);
+
+        queryPanel ID = new queryPanel("ID", " ", getBackground());
+        ID.setAlignmentX(LEFT_ALIGNMENT);
+
+        queryPanel name = new queryPanel("Full Name", " ", getBackground());
+        name.setAlignmentX(LEFT_ALIGNMENT);
+        name.setVisible(false);
+
+        queryPanel gender = new queryPanel("Gender", " ", getBackground());
+        gender.setAlignmentX(LEFT_ALIGNMENT);
+
+        queryPanel age = new queryPanel("Age", " ", getBackground());
+        age.setAlignmentX(LEFT_ALIGNMENT); 
+
+        queryPanel religion = new queryPanel("Religion", " ", getBackground());
+        religion.setAlignmentX(LEFT_ALIGNMENT);
+
+        queryPanel address = new queryPanel("Home address", " ", getBackground());
+        address.setAlignmentX(LEFT_ALIGNMENT);
+
+        queryPanel phone = new queryPanel("Phone", " ", getBackground());
+        phone.setAlignmentX(LEFT_ALIGNMENT);
+
+        queryPanel occupation = new queryPanel("Occupation", " ", getBackground());
+        occupation.setAlignmentX(LEFT_ALIGNMENT);
+
+
+        JPanel personalInfo = new JPanel();
+        BoxLayout infoBox = new BoxLayout(personalInfo, BoxLayout.Y_AXIS);
+        personalInfo.setLayout(infoBox);
+        personalInfo.setBackground(this.getBackground());
+        personalInfo.setPreferredSize(new Dimension(300, 300));
+        personalInfo.setMaximumSize(personalInfo.getPreferredSize());
+
+        
+        personalInfo.add(ID);        
+        personalInfoInputFields.add(ID);
+        personalInfo.add(name);        
+        personalInfoInputFields.add(name);
+        personalInfo.add(gender);        
+        personalInfoInputFields.add(gender);
+        personalInfo.add(age);
+        personalInfoInputFields.add(age);
+        personalInfo.add(religion);
+        personalInfoInputFields.add(religion);
+        personalInfo.add(address);
+        personalInfoInputFields.add(address);
+        personalInfo.add(phone);
+        personalInfoInputFields.add(phone);
+        personalInfo.add(occupation);
+        personalInfoInputFields.add(occupation);
+        
+        
+        JLabel title = new JLabel("Family Members");
+        title.setFont(new Font("Arial", Font.BOLD, 15));
+        title.setAlignmentX(CENTER_ALIGNMENT);
+
+        JPanel familyHeader = new JPanel(new FlowLayout(FlowLayout.CENTER, 80, 10)); 
+        familyHeader.add(new JLabel("Full Name"));
+        familyHeader.add(new JLabel("Phone No"));
+        familyHeader.add(new JLabel("Relation"));
+        familyHeader.setOpaque(false);
+        familyHeader.setAlignmentX(CENTER_ALIGNMENT);
+        familyHeader.setMaximumSize(new Dimension(400, 30));
+
+        familyList = new JPanel(new BoxLayout(familyList, BoxLayout.Y_AXIS));
+        familyList.setOpaque(false);
+        familyList.setAlignmentX(CENTER_ALIGNMENT);
+        familyList.setPreferredSize(new Dimension(500,100));
+        familyList.setMaximumSize(familyList.getPreferredSize());
+        
+        addFamily = new ColoredButton("Add Family", this);
+        addFamily.setIcon(ImageIcons.reSize(ImageIcons., WIDTH, HEIGHT));
+
+        JPanel familyInfo = new JPanel();
+        familyInfo.setLayout(new BoxLayout(familyInfo, BoxLayout.Y_AXIS));
+        familyInfo.setOpaque(false);
+        familyInfo.setBorder(new EmptyBorder(new Insets(40, 0, 0, 0)));
+
+        familyInfo.add(title);
+        familyInfo.add(familyHeader);
+
+
+
+
+        JPanel infoPanel;
+        infoPanel = new JPanel(new BorderLayout(20,0));
+        infoPanel.setBorder(new EmptyBorder(new Insets(0, 200, 0, 70)));
+        infoPanel.setBackground(this.getBackground());
+
+
+        JPanel Contents = new JPanel();
+        BoxLayout contentBox = new BoxLayout(Contents, BoxLayout.Y_AXIS);
+        Contents.setLayout(contentBox);
+        Contents.setBackground(getBackground());
+
     }
     public void updateData(String memberID){
         removeAll();
@@ -34,83 +161,12 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             {"Ermiyas Seifu Dula", "0911111111", "Brother"}
         };
         
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBackground(new Color(228, 228, 228));
 
-        JPanel Contents = new JPanel();
-        BoxLayout contentBox = new BoxLayout(Contents, BoxLayout.Y_AXIS);
-        Contents.setLayout(contentBox);
-        Contents.setBackground(getBackground());
-
-        photoPanel = new JPanel();
-        photoPanel.setOpaque(false);
-        photoPanel.setPreferredSize(new Dimension(250, 300));
-        photoPanel.setMaximumSize(photoPanel.getPreferredSize());
-
-        title = new JLabel("Profile of " + memberID);
-        title.setFont(new Font("Arial", Font.BOLD, 15));
-
-        JLabel photo = new JLabel(ImageIcons.reSize(new ImageIcon(exampleSelected[7]),200,200));
         
-        photoPanel.add(title);
-        photoPanel.add(photo);
 
-        infoPanel = new JPanel(new BorderLayout(20,0));
-        infoPanel.setBorder(new EmptyBorder(new Insets(0, 200, 0, 70)));
-        infoPanel.setBackground(this.getBackground());
+
         
-        JPanel generalInfo = new JPanel();
-        BoxLayout infoBox = new BoxLayout(generalInfo, BoxLayout.Y_AXIS);
-        generalInfo.setLayout(infoBox);
-        generalInfo.setBackground(this.getBackground());
-        generalInfo.setPreferredSize(new Dimension(300, 300));
-        generalInfo.setMaximumSize(generalInfo.getPreferredSize());
-
-        queryPanel ID = new queryPanel("ID", memberID, Color.LIGHT_GRAY);
-        queryPanel fullName = new queryPanel("Full Name", exampleSelected[1], Color.LIGHT_GRAY);
-        queryPanel address = new queryPanel("Address", exampleSelected[2], Color.LIGHT_GRAY);
-        queryPanel phone = new queryPanel("Phone", exampleSelected[3], Color.LIGHT_GRAY);
-        queryPanel Age = new queryPanel("Age", exampleSelected[4], Color.LIGHT_GRAY);
-        queryPanel occupation = new queryPanel("Occupation", exampleSelected[5], Color.LIGHT_GRAY);
-        queryPanel religion = new queryPanel("Religion", exampleSelected[6], Color.LIGHT_GRAY);
         
-        generalInfo.add(ID);        
-        fields.add(ID);
-        generalInfo.add(fullName);        
-        fields.add(fullName);
-        generalInfo.add(address);
-        fields.add(address);
-        generalInfo.add(phone);
-        fields.add(phone);
-        generalInfo.add(Age);
-        fields.add(Age);
-        generalInfo.add(occupation);
-        fields.add(occupation);
-        generalInfo.add(religion);
-        fields.add(religion);
-
-        Component[] components = generalInfo.getComponents();
-        for (Component c : components) {
-            ((queryPanel)c).setAlignmentX(LEFT_ALIGNMENT);
-        }
-
-        JPanel familyInfo = new JPanel();
-        BoxLayout bcx = new BoxLayout(familyInfo, BoxLayout.Y_AXIS);
-        familyInfo.setLayout(bcx);
-        familyInfo.setBackground(this.getBackground());
-        familyInfo.setBorder(new EmptyBorder(new Insets(40, 0, 0, 0)));
-
-        JLabel familyTitle = new JLabel("Family Members");
-        familyTitle.setFont(new Font("Arial", Font.BOLD, 15));
-
-        JPanel familyHeader = new JPanel(new FlowLayout(FlowLayout.CENTER, 80, 10)); 
-        familyHeader.add(new JLabel("Full Name"));
-        familyHeader.add(new JLabel("Phone No"));
-        familyHeader.add(new JLabel("Relation"));
-        familyHeader.setBackground(Color.LIGHT_GRAY);
-        familyHeader.setMaximumSize(new Dimension(500, 30));
-
-        String[] columnNames = {"Full Name", "Phone", "Relation"};
         CustomTable familiesList = new CustomTable(this,familiesExample, columnNames);
         familiesList.setAlternatingColor(Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
         
@@ -152,6 +208,28 @@ public class IndividualProfile extends JPanel implements ParentPanel{
 
         repaint();
     }
+    public void addFamilyInputPanel(String name, String )
+    public void prepareToAddMember(){
+
+    }
+
+    public void prepareToEditMember(int memberID){
+
+    }
+    public void prepareToShowProfile(int memberID){
+
+    }
+
+    public void saveProfile(){
+
+    }
+
+    public void updateProfile(int memberID){
+
+    }
+
+
+
     @Override
     public void showMyTab(String buttonName) {
         displayPanel.showMyTab(buttonName);
