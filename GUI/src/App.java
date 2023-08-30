@@ -19,6 +19,7 @@ public class App {
         window.setIconImage(ImageIcons.LOGO.getImage());
 
         HomePage homePage = new HomePage(window);
+        OfficialsPanel offcialsPage = new OfficialsPanel(window.getBasePanel());
 
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
         HOME.setSelectedIcon(ImageIcons.reSize(ImageIcons.HOME,30,30));
@@ -30,7 +31,7 @@ public class App {
 
         TransparentButton OFFICIAL = new TransparentButton("Officials", ImageIcons.reSize(ImageIcons.OFFICIALdark,25,25), window.getMenu());
         OFFICIAL.setSelectedIcon(ImageIcons.reSize(ImageIcons.OFFICIAL,30,30));
-        window.getMenu().addTab (OFFICIAL, new OfficialsPanel(window.getBasePanel()));
+        window.getMenu().addTab (OFFICIAL, offcialsPage);
 
         TransparentButton FINANCIALdata = new TransparentButton("Financial data", ImageIcons.reSize(ImageIcons.COINSdark,20,20), window.getMenu());
         FINANCIALdata.setSelectedIcon(ImageIcons.reSize(ImageIcons.COINS,25,25));
@@ -51,6 +52,8 @@ public class App {
         window.getMenu().setPreferredSize(new Dimension(140, window.getMenu().getPreferredSize().height)); //set the size of the MenuBar so as to not increase when financial data is hovered over
         homePage.giveAffectedButtons(MEMBERS);
         homePage.giveAffectedButtons(FINANCIALdata);
+        offcialsPage.giveAffectedButtons(MEMBERS, window.getMenu());
+
         HOME.showEffect();
         HOME.setSelected(true);
     }
