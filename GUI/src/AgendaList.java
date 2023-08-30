@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -153,65 +156,70 @@ public class AgendaList extends JPanel implements ParentPanel {
         private class inputPanel extends JPanel implements ParentPanel{
             private AddAgenda parent;
             private File fileChosen;
+            private ColoredFileChooser chooser;
 
             public inputPanel (AddAgenda parent){
-            this.parent = parent;
+                this.parent = parent;
 
-            setLayout(new BorderLayout());
-            JPanel textInput = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            textInput.add(Box.createRigidArea(new Dimension(10, 0)));
+                setLayout(new BorderLayout());
+                JPanel textInput = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                textInput.add(Box.createRigidArea(new Dimension(10, 0)));
 
-            JPanel p = new JPanel();
-            p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-        
-            String nextAvailableNoExample = "122"; 
-
-            queryPanel agendaNo = new queryPanel("No", nextAvailableNoExample, Color.LIGHT_GRAY);
-            agendaNo.setAlignmentX(LEFT_ALIGNMENT);
-
-            queryPanel date = new queryPanel("Date", 10, Color.LIGHT_GRAY);
-            date.setAlignmentX(LEFT_ALIGNMENT);
-
-            queryPanel title = new queryPanel("Title", 20, Color.LIGHT_GRAY);
-            title.setAlignmentX(LEFT_ALIGNMENT);
-
-            queryPanel writer = new queryPanel("Writer", 20, Color.LIGHT_GRAY);
-            writer.setAlignmentX(LEFT_ALIGNMENT);
-
-            p.add(agendaNo);
-            p.add(date);
-            p.add(title);
-            p.add(writer);
-
-            textInput.add(p);
-            add(textInput,BorderLayout.WEST);
-
-
-            JPanel fileInput = new JPanel();
-            fileInput.setLayout(new BoxLayout(fileInput,BoxLayout.Y_AXIS));
-            fileInput.add(Box.createRigidArea(new Dimension(0, 40)));
-
-            ColoredFileChooser chooser = new ColoredFileChooser("Add File", this, "Choose File", "txt");
-            chooser.setIcon(ImageIcons.reSize(ImageIcons.FILE, 40,40));
-            fileInput.add(chooser);
+                JPanel generalInput = new JPanel();
+                generalInput.setLayout(new BoxLayout(generalInput, BoxLayout.Y_AXIS));
             
-            add(fileInput,BorderLayout.EAST);
-            JPanel footer = new JPanel();
-            footer.setBackground(new Color(241,241,241));
+                String nextAvailableNoExample = "122"; 
+                LocalDate currentDate = LocalDate.now();
+                String formattedDate = currentDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
 
-            ColoredButton save = new ColoredButton("Save", this);
-            save.setIcon(ImageIcons.reSize(ImageIcons.SAVE, 18, 18));
-            save.setNormalColor(new Color(147, 175, 207));
 
-            ColoredButton discard = new ColoredButton("Discard",this);
-            discard.setIcon(ImageIcons.reSize(ImageIcons.Discard_FILE, 18, 18));
-            discard.setNormalColor(new Color(147, 175, 207));
+                queryPanel agendaNo = new queryPanel("No", nextAvailableNoExample, Color.LIGHT_GRAY);
+                agendaNo.setAlignmentX(LEFT_ALIGNMENT);
 
-            footer.add(save.getWhole());
-            footer.add(discard.getWhole());
+                queryPanel date = new queryPanel("Date", formattedDate, Color.LIGHT_GRAY);
+                date.setAlignmentX(LEFT_ALIGNMENT);
 
-            add(footer, BorderLayout.SOUTH);
+                queryPanel title = new queryPanel("Title", 20, Color.LIGHT_GRAY);
+                title.setAlignmentX(LEFT_ALIGNMENT);
 
+                queryPanel writer = new queryPanel("Writer", 20, Color.LIGHT_GRAY);
+                writer.setAlignmentX(LEFT_ALIGNMENT);
+
+                generalInput.add(agendaNo);
+                generalInput.add(date);
+                generalInput.add(title);
+                generalInput.add(writer);
+
+                textInput.add(generalInput);
+                add(textInput,BorderLayout.WEST);
+
+
+                JPanel fileInput = new JPanel();
+                fileInput.setLayout(new BoxLayout(fileInput,BoxLayout.Y_AXIS));
+                fileInput.add(Box.createRigidArea(new Dimension(0, 40)));
+
+                chooser = new ColoredFileChooser("Add File", this, "Choose File", "txt");
+                chooser.setIcon(ImageIcons.reSize(ImageIcons.FILE, 40,40));
+                fileInput.add(chooser);
+                
+                add(fileInput,BorderLayout.EAST);
+                JPanel footer = new JPanel();
+                footer.setBackground(new Color(241,241,241));
+
+                ColoredButton save = new ColoredButton("Save", this);
+                save.setIcon(ImageIcons.reSize(ImageIcons.SAVE, 18, 18));
+                save.setNormalColor(new Color(147, 175, 207));
+                save.setSelectedColor(new Color(79,170,255));
+
+                ColoredButton discard = new ColoredButton("Discard",this);
+                discard.setIcon(ImageIcons.reSize(ImageIcons.Discard_FILE, 18, 18));
+                discard.setNormalColor(new Color(147, 175, 207));
+                discard.setSelectedColor(new Color(79,170,255));
+
+                footer.add(save.getWhole());
+                footer.add(discard.getWhole());
+
+                add(footer, BorderLayout.SOUTH);
             }
 
         
@@ -244,6 +252,8 @@ public class AgendaList extends JPanel implements ParentPanel {
             @Override
             public void workWithFileChosen(File selectedFile) {
                 this.fileChosen = selectedFile;
+                this.chooser.setText(selectedFile.getName());
+                chooser.setSelected(true);
             }}
     }
 
