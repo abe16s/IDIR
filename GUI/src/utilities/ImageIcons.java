@@ -53,6 +53,9 @@ public final class ImageIcons {
 
     public static final ImageIcon PAYMENT_HISTORY = new ImageIcon("GUI\\Icons\\dark\\history.png");
 
+    public static final ImageIcon OFF = new ImageIcon("GUI\\Icons\\dark\\off.png");
+    public static final ImageIcon ON = new ImageIcon("GUI\\Icons\\colored\\on.png");
+
     public static ImageIcon reSize(ImageIcon icon, int width, int height){
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
