@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
-
 import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.ReadAndDisplay;
 import GUI.src.utilities.queryPanel;
@@ -18,11 +17,8 @@ public class IndividualAgenda extends JPanel {
         JPanel header = new JPanel(new FlowLayout(FlowLayout.RIGHT,40,0));
         
         queryPanel agendaNo = new queryPanel("No", "1", getBackground());
-
         queryPanel date = new queryPanel("Date", "20/7/2023", getBackground());
-
         queryPanel title = new queryPanel("Title", "General Meeting", getBackground());
-
         queryPanel writer = new queryPanel("Writer","Abenezer", getBackground());
 
         header.setBackground(getBackground());
@@ -32,7 +28,7 @@ public class IndividualAgenda extends JPanel {
         header.add(writer);
         add(header,BorderLayout.NORTH);
 
-        ReadAndDisplay readAndDisplay = new ReadAndDisplay("GUI\\src\\Sample Agenda.txt");
+        ReadAndDisplay readAndDisplay = new ReadAndDisplay("GUI\\src\\utilities\\Sample Agenda.txt");
         readAndDisplay.setBackground(getBackground());
         add(readAndDisplay.getWhole(), BorderLayout.CENTER);
     }
