@@ -43,61 +43,34 @@ public class AgendaList extends JPanel implements ParentPanel {
         this.setBackground(new Color(228, 228, 228));
         
         String[] columnNames = {"No", "Date", "Title", "Meeting chair"};
-        String[][] exampleData = {
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
-            {"1", "20/7/2023", "General Meeting", "Abenezer"},
+        Object[][] exampleData = {
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
+            {1, "20/7/2023", "General Meeting", "Abenezer"},
+            {2, "20/7/2023", "General Meeting", "Abenezer"},
+            {3, "20/7/2023", "General Meeting", "Abenezer"},
         };
     
         agendaList = new CustomTable(this,exampleData, columnNames);
@@ -147,8 +120,8 @@ public class AgendaList extends JPanel implements ParentPanel {
         
 
         public void report(File fileChosen) {
-            if (fileChosen != null)parent.workWithFileChosen(fileChosen);
             setVisible(false);
+            if (fileChosen != null)parent.workWithFileChosen(fileChosen);
         }
 
 
@@ -239,7 +212,7 @@ public class AgendaList extends JPanel implements ParentPanel {
 
 
             @Override
-            public void showMyTab(CustomTable table, String[] values, int source) {
+            public void showMyTab(CustomTable table, Object[] values, int source) {
                 throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
             }
 
@@ -265,12 +238,11 @@ public class AgendaList extends JPanel implements ParentPanel {
 
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {
+    public void showMyTab(CustomTable table, Object[] values, int source) {
         displayPanel.remove(individualAgenda);
-        
-        individualAgenda.updateData(values[0]);
-        displayPanel.addMyTab(individualAgenda,values[0]);
-        displayPanel.showMyTab(values[0]);
+        individualAgenda.updateData(Integer.parseInt((String)values[0]));
+        displayPanel.addMyTab(individualAgenda,values[0].toString());
+        displayPanel.showMyTab(values[0].toString());
     }
     
 

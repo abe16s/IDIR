@@ -100,12 +100,12 @@ public class MembersPanel extends JPanel implements ParentPanel {
 
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {
+    public void showMyTab(CustomTable table, Object[] values, int source) {
         displayPanel.remove(individualProfile);
         
-        individualProfile.updateData(values[0]);
-        displayPanel.addMyTab(individualProfile,values[0]);
-        displayPanel.showMyTab(values[0]);
+        individualProfile.updateData((String)values[0]);
+        displayPanel.addMyTab(individualProfile,(String)values[0]);
+        displayPanel.showMyTab((String)values[0]);
     }
 
     @Override

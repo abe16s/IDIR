@@ -157,15 +157,15 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
 
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {
-        if (source == 4 & !values[0].equals(""))new PopUpMembers(this,values[3]);
+    public void showMyTab(CustomTable table, Object[] values, int source) {
+        if (source == 4 & !values[0].equals(""))new PopUpMembers(this,(String)values[3]);
         
         if(!values[0].equals("") && edit.isVisible()){
             displayPanel.remove(official);
-            official.updateData(values[1]);
+            official.updateData((String)values[1]);
     
-            displayPanel.addMyTab(official,values[1]);
-            displayPanel.showMyTab(values[1]);
+            displayPanel.addMyTab(official,(String)values[1]);
+            displayPanel.showMyTab((String)values[1]);
 
             for (TransparentButton transparentButton: affectedButtons) {
                 if (transparentButton.getName().equalsIgnoreCase("Members")) {
@@ -263,9 +263,9 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
     
     
         @Override
-        public void showMyTab(CustomTable table, String[] values, int source) {
-            parent.updateData(values[1]);
-            dialog.setVisible(false);;
+        public void showMyTab(CustomTable table, Object[] values, int source) {
+            parent.updateData((String)values[1]);
+            dialog.setVisible(false);
             
         }
     

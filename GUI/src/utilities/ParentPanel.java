@@ -13,7 +13,7 @@ public interface ParentPanel{
     public void showMyTab(String buttonName);
 
     // if it owns table 
-    public void showMyTab(CustomTable table, String[] values,int source);
+    public void showMyTab(CustomTable table, Object[] values,int source);
 
     public void addTab(JButton button, JPanel clickedPanel);
 

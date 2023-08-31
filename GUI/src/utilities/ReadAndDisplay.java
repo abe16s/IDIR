@@ -10,24 +10,30 @@ import javax.swing.JTextArea;
 public class ReadAndDisplay extends JTextArea {
     private JScrollPane scrollPane;
 
-    public ReadAndDisplay(String file) {
+    public ReadAndDisplay() {
         setEditable(false);
+        setLineWrap(true); 
+        setWrapStyleWord(true);
         scrollPane = new JScrollPane(this);
         scrollPane.setBorder(null);
+    }
+
+    public JScrollPane getWhole() {
+        return scrollPane;
+    }
+
+    public void readFile(String file) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
-                this.append(line + "\n");
+                append(line + "\n");
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public JScrollPane getWhole() {
-        return scrollPane;
+        setCaretPosition(0);
     }
         
 }

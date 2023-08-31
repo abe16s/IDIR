@@ -176,7 +176,7 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
     }
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {
+    public void showMyTab(CustomTable table, Object[] values, int source) {
         if (!values[source].equals("-") && source>0) {
             //get the receipt for the source column month years combobox year and values[0] id
             displayPanel.remove(receiptPanel);
