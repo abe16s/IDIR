@@ -86,7 +86,6 @@ public class MembersPanel extends JPanel implements ParentPanel {
         AddMember.setSelectedColor(new Color(79,170,255));
 
         addBar.add(AddMember.getWhole());
-        addTab(AddMember, new AddMemberPanel(this.displayPanel));
 
         this.add(addBar, BorderLayout.SOUTH);
         this.add(ScrollList, BorderLayout.CENTER);
@@ -95,17 +94,17 @@ public class MembersPanel extends JPanel implements ParentPanel {
     
     @Override
     public void showMyTab(String buttonName){
-                displayPanel.showMyTab(buttonName);
+        App.INDIVIDUAL_PROFILE.prepareToAddMember();
+        displayPanel.showMyTab("individualProfile");
+
     }
 
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {
-        displayPanel.remove(individualProfile);
-        
-        individualProfile.updateData(values[0]);
-        displayPanel.addMyTab(individualProfile,values[0]);
-        displayPanel.showMyTab(values[0]);
+    public void showMyTab(CustomTable table, String[] values, int source) {        
+        App.INDIVIDUAL_PROFILE.prepareToShowProfile(values[0]);
+
+        displayPanel.showMyTab("individualProfile");
     }
 
     @Override
