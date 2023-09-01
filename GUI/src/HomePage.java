@@ -71,7 +71,7 @@ public class HomePage extends JPanel implements ParentPanel{
         AddMember.setSelectedColor(new Color(79,170,255));
         AddMember.setNormalColor(new Color(147,175,207));
         buttonsPanel.add(AddMember.getWhole());
-        addTab(AddMember, new AddMemberPanel(this.windowPanel.getBasePanel()));
+
         AddMember.addActionListener(new changeButtonEffect("Members"));
 
         Component[] components = buttonsPanel.getComponents();
@@ -110,6 +110,10 @@ public class HomePage extends JPanel implements ParentPanel{
 
     @Override
     public void showMyTab(String buttonName) {
+        if (buttonName.equals("Add Member")){
+            App.INDIVIDUAL_PROFILE.prepareToAddMember();
+            windowPanel.getBasePanel().showMyTab("individualProfile");
+        }
         windowPanel.getBasePanel().showMyTab(buttonName);
     }
 
