@@ -10,13 +10,11 @@ import GUI.src.utilities.*;
 
 public class MembersPanel extends JPanel implements ParentPanel {
     private BasePanel displayPanel;
-    private IndividualProfile individualProfile;
     private CustomTable MembersList;
     private ColoredButton AddMember;
 
     public MembersPanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
-        individualProfile = new IndividualProfile(displayPanel);
         
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(228, 228, 228));
