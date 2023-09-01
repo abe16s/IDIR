@@ -6,7 +6,7 @@ import GUI.src.utilities.*;
 
 public class App {
     private SkeletalWindow window;
-    
+    public static IndividualProfile INDIVIDUAL_PROFILE;
     App(String title){
         //This block of code is to make the whole GUI look and feel like the operating system. Can be seen in the ScrollPane and the file choosers
         try {
@@ -18,6 +18,8 @@ public class App {
         window = new SkeletalWindow(title);
         window.setIconImage(ImageIcons.LOGO.getImage());
 
+
+
         HomePage homePage = new HomePage(window);
 
         TransparentButton HOME = new TransparentButton("Home", ImageIcons.reSize(ImageIcons.HOMEdark,25,25), window.getMenu());
@@ -27,6 +29,9 @@ public class App {
         TransparentButton MEMBERS = new TransparentButton("Members", ImageIcons.reSize(ImageIcons.CONTACTSdark,25,25), window.getMenu());
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,30,30));
         window.getMenu().addTab(MEMBERS, new MembersPanel(window.getBasePanel()));
+
+        INDIVIDUAL_PROFILE = new IndividualProfile(window.getBasePanel());
+        window.getBasePanel().addMyTab(INDIVIDUAL_PROFILE,"individualProfile");
 
         TransparentButton OFFICIAL = new TransparentButton("Officials", ImageIcons.reSize(ImageIcons.OFFICIALdark,25,25), window.getMenu());
         OFFICIAL.setSelectedIcon(ImageIcons.reSize(ImageIcons.OFFICIAL,30,30));
