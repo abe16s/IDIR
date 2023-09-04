@@ -14,23 +14,23 @@ import GUI.src.utilities.*;
 public class IndividualProfile extends JPanel implements ParentPanel{
     private BasePanel displayPanel;
 
-    private JLabel photo;
-    private JPanel choosePhoto;
+    private JLabel photo; // a label to show a photo of a member
+    private JPanel choosePhoto; // button to choose from a local storage
     
-    private JLabel fullName;
+    private JLabel fullName; // to show a name of a member when name cant be edited or it is on read only format
     
-    private ArrayList<queryPanel> personalInfoInputFields;
+    private ArrayList<queryPanel> personalInfoInputFields; // an arraylist to store all the query panels of personal information 
 
-    private JPanel familyList;
-    private RoundedPanel addFamily;
+    private JPanel familyList; // a panel to collect and show family profile
+    private RoundedPanel addFamily; // a button that add an empty family input panel to receive information about new family member
 
-    private ArrayList<FamilyInfoInputPanel> familyInfoInputPanels;
+    private ArrayList<FamilyInfoInputPanel> familyInfoInputPanels; // an arraylist to store all the query panels of family information 
 
     private JPanel save;
     private JPanel discard;
     private JPanel edit;
 
-    private boolean editing;
+    private boolean editing; // a boolean to determine whether a member is being edited or being added
 
     String[] exampleSelected = {"1","Male", "19", "Orthodox", "Shenkor, 10, 551", "0936120470", "Student", "Abenezer Seifu Dula"};
 
@@ -42,17 +42,18 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         )
     );
 
-    private int familiesSize = 0;
+    private int familiesSize; // number of family a member have
 
     public IndividualProfile(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
         personalInfoInputFields = new ArrayList<queryPanel>();
         familyInfoInputPanels = new ArrayList<FamilyInfoInputPanel>();
+        familiesSize = 0;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(new Color(228, 228, 228));       
 
-        JPanel photoPanel = new JPanel();
+        JPanel photoPanel = new JPanel(); // a panel to position "photo" , "choose photo" and "full name" vertically at the center of the page
         photoPanel.setLayout(new BoxLayout(photoPanel,BoxLayout.Y_AXIS));
         photoPanel.setOpaque(false);;
         photoPanel.setPreferredSize(new Dimension(250, 300));
@@ -77,6 +78,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
 
         photoPanel.add(photo);
         photoPanel.add(fullName);
+        photoPanel.add(Box.createVerticalStrut(5));
         photoPanel.add(choosePhoto);
 
         queryPanel ID = new queryPanel("ID", 4, getBackground());
@@ -105,28 +107,29 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         occupation.setAlignmentX(LEFT_ALIGNMENT);
 
 
-        JPanel personalInfo = new JPanel();
+        JPanel personalInfo = new JPanel(); // a panel to collect all the "querypanel "of personal info vertically and show them 
         personalInfo.setLayout(new BoxLayout(personalInfo, BoxLayout.Y_AXIS));
         personalInfo.setBackground(this.getBackground());
         personalInfo.setPreferredSize(new Dimension(300, 300));
         personalInfo.setMaximumSize(personalInfo.getPreferredSize());
 
         
-        personalInfo.add(ID);        
-        personalInfoInputFields.add(ID);
-        personalInfo.add(name);        
-        personalInfo.add(gender);        
-        personalInfoInputFields.add(gender);
-        personalInfo.add(age);
-        personalInfoInputFields.add(age);
-        personalInfo.add(religion);
-        personalInfoInputFields.add(religion);
-        personalInfo.add(address);
-        personalInfoInputFields.add(address);
-        personalInfo.add(phone);
-        personalInfoInputFields.add(phone);
-        personalInfo.add(occupation);
-        personalInfoInputFields.add(occupation);
+        personalInfo.add(ID);   personalInfoInputFields.add(ID);
+
+        personalInfo.add(name);   
+
+        personalInfo.add(gender);  personalInfoInputFields.add(gender);
+
+        personalInfo.add(age);  personalInfoInputFields.add(age);
+
+        personalInfo.add(religion); personalInfoInputFields.add(religion);
+       
+        personalInfo.add(address); personalInfoInputFields.add(address);
+        
+        personalInfo.add(phone);personalInfoInputFields.add(phone);
+        
+        personalInfo.add(occupation); personalInfoInputFields.add(occupation);
+        
         personalInfoInputFields.add(name);
         
         
@@ -148,13 +151,13 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         familyList.setAlignmentX(CENTER_ALIGNMENT);
         
         ColoredButton addFamilyButton = new ColoredButton("Add Family", this);
-        addFamilyButton.setIcon(ImageIcons.reSize(ImageIcons.FAMILY, 20,20));
+        // addFamilyButton.setIcon(ImageIcons.reSize(ImageIcons.FAMILY, 20,20));
         addFamilyButton.setNormalColor(new Color(147, 175, 207));
         addFamilyButton.setSelectedColor(new Color(79,170,255));
         addFamily = addFamilyButton.getWhole();
         addFamily.setVisible(false);
 
-        JPanel familyInfo = new JPanel();
+        JPanel familyInfo = new JPanel(); // a panel to collect all the panel of 'family info', "title" , "header", and "add family" vertically and show them 
         familyInfo.setLayout(new BoxLayout(familyInfo, BoxLayout.Y_AXIS));
         familyInfo.setOpaque(false);
         familyInfo.setBorder(null);
@@ -165,7 +168,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         familyInfo.add(Box.createVerticalStrut(5));
         familyInfo.add(addFamily);
 
-        JPanel infoPanel;
+        JPanel infoPanel; // a panel to arrange the "info panel" and "family info panel" to east and west respectively horizontally and show them 
         infoPanel = new JPanel(new BorderLayout(20,0));
         infoPanel.setBorder(new EmptyBorder(new Insets(0, 200, 0, 70)));
         infoPanel.setBackground(getBackground());
@@ -208,15 +211,15 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         contents.add(photoPanel);
         contents.add(infoPanel);
         contents.add(footer);
-        contents.setBorder(new EmptyBorder(new Insets(40, 0, 40, 0)));
+        contents.setBorder(new EmptyBorder(new Insets(20, 0, 20, 0)));
 
         JScrollPane ScrollContents = new JScrollPane(contents);
         ScrollContents.setBorder(null);
 
         add(ScrollContents);
-
     }
 
+    //  method to add a family input panel if it is required for display(overloaded)
     public void addFamilyInputPanel(String name, String phone, String relation){
         FamilyInfoInputPanel newLine =  new FamilyInfoInputPanel(name,phone,relation);
         familyList.add(newLine);
@@ -224,19 +227,22 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         familyInfoInputPanels.add(newLine);
     }
     
+    //  method to add a family input panel if it is required to be editable (overloaded)
     public void addFamilyInputPanel(String name, String phone){
         FamilyInfoInputPanel newLine =  new FamilyInfoInputPanel(name,phone);
         familyList.add(newLine);
-        familyList.add(Box.createVerticalStrut(10));
+        familyList.add(Box.createVerticalStrut(5));
         familyInfoInputPanels.add(newLine);
     }
 
+    // a method to prepare the individual panel to be ready to add a member
     public void prepareToAddMember(){
-        editing = false;
+        editing = false; // state we are not editing 
         photo.setIcon(ImageIcons.reSize(ImageIcons.UNKNOWN,200,200));
-        fullName.setVisible(false);
+        fullName.setVisible(false); // the full name under the photo is not needed here as it is only for display
         choosePhoto.setVisible(true);
         
+        //make all the qerypanels of personal information editable and empty except id as it is provided automatically by the database
         for (int i = 0; i < 8; i++ ){
             int[] size = {3,20,2,6,15,20,10,20};
             JTextField t = personalInfoInputFields.get(i).getTextField();
@@ -252,18 +258,20 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         t.setBackground(new Color(247, 247, 247));
         personalInfoInputFields.get(7).setVisible(true);
 
-        int i = 0;
-        if(i < familyInfoInputPanels.size()){
-            familyInfoInputPanels.get(i).updateData(" "," ");
-            i++;
-        }else {
+        familiesSize = 0;
+        // check if a family input panel is already created 
+        if(familiesSize < familyInfoInputPanels.size()){ // if so make it suitable to take information 
+            familyInfoInputPanels.get(familiesSize).updateData(" "," ");
+            familiesSize++;
+        }else { // if not create a new one
             addFamilyInputPanel(" ","");
+            familiesSize++;
         }
 
-
-        while (i < familyInfoInputPanels.size()){
-            familyInfoInputPanels.get(i).setVisible(false);
-            i++;
+        // if there are more family input panels more than needed set them invisible
+        while (familiesSize < familyInfoInputPanels.size()){
+            familyInfoInputPanels.get(familiesSize).setVisible(false);
+            familiesSize++;
         }
 
         addFamily.setVisible(true);
@@ -273,6 +281,8 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         edit.setVisible(false);
     }
 
+
+    // prepare all the info input panels under family info and personal info editable except the full name, id and photo
     public void prepareToEditMember(){
         editing = true;
         for (int i = 1; i < 7; i++ ){
@@ -293,11 +303,13 @@ public class IndividualProfile extends JPanel implements ParentPanel{
 
 
     public void prepareToShowProfile(String memberID){
-        photo.setIcon(ImageIcons.reSize(new ImageIcon("GUI\\Icons\\dark\\Example-Photo.jpg"),200,200));
+        // update photo and full name to current member being displayed
+        photo.setIcon(ImageIcons.reSize(new ImageIcon("GUI\\Icons\\dark\\Example-Photo.jpg"),200,200)); 
         fullName.setText(exampleSelected[7]);
         fullName.setVisible(true);
         choosePhoto.setVisible(false);
         
+        // update personal info query panels to current member being displayed and uneditable
         for (int i = 0; i < 7; i++ ){
             JTextField t = personalInfoInputFields.get(i).getTextField();
             t.setText(exampleSelected[i]);
@@ -307,21 +319,23 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             t.setMaximumSize(new Dimension(t.getPreferredSize().width, 20));
             
         }
-        personalInfoInputFields.get(7).setVisible(false);
+        personalInfoInputFields.get(7).setVisible(false);// make full name input invisible 
 
 
+        // update family input panels to current member being displayed and uneditable
         familiesSize = 0;
-        while(familiesSize < familyInfoInputPanels.size() & familiesSize < familiesExample.size()){
+        while(familiesSize < familyInfoInputPanels.size() & familiesSize < familiesExample.size()){ // as long as there is a panel already created just update the data on it set it visible
             familyInfoInputPanels.get(familiesSize).updateData(familiesExample.get(familiesSize)[0],familiesExample.get(familiesSize)[1],familiesExample.get(familiesSize)[2]);
-            familyInfoInputPanels.get(familiesSize).setVisible(true);
             familiesSize++;
         }
 
+        // if the panels already created are not enough add as many needed
         while (familiesSize < familiesExample.size()){
             addFamilyInputPanel(familiesExample.get(familiesSize)[0], familiesExample.get(familiesSize)[1], familiesExample.get(familiesSize)[2]);
             familiesSize++;
         }
 
+        // make the excess panels invisible
         int i = familiesSize;
         while (i < familyInfoInputPanels.size()){
             familyInfoInputPanels.get(i).setVisible(false);
@@ -343,7 +357,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
 
     @Override
     public void showMyTab(String buttonName) {
-        if (buttonName.equals("Save")){
+        if (buttonName.equals("Save")){ // check if what we are saving is editing or not and customize the info as displayed
             if (editing)JOptionPane.showMessageDialog(this.displayPanel,"Edited Successfully!", "Edit Member", JOptionPane.INFORMATION_MESSAGE);
             else JOptionPane.showMessageDialog(this.displayPanel,"Added New Member Successfully!", "Add Member", JOptionPane.INFORMATION_MESSAGE);
 
@@ -353,20 +367,24 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         } else if (buttonName.equals("Edit")){
             prepareToEditMember();
 
-        }else if (buttonName.equals("Discard")){
+        }else if (buttonName.equals("Discard")){ // check if what we are discarding is editing or not and customize the info as displayed and determine which page to show 
             int result = JOptionPane.showConfirmDialog(displayPanel,"This will discard every unsaved changes. Do you wish to continue?", "Discard Changes", JOptionPane.YES_NO_OPTION);
             
-            if (result == JOptionPane.YES_OPTION) {familiesSize = 0 ;prepareToShowProfile(exampleSelected[0]); }
+            if (result == JOptionPane.YES_OPTION) {
+                familiesSize = 0 ;
+                if (editing){prepareToShowProfile(exampleSelected[0]);}
+                else {displayPanel.showMyTab("Members");} }
 
-        }else{
-            if (familyInfoInputPanels.size() > familiesSize){
+        }else{ // if the button clicked is add a family check if a family input panel is already created
+            if (familyInfoInputPanels.size() > familiesSize){// if so make it suitable to take information
                 familyInfoInputPanels.get(familiesSize).updateData("","");
                 
-            }else{
+            }else{// if not create a new one
                 addFamilyInputPanel("","");
             }
             familiesSize++;
         }
+ 
     }
 
     @Override
@@ -374,12 +392,15 @@ public class IndividualProfile extends JPanel implements ParentPanel{
     }
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
-        displayPanel.addMyTab(clickedPanel,button.getName());
     }
+
+    // a method called when a photo is chosen
     @Override
     public void workWithFileChosen(File selectedFile) {
-
+        photo.setIcon(ImageIcons.reSize(new ImageIcon(selectedFile.getAbsolutePath()), 200, 200));
     }
+
+
 
     private class FamilyInfoInputPanel extends JPanel{
         private static final String[] RELATIONS = {"Mother", "Father", "Spouse","Son","Daughter","Brother", "Sister", "Mother-in-law", "Father-in-Law","Brother-in-law","Sister-in-law"};
@@ -437,6 +458,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
 
             add(this.name);
             add(this.phone);
+            add(this.relation);
             add(this.relationChoice);
         }
 
