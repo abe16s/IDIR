@@ -69,7 +69,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         fullName.setVisible(false);
         fullName.setAlignmentX(CENTER_ALIGNMENT);
 
-        ColoredFileChooser choosePhotoButton = new ColoredFileChooser("choosePhoto", this, "Choose Member Photo", "jpg", "img");
+        ColoredFileChooser choosePhotoButton = new ColoredFileChooser("choose photo", this, "Choose Member Photo", "jpg", "img");
         choosePhotoButton.setNormalColor(new Color(147, 175, 207));
         choosePhotoButton.setSelectedColor(new Color(79,170,255));
         choosePhoto = choosePhotoButton.getWhole();
@@ -211,7 +211,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         contents.add(photoPanel);
         contents.add(infoPanel);
         contents.add(footer);
-        contents.setBorder(new EmptyBorder(new Insets(20, 0, 20, 0)));
+        contents.setBorder(new EmptyBorder(new Insets(20, 0, 10, 0)));
 
         JScrollPane ScrollContents = new JScrollPane(contents);
         ScrollContents.setBorder(null);
@@ -268,10 +268,10 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             familiesSize++;
         }
 
-        // if there are more family input panels more than needed set them invisible
-        while (familiesSize < familyInfoInputPanels.size()){
-            familyInfoInputPanels.get(familiesSize).setVisible(false);
-            familiesSize++;
+        int i = familiesSize;  // if there are more family input panels more than needed set them invisible
+        while (i < familyInfoInputPanels.size()){
+            familyInfoInputPanels.get(i).setVisible(false);
+            i++;
         }
 
         addFamily.setVisible(true);
