@@ -488,7 +488,11 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             phone.setOpaque(edit);
 
             relation.setVisible(!edit);
+            if (relation.getText() != null){
+                relationChoice.setSelectedItem(relation.getText());
+            };
             relationChoice.setVisible(edit);
+            
         }
 
         public String[] getData(){
