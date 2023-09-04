@@ -55,6 +55,9 @@ public final class ImageIcons {
 
     public static final ImageIcon FAMILY = new ImageIcon("GUI\\Icons\\dark\\family 2.png");
 
+    public static final ImageIcon OFF = new ImageIcon("GUI\\Icons\\dark\\off.png");
+    public static final ImageIcon ON = new ImageIcon("GUI\\Icons\\colored\\on.png");
+
     public static ImageIcon reSize(ImageIcon icon, int width, int height){
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);

@@ -2,42 +2,24 @@ package GUI.src;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
 
 import GUI.src.SkeletalWindow.BasePanel;
+import GUI.src.utilities.ReadAndDisplay;
 
 public class Help extends JPanel {
-    private JTextArea textArea;
 
     public Help(BasePanel displayPanel) {
         setLayout(new BorderLayout());
-
-        textArea = new JTextArea();
-        textArea.setEditable(false);
-
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        setBackground(new Color(228, 228, 228));
+        setBorder(new EmptyBorder(new Insets(5, 10, 0, 0)));
         
-        add(scrollPane, BorderLayout.CENTER);
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("GUI\\src\\Sample Help.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                textArea.append(line + "\n");
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        ReadAndDisplay readAndDisplay = new ReadAndDisplay();
+        readAndDisplay.readFile("GUI\\src\\utilities\\Sample Help.txt");
+        readAndDisplay.setBackground(getBackground());
+        add(readAndDisplay.getWhole(), BorderLayout.CENTER);        
     }
 }

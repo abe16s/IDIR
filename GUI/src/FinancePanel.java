@@ -12,6 +12,9 @@ import java.util.Locale;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.table.TableColumn;
 
 import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.*;
@@ -22,6 +25,7 @@ public class FinancePanel extends JPanel implements ParentPanel {
     private BasePanel displayPanel;
     private CustomTable expendingsTable;
     private IndividualReceiptPanel receiptPanel;
+    private Icon onIcon = ImageIcons.reSize(ImageIcons.ON,15,15);
 
     public FinancePanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
@@ -65,30 +69,33 @@ public class FinancePanel extends JPanel implements ParentPanel {
             {"03/05/2021", "000039",  "3000", "Death of Brother"},
             {"23/05/2021", "000111", "5500", "Buying of chair"},
             {"03/05/2021", "000139", "3000", "Electrict utility"},
+            {"03/05/2021", "003539", "3000", "Death of Sister"},
+            {"23/05/2021", "000111", "5500", "Buying of chair"},
+            {"03/05/2021", "000139", "3000", "Electrict utility"},
+            {"03/05/2021", "003539", "3000", "Death of Sister"},
+            {"03/05/2021", "000039",  "3000", "Death of Brother"},
+            {"23/05/2021", "000111", "5500", "Buying of chair"},
+            {"03/05/2021", "000139", "3000", "Electrict utility"},
+            {"03/05/2021", "003539", "3000", "Death of Sister"},
+            {"03/05/2021", "000039",  "3000", "Death of Brother"},
+            {"23/05/2021", "000111", "5500", "Buying of chair"},
+            {"03/05/2021", "000139", "3000", "Electrict utility"},
             {"03/05/2021", "003539", "3000", "Death of Sister"}
         }; //Should be sorted by date when retrieved
 
-        String[][] monthlyIncomeExpendings = {
-            {"Income","10000","12000","10020","10000","12000","10020","10000","12000","10020","10000","12000","10020"},
-            {"Expendings", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000"}
+        String[][] yearlyIncomeExpendings = {
+            {"2023 (Income)","10000","12000","10020","10000","12000","10020","10000","12000","10020","10000","12000","10020", "150,000"},
+            {"2023 (Expendings)", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "30,000"},
+            {"2022 (Income)","10000","12000","10020","10000","12000","10020","10000","12000","10020","10000","12000","10020", "150,000"},
+            {"2022 (Expendings)", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "30,000"},
+            {"2021 (Income)","10000","12000","10020","10000","12000","10020","10000","12000","10020","10000","12000","10020", "150,000"},
+            {"2021 (Expendings)", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "30,000"},
+            {"2020 (Income)","10000","12000","10020","10000","12000","10020","10000","12000","10020","10000","12000","10020", "150,000"},
+            {"2020 (Expendings)", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "5000","2000","3000", "30,000"},
         };
         
-        String[][] yearlyIncomeExpendings = {
-            {"Income", "100000", "20000", "300000"},
-            {"Expendings", "20000","15000", "11100"}
-        };
 
         LocalDate currentDate = LocalDate.now();
-        
-        JPanel Contents = new JPanel();
-        Contents.setLayout(new BoxLayout(Contents, BoxLayout.Y_AXIS));
-        Contents.setBackground(getBackground());
-
-        generalData = new JPanel();
-        generalData.setLayout(new BoxLayout(generalData, BoxLayout.Y_AXIS));
-        generalData.setPreferredSize(new Dimension(500, 300));
-        generalData.setBackground(getBackground());
-        generalData.setBorder(new EmptyBorder(new Insets(10, 20, 0, 0)));
 
         queryPanel officialNamePanel = new queryPanel("Official Name", officialName, Color.LIGHT_GRAY);
         queryPanel accountNoPanel = new queryPanel("Bank Account No", accountNo, Color.LIGHT_GRAY);
@@ -97,6 +104,12 @@ public class FinancePanel extends JPanel implements ParentPanel {
         queryPanel curMonthExpenditurePanle = new queryPanel(currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + "'s total expenditure till date", Double.toString(curMonthExpenditure) + " Birr", Color.LIGHT_GRAY);
         queryPanel curYearIncomePanel = new queryPanel(Integer.toString(currentDate.getYear()) + "'s total income till date", Double.toString(curYearIncome) + " Birr", Color.LIGHT_GRAY);
         queryPanel curYearExpenditurePanel = new queryPanel(Integer.toString(currentDate.getYear()) + "'s total expenditure till date", Double.toString(curYearExpenditure) + " Birr", Color.LIGHT_GRAY);
+        
+        generalData = new JPanel();
+        generalData.setLayout(new BoxLayout(generalData, BoxLayout.Y_AXIS));
+        generalData.setPreferredSize(new Dimension(500, 300));
+        generalData.setBackground(getBackground());
+        generalData.setBorder(new EmptyBorder(new Insets(10, 20, 0, 0)));
 
         generalData.add(officialNamePanel);
         generalData.add(accountNoPanel);
@@ -116,39 +129,31 @@ public class FinancePanel extends JPanel implements ParentPanel {
         String[] columnNames = {"Type", "Number of items", "Single Price"};
         CustomTable propertiesTable = new CustomTable(this, properties, columnNames);
         propertiesTable.setAlternatingColor(Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
-        propertiesPanel.add(propertiesTable.getTableHeader(), BorderLayout.NORTH);
-        propertiesPanel.add(propertiesTable);
-        CollapsablePanel propertiesCollapse = new CollapsablePanel("Property Assests", propertiesPanel);
+        JScrollPane scrollProperties = new JScrollPane(propertiesTable);
+        scrollProperties.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
+        propertiesPanel.add(scrollProperties);
+
 
         JPanel expendingsPanel = new JPanel(new BorderLayout());
         expendingsPanel.setBackground(getBackground());
         String[] columnNames2 = {"Date", "Receipt No", "Amount", "Reason"};
         expendingsTable = new CustomTable(this, expendings, columnNames2);
         expendingsTable.setAlternatingColor(Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
-        expendingsPanel.add(expendingsTable.getTableHeader(), BorderLayout.NORTH);
-        expendingsPanel.add(expendingsTable);
-        CollapsablePanel expendingsCollapse = new CollapsablePanel("Expendings", expendingsPanel);
-
-        JPanel monthlyIncomeExpendingsPanel = new JPanel(new BorderLayout());
-        monthlyIncomeExpendingsPanel.setBackground(getBackground());
-        String[] columnNames3 = {"", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"};
-        CustomTable monthlyIncomeExpendingsTable = new CustomTable(this, monthlyIncomeExpendings, columnNames3);
-        monthlyIncomeExpendingsTable.setAlternatingColor(Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
-        monthlyIncomeExpendingsPanel.add(monthlyIncomeExpendingsTable.getTableHeader(), BorderLayout.NORTH);
-        monthlyIncomeExpendingsPanel.add(monthlyIncomeExpendingsTable);
-        CollapsablePanel monthlyIncomeExpendingsCollapse = new CollapsablePanel("This year monthly reports", monthlyIncomeExpendingsPanel);
+        JScrollPane scrollExpendings = new JScrollPane(expendingsTable);
+        scrollExpendings.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
+        expendingsPanel.add(scrollExpendings);
         
-        JPanel yearlyIncomeExpendingsPanel = new JPanel(new BorderLayout());
-        yearlyIncomeExpendingsPanel.setBackground(getBackground());
-        String[] columnNames4 = {"", "2021", "2022", "2023"};
-        CustomTable yearlyIncomeExpendingsTable = new CustomTable(this, yearlyIncomeExpendings, columnNames4);
+        JPanel yearlyReportPanel = new JPanel(new BorderLayout());
+        yearlyReportPanel.setBackground(getBackground());
+        String[] columnNames3 = {"Year", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Total"};
+        CustomTable yearlyIncomeExpendingsTable = new CustomTable(this, yearlyIncomeExpendings, columnNames3);
         yearlyIncomeExpendingsTable.setAlternatingColor(Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
-        yearlyIncomeExpendingsPanel.add(yearlyIncomeExpendingsTable.getTableHeader(), BorderLayout.NORTH);
-        yearlyIncomeExpendingsPanel.add(yearlyIncomeExpendingsTable);
-        CollapsablePanel yearlyIncomeExpendingsCollapse = new CollapsablePanel("Yearly reports", yearlyIncomeExpendingsPanel);
-
-
-        JPanel footer = new JPanel();
+        JScrollPane scrollYearly = new JScrollPane(yearlyIncomeExpendingsTable);
+        scrollYearly.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
+        yearlyReportPanel.add(scrollYearly);
+        TableColumn column = yearlyIncomeExpendingsTable.getColumnModel().getColumn(0);
+        column.setPreferredWidth(120);
+        column.setMinWidth(column.getPreferredWidth());
         
         ColoredButton paymentHistory = new ColoredButton("Members Payment History", this.displayPanel);
         paymentHistory.setNormalColor(new Color(147, 175, 207));
@@ -161,25 +166,39 @@ public class FinancePanel extends JPanel implements ParentPanel {
         writeReceipt.setSelectedColor(new Color(79,170,255));
         writeReceipt.setIcon(ImageIcons.reSize(ImageIcons.RECEIPT, 20, 20));
         this.addTab(writeReceipt, new IndividualReceiptPanel(displayPanel));
-
+        
+        JPanel footer = new JPanel();
         footer.add(paymentHistory.getWhole());
         footer.add(writeReceipt.getWhole());
-        
-        Contents.add(generalData);
-        Contents.add(propertiesCollapse);
-        Contents.add(expendingsCollapse);
-        Contents.add(monthlyIncomeExpendingsCollapse);
-        Contents.add(yearlyIncomeExpendingsCollapse);
 
-        Component[] contentsComponents = Contents.getComponents();
-        for (Component c : contentsComponents) {
-            ((JPanel)c).setAlignmentX(LEFT_ALIGNMENT);
-        }
+        JTabbedPane tab = new JTabbedPane();
+        tab.setOpaque(false);
+        tab.setBackground(getBackground());
+        tab.setFocusable(false);
+        tab.setBorder(null);
+        tab.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
-        JScrollPane ScrollContents = new JScrollPane(Contents);
-        ScrollContents.setBorder(null);
+        tab.addTab("General", generalData);
+        tab.insertTab("General", onIcon, generalData, "General", 0);
+        tab.insertTab("Material Assets", null, propertiesPanel, "Materials", 1);
+        tab.insertTab("Expenditures", null, expendingsPanel, "Expenditures", 2);
+        tab.insertTab("Yearly Report", null, yearlyReportPanel, "Yearly Report", 3);
 
-        this.add(ScrollContents);
+        tab.getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int selected = tab.getSelectedIndex();
+                for (int i = 0; i < tab.getTabCount(); i++) {
+                    if (i == selected) {
+                        tab.setIconAt(i, onIcon);
+                    } else {
+                        tab.setIconAt(i, null);
+                    }
+               }
+            } 
+        });
+
+        this.add(tab, BorderLayout.CENTER);
         this.add(footer, BorderLayout.SOUTH);
     }
 
@@ -189,12 +208,12 @@ public class FinancePanel extends JPanel implements ParentPanel {
     }
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {
+    public void showMyTab(CustomTable table, Object[] values, int source) {
         if (table.equals(expendingsTable)) {
             displayPanel.remove(receiptPanel);
-            receiptPanel.updateData(values[1]);
-            displayPanel.addMyTab(receiptPanel,values[1]);
-            displayPanel.showMyTab(values[1]);
+            receiptPanel.updateData((String)values[1]);
+            displayPanel.addMyTab(receiptPanel,(String)values[1]);
+            displayPanel.showMyTab((String)values[1]);
         }
         
     }

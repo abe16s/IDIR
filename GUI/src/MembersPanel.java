@@ -99,8 +99,8 @@ public class MembersPanel extends JPanel implements ParentPanel {
 
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {        
-        App.INDIVIDUAL_PROFILE.prepareToShowProfile(values[0]);
+    public void showMyTab(CustomTable table, Object[] values, int source) {        
+        App.INDIVIDUAL_PROFILE.prepareToShowProfile((String)values[0]);
 
         displayPanel.showMyTab("individualProfile");
     }

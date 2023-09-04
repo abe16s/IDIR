@@ -84,7 +84,7 @@ public class SkeletalWindow extends JFrame{
 
 
         @Override
-        public void showMyTab(CustomTable table, String[] values, int source) {
+        public void showMyTab(CustomTable table, Object[] values, int source) {
 
         }
 
@@ -148,7 +148,7 @@ public class SkeletalWindow extends JFrame{
 
 
         @Override
-        public void showMyTab(CustomTable table, String[] values, int source) {
+        public void showMyTab(CustomTable table, Object[] values, int source) {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
         }

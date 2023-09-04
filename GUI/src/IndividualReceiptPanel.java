@@ -129,7 +129,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         JPanel signature = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         signature.setBackground(Contents.getBackground());
 
-        signerName = new queryPanel("Money Receiver", 20, Color.LIGHT_GRAY);
+        signerName = new queryPanel("Issued By", 20, Color.LIGHT_GRAY);
         signerID = new queryPanel("ID", 5, Color.LIGHT_GRAY);
 
         signature.add(signerName);
@@ -247,11 +247,9 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
             if (((JRadioButton)e.getSource()).equals(income)) {
                 issuedFor.getCaption().setText("Payer Name:");
                 issuedForID.getCaption().setText("Payer ID:");
-                signerName.getCaption().setText("Money Receiver:");
             } else if (((JRadioButton)e.getSource()).equals(expenditure)) {
                 issuedFor.getCaption().setText("Receiver Name:");
                 issuedForID.getCaption().setText("Receiver ID:");
-                signerName.getCaption().setText("Payer Name:");
             }
         }
 
@@ -305,7 +303,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
     }
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {
+    public void showMyTab(CustomTable table, Object[] values, int source) {
     }
 
     @Override
