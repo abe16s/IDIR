@@ -65,7 +65,8 @@ public class HomePage extends JPanel implements ParentPanel{
         writeReceipt.setNormalColor(new Color(147,175,207));
         buttonsPanel.add(writeReceipt.getWhole());
         buttonsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        addTab(writeReceipt, new IndividualReceiptPanel(this.windowPanel.getBasePanel()));
+        //addTab(writeReceipt, new IndividualReceiptPanel(this.windowPanel.getBasePanel()));
+
         writeReceipt.addActionListener(new changeButtonEffect("Financial Data"));
 
         AddMember.setSelectedColor(new Color(79,170,255));
@@ -113,6 +114,9 @@ public class HomePage extends JPanel implements ParentPanel{
         if (buttonName.equals("Add Member")){
             App.INDIVIDUAL_PROFILE.prepareToAddMember();
             windowPanel.getBasePanel().showMyTab("individualProfile");
+        } else if (buttonName.equals("Write Receipt")) {
+            App.INDIVIDUAL_RECEIPT.prepareToAddReceipt();
+            windowPanel.getBasePanel().showMyTab("individualReceipt");
         }
         windowPanel.getBasePanel().showMyTab(buttonName);
     }

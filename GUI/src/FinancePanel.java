@@ -24,12 +24,10 @@ public class FinancePanel extends JPanel implements ParentPanel {
     private JPanel generalData;
     private BasePanel displayPanel;
     private CustomTable expendingsTable;
-    private IndividualReceiptPanel receiptPanel;
     private Icon onIcon = ImageIcons.reSize(ImageIcons.ON,15,15);
 
     public FinancePanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
-        this.receiptPanel = new IndividualReceiptPanel(displayPanel);
         this.setBackground(new Color(228, 228, 228));
         this.setLayout(new BorderLayout());
         
@@ -155,17 +153,16 @@ public class FinancePanel extends JPanel implements ParentPanel {
         column.setPreferredWidth(120);
         column.setMinWidth(column.getPreferredWidth());
         
-        ColoredButton paymentHistory = new ColoredButton("Members Payment History", this.displayPanel);
+        ColoredButton paymentHistory = new ColoredButton("Members Payment History", this);
         paymentHistory.setNormalColor(new Color(147, 175, 207));
         paymentHistory.setSelectedColor(new Color(79,170,255));
         paymentHistory.setIcon(ImageIcons.reSize(ImageIcons.PAYMENT_HISTORY, 20, 20));
         this.addTab(paymentHistory, new PaymentHistoryPanel(displayPanel));
 
-        ColoredButton writeReceipt = new ColoredButton("Write Receipt", this.displayPanel);
+        ColoredButton writeReceipt = new ColoredButton("Write Receipt", this);
         writeReceipt.setNormalColor(new Color(147, 175, 207));
         writeReceipt.setSelectedColor(new Color(79,170,255));
         writeReceipt.setIcon(ImageIcons.reSize(ImageIcons.RECEIPT, 20, 20));
-        this.addTab(writeReceipt, new IndividualReceiptPanel(displayPanel));
         
         JPanel footer = new JPanel();
         footer.add(paymentHistory.getWhole());
@@ -205,17 +202,19 @@ public class FinancePanel extends JPanel implements ParentPanel {
     
     @Override
     public void showMyTab(String buttonName) {
+        if (buttonName.equals("Write Receipt")) {
+            App.INDIVIDUAL_RECEIPT.prepareToAddReceipt();
+            displayPanel.showMyTab("individualReceipt");
+        }
+        displayPanel.showMyTab(buttonName);
     }
 
     @Override
     public void showMyTab(CustomTable table, Object[] values, int source) {
         if (table.equals(expendingsTable)) {
-            displayPanel.remove(receiptPanel);
-            receiptPanel.updateData((String)values[1]);
-            displayPanel.addMyTab(receiptPanel,(String)values[1]);
-            displayPanel.showMyTab((String)values[1]);
-        }
-        
+            App.INDIVIDUAL_RECEIPT.prepareToShow((String)values[1]);
+            displayPanel.showMyTab("individualReceipt");
+        }   
     }
 
     @Override

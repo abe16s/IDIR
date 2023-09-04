@@ -3,6 +3,7 @@ package GUI.src;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -40,8 +41,9 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
     private JPanel reasonsPanel;
     private JPanel buttons;
     private ColoredButton delete;
-    private IndividualReceiptPanel savedReceipt;
     private ArrayList<queryPanel> inputPanels =  new ArrayList<>();
+    private String nextAvailableReceipt;
+    private String formattedDate;
 
     public IndividualReceiptPanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
@@ -49,9 +51,9 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         this.setBorder(new EmptyBorder(new Insets(60, 60, 60, 60)));
 
         
-        String nextAvailableReceipt = "001234";
+        nextAvailableReceipt = "001234";
         LocalDate currentDate = LocalDate.now();
-        String formattedDate = currentDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+        formattedDate = currentDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
 
         RoundedPanel Contents = new RoundedPanel();
         Contents.setLayout(new BorderLayout());
@@ -143,6 +145,12 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
 
         signature.add(signerName);
         signature.add(signerID);
+        
+        inputPanels.add(issuedFor);
+        inputPanels.add(issuedForID);
+        inputPanels.add(amount);
+        inputPanels.add(signerName);
+        inputPanels.add(signerID);
 
         body.add(issuedFor);
         body.add(issuedForID);
@@ -175,13 +183,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(displayPanel,"Saved Successfully!", "Save Receipt", JOptionPane.INFORMATION_MESSAGE);
-                if (savedReceipt != null){displayPanel.remove(savedReceipt);
-
-                }else{savedReceipt = new IndividualReceiptPanel(displayPanel);}
-    
-                savedReceipt.updateData(receiptNo.getInfoLabel().getText());
-                addTab(save, savedReceipt);
-                showMyTab(save.getName());
+                App.INDIVIDUAL_RECEIPT.prepareToShow(receiptNo.getInfoLabel().getText());
             }
         });
 
@@ -218,27 +220,25 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         this.add(footer, BorderLayout.SOUTH);
     } 
 
-    public void updateData(String ReceiptNo) {
+    public void prepareToShow(String ReceiptNo) {
         String[] exampleReceipt = {"051222", "27/3/2023", "123", "102", "Monthly payment for Sep", "210", "Income"};//numbers payer, signer
         String issuerName = "Abebe";
         String signer = "Kebede";
         date.getInfoLabel().setText(exampleReceipt[1]);
         receiptNo.getInfoLabel().setText(ReceiptNo);
         issuedFor.getTextField().setText(issuerName);
-        issuedFor.getTextField().setEditable(false);
         issuedForID.getTextField().setText(exampleReceipt[2]);
-        issuedForID.getTextField().setEditable(false);
         amount.getTextField().setText(exampleReceipt[5]);
-        amount.getTextField().setEditable(false);
         reasonInfo.getInfoLabel().setText(exampleReceipt[4] + " - " + exampleReceipt[6]);
         signerName.getTextField().setText(signer);
-        signerName.getTextField().setEditable(false);
         signerID.getTextField().setText(exampleReceipt[3]);
-        signerID.getTextField().setEditable(false);
 
         for (queryPanel panel : inputPanels) {
             panel.getTextField().setColumns(panel.getTextField().getText().length());
-            panel.adjustSize();
+            panel.getTextField().setBackground(Color.WHITE);
+            panel.getTextField().setPreferredSize(new Dimension(panel.getTextField().getPreferredSize().width, 20));
+            panel.getTextField().setMaximumSize(panel.getTextField().getPreferredSize());
+            panel.getTextField().setEditable(false);
         }
         reasonInfo.setVisible(true);
         delete.setVisible(true);
@@ -251,6 +251,25 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         } else {
             expenditure.doClick();
         }
+    }
+
+    public void prepareToAddReceipt() {
+        date.getInfoLabel().setText(formattedDate);
+        receiptNo.getInfoLabel().setText(nextAvailableReceipt);
+
+        for (queryPanel panel : inputPanels) {
+            panel.getTextField().setText("");
+            panel.getTextField().setEditable(true);
+            panel.adjustSize();
+        }
+
+        reasonInfo.setVisible(false);
+        delete.setVisible(false);
+        type.setVisible(true);
+        reasonsPanel.setVisible(true);
+        buttons.setVisible(true);
+
+        income.doClick();
     }
 
     private class RadioButtonListener implements ActionListener {

@@ -12,6 +12,7 @@ import GUI.src.utilities.*;
 public class App {
     private SkeletalWindow window;
     public static IndividualProfile INDIVIDUAL_PROFILE;
+    public static IndividualReceiptPanel INDIVIDUAL_RECEIPT;
     App(String title){
         //This block of code is to make the whole GUI look and feel like the operating system. Can be seen in the ScrollPane and the file choosers
         try {
@@ -50,6 +51,9 @@ public class App {
         FINANCIALdata.setSelectedIcon(ImageIcons.reSize(ImageIcons.COINS,28,28));
         window.getMenu().addTab(FINANCIALdata, new FinancePanel(window.getBasePanel()));
         window.getMenu().add(Box.createVerticalStrut(5));
+
+        INDIVIDUAL_RECEIPT = new IndividualReceiptPanel(window.getBasePanel());
+        window.getBasePanel().addMyTab(INDIVIDUAL_RECEIPT,"individualReceipt");
 
         TransparentButton AGENDA = new TransparentButton("Agendas", ImageIcons.reSize(ImageIcons.NOTEdark,25,25), window.getMenu());
         AGENDA.setSelectedIcon(ImageIcons.reSize(ImageIcons.NOTE,30,30));

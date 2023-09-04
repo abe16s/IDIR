@@ -60,7 +60,7 @@ public class queryPanel extends JPanel{
 
     public void adjustSize() {
         this.captionField.setColumns(columns);
-        this.captionField.setPreferredSize(new Dimension(this.captionField.getPreferredSize().width, this.captionField.getPreferredSize().height+5));
+        this.captionField.setPreferredSize(new Dimension(this.captionField.getPreferredSize().width, 20));
         this.captionField.setMaximumSize(this.captionField.getPreferredSize());
     }
 }

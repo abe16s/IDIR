@@ -27,13 +27,11 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
     private JComboBox<Integer> years; 
     private LocalDate currentDate;
     private String[] columnNames = {"ID","Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"};
-    private IndividualReceiptPanel receiptPanel;
     private BasePanel displayPanel;
 
     public PaymentHistoryPanel(BasePanel displayPanel) {
         this.setLayout(new BorderLayout());
         this.displayPanel = displayPanel;
-        this.receiptPanel = new IndividualReceiptPanel(displayPanel);
 
         currentDate = LocalDate.now();
         
@@ -178,10 +176,8 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
     public void showMyTab(CustomTable table, Object[] values, int source) {
         if (!values[source].equals("-") && source>0) {
             //get the receipt for the source column month years combobox year and values[0] id
-            displayPanel.remove(receiptPanel);
-            receiptPanel.updateData("110011");
-            displayPanel.addMyTab(receiptPanel,"110011");
-            displayPanel.showMyTab("110011");
+            App.INDIVIDUAL_RECEIPT.prepareToShow("110011");
+            displayPanel.showMyTab("individualReceipt");
         }
     }
 
