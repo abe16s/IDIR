@@ -26,7 +26,6 @@ public class FinancePanel extends JPanel implements ParentPanel {
     private CustomTable expendingsTable;
     private IndividualReceiptPanel receiptPanel;
     private Icon onIcon = ImageIcons.reSize(ImageIcons.ON,15,15);
-    private Icon offIcon = ImageIcons.reSize(ImageIcons.OFF,15,15);
 
     public FinancePanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
