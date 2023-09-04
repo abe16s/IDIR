@@ -31,11 +31,11 @@ public class queryPanel extends JPanel{
 
     public queryPanel(String captionText, int columns, Color color) {
         this(captionText, color);
-        this.captionField = new JTextField(columns); 
+        this.captionField = new JTextField(); 
         this.captionField.setBorder(null);
         this.add(this.captionField);
-        this.captionField.setPreferredSize(new Dimension(this.captionField.getPreferredSize().width, this.captionField.getPreferredSize().height+5));
-        this.captionField.setMaximumSize(this.captionField.getPreferredSize());
+        // this.captionField.setPreferredSize(new Dimension(this.captionField.getPreferredSize().width, this.captionField.getPreferredSize().height+5));
+        // this.captionField.setMaximumSize(this.captionField.getPreferredSize());
     }
 
     public queryPanel(String captionText, String info, Color color) {

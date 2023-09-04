@@ -50,10 +50,9 @@ public class ColoredButton extends HoverableButton {
     Runnable task = new Runnable () {
     @Override
     public void run () {            
-        try {((ParentPanel) parent).showMyTab(getName());} catch (Exception e) {}
         removeEffect();
     }};
-
+    try {((ParentPanel) parent).showMyTab(getName());} catch (Exception e) {}
 
     executor.schedule (task, 150, TimeUnit.MILLISECONDS);
     executor.shutdown ();

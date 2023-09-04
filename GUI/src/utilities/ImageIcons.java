@@ -53,6 +53,8 @@ public final class ImageIcons {
 
     public static final ImageIcon PAYMENT_HISTORY = new ImageIcon("GUI\\Icons\\dark\\history.png");
 
+    public static final ImageIcon FAMILY = new ImageIcon("GUI\\Icons\\dark\\family 2.png");
+
     public static ImageIcon reSize(ImageIcon icon, int width, int height){
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);

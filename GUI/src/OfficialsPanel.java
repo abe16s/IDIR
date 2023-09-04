@@ -21,7 +21,6 @@ import GUI.src.utilities.ParentPanel;
 public class OfficialsPanel extends JPanel implements ParentPanel{
     private BasePanel displayPanel;
     private ColoredButton edit;
-    private IndividualProfile official;
 
     private Object[][] data = {
                                 {ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0001","Alice frank", "Chairman"},
@@ -61,7 +60,7 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
         editBar.add(edit.getWhole());
 
         this.add(editBar, BorderLayout.SOUTH);
-        official = new IndividualProfile(displayPanel);
+
     }
 
     @Override
@@ -73,11 +72,8 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
     @Override
     public void showMyTab(CustomTable table, String[] values, int source) {
         if(!values[0].equals("")){
-        displayPanel.remove(official);
-        official.updateData(values[1]);
-
-        displayPanel.addMyTab(official,values[1]);
-        displayPanel.showMyTab(values[1]);
+            App.INDIVIDUAL_PROFILE.prepareToShowProfile(values[1]);
+            displayPanel.showMyTab("individualProfile");
     }}
 
     @Override
