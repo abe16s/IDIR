@@ -261,10 +261,10 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         familiesSize = 0;
         // check if a family input panel is already created 
         if(familiesSize < familyInfoInputPanels.size()){ // if so make it suitable to take information 
-            familyInfoInputPanels.get(familiesSize).updateData(" "," ");
+            familyInfoInputPanels.get(familiesSize).updateData("","");
             familiesSize++;
         }else { // if not create a new one
-            addFamilyInputPanel(" ","");
+            addFamilyInputPanel("","");
             familiesSize++;
         }
 
@@ -473,6 +473,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         public void updateData(String name,String phone){
             this.name.setText(name);
             this.phone.setText(phone);
+            this.relation.setText("");
             setEditable(true);
             setVisible(true);
         }
@@ -488,9 +489,9 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             phone.setOpaque(edit);
 
             relation.setVisible(!edit);
-            if (relation.getText() != null){
+            if (!relation.getText().equals("")){
                 relationChoice.setSelectedItem(relation.getText());
-            };
+            }else {relationChoice.setSelectedItem("Mother");}
             relationChoice.setVisible(edit);
             
         }
