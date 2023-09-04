@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.time.LocalDate;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -54,9 +55,12 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
 
         historyTable = new CustomTable(this, getYearData(currentDate.getYear()), columnNames);
         historyTable.setAlternatingColor(Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
+        
+        JScrollPane scrollHistory = new JScrollPane(historyTable);
+        scrollHistory.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
 
         this.add(header, BorderLayout.NORTH);
-        this.add(new JScrollPane(historyTable), BorderLayout.CENTER);
+        this.add(scrollHistory, BorderLayout.CENTER);
         years.setSelectedItem(currentDate.getYear());
     }
 
@@ -73,7 +77,6 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
             }
             historyTable.setModel(model);
         }
-
     }
 
     private String[][] getYearData(int year) {
@@ -163,9 +166,6 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
             return exampleData2;
         }
     }
-
-
-
 
     @Override
     public void showMyTab(String buttonName) {
