@@ -17,6 +17,7 @@ public class queryPanel extends JPanel{
     private JLabel caption;
     private JTextField captionField;
     private JLabel info;
+    private int columns;
 
     public queryPanel(String captionText, Color color) {    
         this.caption = new JLabel(captionText+":");
@@ -34,8 +35,7 @@ public class queryPanel extends JPanel{
         this.captionField = new JTextField(); 
         this.captionField.setBorder(null);
         this.add(this.captionField);
-        // this.captionField.setPreferredSize(new Dimension(this.captionField.getPreferredSize().width, this.captionField.getPreferredSize().height+5));
-        // this.captionField.setMaximumSize(this.captionField.getPreferredSize());
+        this.columns = columns;
     }
 
     public queryPanel(String captionText, String info, Color color) {
@@ -56,5 +56,11 @@ public class queryPanel extends JPanel{
 
     public JLabel getCaption() {
         return this.caption;
+    }
+
+    public void adjustSize() {
+        this.captionField.setColumns(columns);
+        this.captionField.setPreferredSize(new Dimension(this.captionField.getPreferredSize().width, this.captionField.getPreferredSize().height+5));
+        this.captionField.setMaximumSize(this.captionField.getPreferredSize());
     }
 }

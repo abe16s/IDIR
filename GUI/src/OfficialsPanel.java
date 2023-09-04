@@ -44,7 +44,6 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
 
     private Object[] columnNames = {"", "ID","Full Name","Title",""};
     private ColoredButton edit;
-    private IndividualProfile official;
     private CustomTable officialTable;
     private JPanel saveDiscardPanel;
     private TableColumnModel columnModel;
@@ -52,15 +51,6 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
     private JPanel footer;
     private ArrayList<TransparentButton> affectedButtons = new ArrayList<>();
     private MenuBar menuBar;
-
-    private Object[][] data = {
-                                {ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0001","Alice frank", "Chairman"},
-                                {"","","","","",},
-                                {ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0002","Bob frank", "Vise chairman"},
-                                {"","","","","",},
-                                {ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0003","Charlie frank","Auditor"},
-                                {"","","","","",},
-                                {ImageIcons.reSize(ImageIcons.UNKNOWN, 100, 100),"0003","Charlie frank","Secretary"}};
 
 
     public OfficialsPanel(BasePanel displayPanel){
@@ -126,11 +116,36 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
         edit.setIcon(ImageIcons.reSize(ImageIcons.EDIT, 20,20));
         edit.setNormalColor(new Color(147, 175, 207));
         edit.setSelectedColor(new Color(79,170,255));
-        addTab(edit,new EditOfficialsPanel(displayPanel));
-        editBar.add(edit.getWhole());
+        edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveDiscardPanel.setVisible(true);
+                edit.setVisible(false);
+                footer.setLayout(new FlowLayout());
+                columnModel.addColumn(column);
+            } 
+        });
+        
+        footer.add(saveDiscardPanel);
+        footer.add(edit.getWhole());
 
-        this.add(editBar, BorderLayout.SOUTH);
-        official = new IndividualProfile(displayPanel);
+        this.add(footer, BorderLayout.SOUTH);
+        viewOnlyPage();
+    }
+
+    public void updateData(String memberID){
+    }
+
+    private void viewOnlyPage() {
+        columnModel.removeColumn(column);
+        saveDiscardPanel.setVisible(false);
+        edit.setVisible(true);
+        footer.setLayout(new FlowLayout(FlowLayout.RIGHT));
+    }
+
+    public void giveAffectedButtons(TransparentButton btn, MenuBar menuBar) {
+        this.affectedButtons.add(btn);
+        this.menuBar = menuBar;
     }
     
     @Override
@@ -139,14 +154,22 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
 
 
     @Override
-    public void showMyTab(CustomTable table, String[] values, int source) {
-        if(!values[0].equals("")){
-        displayPanel.remove(official);
-        official.updateData(values[1]);
+    public void showMyTab(CustomTable table, Object[] values, int source) {
+        if (source == 4 & !values[0].equals(""))new PopUpMembers(this,(String)values[3]);
+        
+        if(!values[0].equals("") && edit.isVisible()){
+            App.INDIVIDUAL_PROFILE.prepareToShowProfile((String) values[1]);
+            displayPanel.showMyTab("individualProfile");
 
-        displayPanel.addMyTab(official,values[1]);
-        displayPanel.showMyTab(values[1]);
-    }}
+            for (TransparentButton transparentButton: affectedButtons) {
+                if (transparentButton.getName().equalsIgnoreCase("Members")) {
+                    this.menuBar.prepare("Members");
+                    transparentButton.setIcon(transparentButton.getSelectedIcon());
+                    transparentButton.setSelected(true);
+                }
+            }
+        }
+    }
 
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
@@ -272,12 +295,10 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
 
         @Override
         public void workWithFileChosen(File selectedFile) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+        
         }}
 
     @Override
     public void workWithFileChosen(File selectedFile) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+        
     }}

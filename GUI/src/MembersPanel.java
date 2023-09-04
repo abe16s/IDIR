@@ -113,8 +113,7 @@ public class MembersPanel extends JPanel implements ParentPanel {
 
     @Override
     public void workWithFileChosen(File selectedFile) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+        
     }
     
 }

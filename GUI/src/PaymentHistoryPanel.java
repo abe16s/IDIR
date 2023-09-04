@@ -171,8 +171,7 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
 
     @Override
     public void showMyTab(String buttonName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
+        
     }
 
     @Override
@@ -188,13 +187,11 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
 
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addTab'");
+        
     }
 
     @Override
     public void workWithFileChosen(File selectedFile) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+        
     }
 }

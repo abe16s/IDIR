@@ -11,6 +11,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -40,6 +41,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
     private JPanel buttons;
     private ColoredButton delete;
     private IndividualReceiptPanel savedReceipt;
+    private ArrayList<queryPanel> inputPanels =  new ArrayList<>();
 
     public IndividualReceiptPanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
@@ -60,8 +62,8 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
         header.setBackground(Contents.getBackground());
 
-        date = new queryPanel("Date", formattedDate, Color.LIGHT_GRAY);
-        receiptNo = new queryPanel("Receipt No", nextAvailableReceipt, Color.LIGHT_GRAY);
+        date = new queryPanel("Date", formattedDate, Contents.getBackground());
+        receiptNo = new queryPanel("Receipt No", nextAvailableReceipt, Contents.getBackground());
 
         header.add(date);
         header.add(receiptNo);
@@ -76,9 +78,13 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         body.setBackground(Contents.getBackground());
         body.setBorder(new EmptyBorder(new Insets(30, 50, 0, 0)));
 
-        issuedFor = new queryPanel("Payer Name", 20, Color.LIGHT_GRAY);
-        issuedForID = new queryPanel("Payer ID", 6, Color.LIGHT_GRAY);
-        amount = new queryPanel("Total Amount", 10, Color.LIGHT_GRAY);
+        issuedFor = new queryPanel("Payer Name", 20, Contents.getBackground());
+        issuedForID = new queryPanel("Payer ID", 6, Contents.getBackground());
+        amount = new queryPanel("Total Amount", 10, Contents.getBackground());
+
+        issuedFor.adjustSize();
+        issuedForID.adjustSize();
+        amount.adjustSize();
 
         reasonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         reasonsPanel.setOpaque(false);
@@ -105,7 +111,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         reasonsPanel.add(other);
         reasonsPanel.add(quantity);
 
-        reasonInfo = new queryPanel("Reason", "", Color.LIGHT_GRAY);
+        reasonInfo = new queryPanel("Reason", "", Contents.getBackground());
         reasonInfo.setVisible(false);
 
         type = new JPanel();
@@ -129,8 +135,11 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         JPanel signature = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         signature.setBackground(Contents.getBackground());
 
-        signerName = new queryPanel("Issued By", 20, Color.LIGHT_GRAY);
-        signerID = new queryPanel("ID", 5, Color.LIGHT_GRAY);
+        signerName = new queryPanel("Issued By", 20, Contents.getBackground());
+        signerID = new queryPanel("ID", 5, Contents.getBackground());
+
+        signerName.adjustSize();
+        signerID.adjustSize();
 
         signature.add(signerName);
         signature.add(signerID);
@@ -227,6 +236,10 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         signerID.getTextField().setText(exampleReceipt[3]);
         signerID.getTextField().setEditable(false);
 
+        for (queryPanel panel : inputPanels) {
+            panel.getTextField().setColumns(panel.getTextField().getText().length());
+            panel.adjustSize();
+        }
         reasonInfo.setVisible(true);
         delete.setVisible(true);
         type.setVisible(false);

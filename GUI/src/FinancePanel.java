@@ -97,13 +97,13 @@ public class FinancePanel extends JPanel implements ParentPanel {
 
         LocalDate currentDate = LocalDate.now();
 
-        queryPanel officialNamePanel = new queryPanel("Official Name", officialName, Color.LIGHT_GRAY);
-        queryPanel accountNoPanel = new queryPanel("Bank Account No", accountNo, Color.LIGHT_GRAY);
-        queryPanel totalAmountPanel = new queryPanel("Total Amount", Double.toString(totalAmount) + " Birr", Color.LIGHT_GRAY);
-        queryPanel curMonthIncomePanel = new queryPanel(currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + "'s total income till date", Double.toString(curMonthIncome) + " Birr", Color.LIGHT_GRAY);
-        queryPanel curMonthExpenditurePanle = new queryPanel(currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + "'s total expenditure till date", Double.toString(curMonthExpenditure) + " Birr", Color.LIGHT_GRAY);
-        queryPanel curYearIncomePanel = new queryPanel(Integer.toString(currentDate.getYear()) + "'s total income till date", Double.toString(curYearIncome) + " Birr", Color.LIGHT_GRAY);
-        queryPanel curYearExpenditurePanel = new queryPanel(Integer.toString(currentDate.getYear()) + "'s total expenditure till date", Double.toString(curYearExpenditure) + " Birr", Color.LIGHT_GRAY);
+        queryPanel officialNamePanel = new queryPanel("Official Name", officialName, getBackground());
+        queryPanel accountNoPanel = new queryPanel("Bank Account No", accountNo, getBackground());
+        queryPanel totalAmountPanel = new queryPanel("Total Amount", Double.toString(totalAmount) + " Birr", getBackground());
+        queryPanel curMonthIncomePanel = new queryPanel(currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + "'s total income till date", Double.toString(curMonthIncome) + " Birr", getBackground());
+        queryPanel curMonthExpenditurePanle = new queryPanel(currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + "'s total expenditure till date", Double.toString(curMonthExpenditure) + " Birr", getBackground());
+        queryPanel curYearIncomePanel = new queryPanel(Integer.toString(currentDate.getYear()) + "'s total income till date", Double.toString(curYearIncome) + " Birr", getBackground());
+        queryPanel curYearExpenditurePanel = new queryPanel(Integer.toString(currentDate.getYear()) + "'s total expenditure till date", Double.toString(curYearExpenditure) + " Birr", getBackground());
         
         generalData = new JPanel();
         generalData.setLayout(new BoxLayout(generalData, BoxLayout.Y_AXIS));

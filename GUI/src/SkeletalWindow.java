@@ -90,14 +90,12 @@ public class SkeletalWindow extends JFrame{
 
         @Override
         public void addTab(JButton button, JPanel clickedPanel) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'addTab'");
+           
         }
 
         @Override
         public void workWithFileChosen(File selectedFile) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+
         }
 
     }
@@ -149,15 +147,13 @@ public class SkeletalWindow extends JFrame{
 
         @Override
         public void showMyTab(CustomTable table, Object[] values, int source) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'showMyTab'");
+           
         }
 
 
         @Override
         public void workWithFileChosen(File selectedFile) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'workWithFileChosen'");
+           
         }
     }
 }
