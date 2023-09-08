@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -32,7 +30,7 @@ public class App {
 
         String url = "jdbc:mysql://localhost:3306/idir";
         String username = "root";
-        String password = "abenezer16";
+        String password = "password";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DATABASE_CONNECTION = DriverManager.getConnection(url, username, password);
