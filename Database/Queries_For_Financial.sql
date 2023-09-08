@@ -43,7 +43,7 @@ WHERE MONTH(Issued_Date) = MONTH(curdate()) AND Deleted = "NO"
 GROUP BY Type
 ORDER BY Type DESC;
 
--- retrieving the current month income and expendings
+-- retrieving the current year income and expendings
 SELECT Type, Sum(Amount)
 FROM RECEIPT
 WHERE YEAR(Issued_Date) = YEAR(curdate()) AND Deleted = "NO"
@@ -85,6 +85,25 @@ VALUES (curdate(), id, amt, "Reason", "Type", id);
 SELECT Issued_Date, LPAD(Issued_For, 4, '0'), CONCAT(f.First_Name, " ", f.Father_Name, " ", f.Grandfather_Name) AS Issuer_Name, Amount, Reason_For_Payment, Type, LPAD(Issued_By, 4, '0'), CONCAT(b.First_Name, " ", b.Father_Name, " ", b.Grandfather_Name) As Signer_Name
 FROM RECEIPT, MEMBER_TABLE As f, MEMBER_TABLE As b
 WHERE Receipt_No = rn AND f.ID = Issued_For AND b.ID = Issued_BY;
+
+-- SELECT
+--     r.Issued_Date,
+--     LPAD(r.Issued_For, 4, '0') AS Formatted_Issued_For,
+--     CONCAT(fi.First_Name, ' ', fi.Father_Name, ' ', fi.Grandfather_Name) AS Issuer_Name,
+--     r.Amount,
+--     r.Reason_for_Payment,
+--     r.Type,
+--     LPAD(r.Issued_By, 4, '0') AS Formatted_Issued_By,
+--     CONCAT(fb.First_Name, ' ', fb.Father_Name, ' ', fb.Grandfather_Name) AS Signer_Name
+-- FROM
+--     RECEIPT AS r
+-- JOIN
+--     MEMBER_TABLE AS fi ON r.Issued_For = fi.ID
+-- JOIN
+--     MEMBER_TABLE AS fb ON r.Issued_By = fb.ID
+-- WHERE
+--     r.Receipt_No = rn;
+
 
 -- for deleteing a receipt
 UPDATE RECEIPT
