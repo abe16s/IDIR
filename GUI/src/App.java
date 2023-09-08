@@ -3,6 +3,10 @@ package GUI.src;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -13,6 +17,8 @@ public class App {
     private SkeletalWindow window;
     public static IndividualProfile INDIVIDUAL_PROFILE;
     public static IndividualReceiptPanel INDIVIDUAL_RECEIPT;
+    public static Connection DATABASE_CONNECTION;
+
     App(String title){
         //This block of code is to make the whole GUI look and feel like the operating system. Can be seen in the ScrollPane and the file choosers
         try {
@@ -24,6 +30,16 @@ public class App {
         window = new SkeletalWindow(title);
         window.setIconImage(ImageIcons.LOGO.getImage());
 
+        String url = "jdbc:mysql://localhost:3306/idir";
+        String username = "root";
+        String password = "abenezer16";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            DATABASE_CONNECTION = DriverManager.getConnection(url, username, password);
+            System.out.println("Connected to the MySQL database.");
+        } catch (Exception e) {
+            System.out.println(e);
+        } 
 
 
         HomePage homePage = new HomePage(window);
