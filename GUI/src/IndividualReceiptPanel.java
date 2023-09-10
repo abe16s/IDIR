@@ -6,16 +6,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -60,7 +57,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         this.setBorder(new EmptyBorder(new Insets(60, 60, 60, 60)));
 
         
-        nextAvailableReceipt = "001234";
+        nextAvailableReceipt = "000001";
         LocalDate currentDate = LocalDate.now();
         formattedDate = currentDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
 
@@ -103,7 +100,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         reason = new JComboBox<String>(reasons);
         reason.setFocusable(false);
         reason.addActionListener(new comboListener());
-        String[] months = {"Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"};
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         extraReason = new JComboBox<String>(months);
         extraReason.setFocusable(false);
 
@@ -252,7 +249,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         Object[] receiptInfo = {LocalDate.of(2023, 9, 9), ReceiptNo, "0102", "Abebe", 5000.0, "Monthly payment for Sep 2023", "Income", "0321", "Kebede"};
         try (Statement retrieveReceiptStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveReceipt = retrieveReceiptStmt.executeQuery("SELECT r.Issued_Date, LPAD(r.Receipt_No, 6, '0'), LPAD(r.Issued_For, 4, '0') AS Formatted_Issued_For, CONCAT(fi.First_Name, ' ', fi.Father_Name, ' ', fi.Grandfather_Name) AS Issuer_Name,  " + //
-                    "r.Amount, r.Reason_for_Payment, r.Type, LPAD(r.Issued_By, 4, '0') AS Formatted_Issued_By, CONCAT(fb.First_Name, ' ', fb.Father_Name, ' ', fb.Grandfather_Name) AS Signer_Name " + //
+                    "r.Amount, r.Reason_for_Payment, r.Money_Type, LPAD(r.Issued_By, 4, '0') AS Formatted_Issued_By, CONCAT(fb.First_Name, ' ', fb.Father_Name, ' ', fb.Grandfather_Name) AS Signer_Name " + //
                     "FROM RECEIPT AS r JOIN MEMBER_TABLE AS fi ON r.Issued_For = fi.ID JOIN MEMBER_TABLE AS fb ON r.Issued_By = fb.ID " + //
                     "WHERE r.Receipt_No = " + ReceiptNo + ";");
             while (retrieveReceipt.next()) {
@@ -331,7 +328,6 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
     } 
 
     private class comboListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             String selected = (String)((JComboBox<String>)e.getSource()).getSelectedItem();
@@ -429,7 +425,8 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
             Statement nextAvailableReceiptStmt = App.DATABASE_CONNECTION.createStatement();
             ResultSet startingDate = nextAvailableReceiptStmt.executeQuery("select LPAD(max(Receipt_No) + 1, 6, '0') AS nextAvailableReceiptNo FROM RECEIPT;");
             while (startingDate.next()) {
-                nextAvailableReceipt = startingDate.getString(1);
+                if (startingDate.getString(1) != null)
+                    nextAvailableReceipt = startingDate.getString(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -455,7 +452,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         values[3] = "'" + rsn + "'";
         values[4] = "'" + moneyFor.getSelection().getActionCommand() + "'";
         values[5] = signerID.getTextField().getText();
-        String query = "INSERT INTO RECEIPT (Issued_Date, Issued_For, Amount, Reason_For_Payment, Type, Issued_By) VALUES (";
+        String query = "INSERT INTO RECEIPT (Issued_Date, Issued_For, Amount, Reason_For_Payment, Money_Type, Issued_By) VALUES (";
         for (int i = 0; i < values.length; i++) {
             if (i > 0) query += ", ";
             query += values[i];
@@ -475,7 +472,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
             String mon = (String) extraReason.getSelectedItem();
             if (mon.equals("Dec")) 
                 mon = '`' + mon + '`';
-            query += (mon + " = " + amount.getTextField().getText() + " WHERE ID = " + issuedForID.getTextField().getText() + " AND Year = " + chooseYear.getSelectedItem() + ";");
+            query += (mon + " = " + amount.getTextField().getText() + " WHERE ID = " + issuedForID.getTextField().getText() + " AND yr = " + chooseYear.getSelectedItem() + ";");
             try (Statement updateHistory = App.DATABASE_CONNECTION.createStatement()) {
                 updateHistory.executeUpdate(query);
             } catch (SQLException e) {
@@ -519,7 +516,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
                 String mon = rsn[3];
                 if (mon.equals("Dec")) 
                     mon = '`' + mon + '`';
-                query += (mon + " = " + "0" + " WHERE ID = " + issuedForID.getTextField().getText() + " AND Year = " + rsn[4] + ";");
+                query += (mon + " = " + "0" + " WHERE ID = " + issuedForID.getTextField().getText() + " AND yr = " + rsn[4] + ";");
                 deleteStmt.executeUpdate(query);
             } else if (rsn[0].equals("Buying")) {
                 deleteStmt.executeUpdate("UPDATE PROPERTY " + //

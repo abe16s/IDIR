@@ -82,7 +82,6 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
         years.setPreferredSize(new Dimension(100, years.getPreferredSize().height));
         years.setFocusable(false);
 
-        LocalDate currentDate = LocalDate.now();
         int yearInterval = 1;
 
         try {
@@ -120,7 +119,6 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
     }
 
     private class changeYear implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             JComboBox<Integer> source = (JComboBox<Integer>) e.getSource();
@@ -147,7 +145,8 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
             try (Statement statement = App.DATABASE_CONNECTION.createStatement()) {
                 ResultSet resultSet = statement.executeQuery("SELECT Receipt_No " + //
                         "FROM RECEIPT " + //
-                        "WHERE Reason_for_Payment = 'Monthly Payment of " + columnNames[source] + " " + years.getSelectedItem() + "' AND Issued_For = " + values[0] + " AND Deleted = 'NO';");
+                        "WHERE Reason_for_Payment = 'Monthly Payment of " + columnNames[source] + " " + //
+                        years.getSelectedItem() + "' AND Issued_For = " + values[0] + " AND Deleted = 'NO';");
                 if (resultSet.next()) {
                     rNo = resultSet.getString(1);
                 }
@@ -174,7 +173,7 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
         try (Statement statement = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveTable = statement.executeQuery("SELECT LPAD(ID, 4, '0'), Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, `Dec` " + //
                     "FROM MONTHLY_PAYMENT_HISTORY " + //
-                    "WHERE Year = " + year + " ORDER BY ID;");
+                    "WHERE yr = " + year + " ORDER BY ID;");
             
             ArrayList<Object[]> curTable = new ArrayList<Object[]>();
             int ctr = 0;
@@ -192,7 +191,6 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return exampleData;
     } 
 }
