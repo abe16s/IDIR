@@ -20,7 +20,7 @@ CREATE TABLE IDIR_TABLE (
     Office_Address VARCHAR(30) NOT NULL,
     Store_Address VARCHAR(30),
     Bank_Acc_No VARCHAR(30) NOT NULL,
-    Total_Amount DECIMAL(9 , 2 ),
+    Total_Amount DECIMAL(9 , 2 ) DEFAULT 0.0,
     Chairman INT,
     Vice_Chairman INT,
     Secretary INT,
@@ -73,8 +73,8 @@ CREATE TABLE RECEIPT (
     Issued_For INT NOT NULL,
     Issued_By INT NOT NULL,
     Reason_for_Payment VARCHAR(50) NOT NULL,
-    Amount DECIMAL(6 , 2 ) NOT NULL,
-    Type VARCHAR(12),
+    Amount DECIMAL(8 , 2 ) NOT NULL,
+    Money_Type VARCHAR(12),
     Deleted VARCHAR(100) DEFAULT 'NO',
     FOREIGN KEY (Issued_For)
         REFERENCES MEMBER_TABLE (ID),
@@ -91,7 +91,7 @@ CREATE TABLE FAMILY (
     Phone_No CHAR(10) UNIQUE,
     FOREIGN KEY (Member_ID)
         REFERENCES MEMBER_TABLE (ID),
-    UNIQUE (First_Name , Father_Name , Grandfather_Name)
+    UNIQUE (Member_ID , First_Name , Father_Name , Grandfather_Name)
 );
   
 CREATE TABLE AGENDA (
@@ -106,7 +106,7 @@ CREATE TABLE AGENDA (
 
 CREATE TABLE MONTHLY_PAYMENT_HISTORY (
     ID INT,
-    Year INT,
+    yr INT,
     Jan INT DEFAULT 0,
     Feb INT DEFAULT 0,
     Mar INT DEFAULT 0,
@@ -119,7 +119,7 @@ CREATE TABLE MONTHLY_PAYMENT_HISTORY (
     Oct INT DEFAULT 0,
     Nov INT DEFAULT 0,
     `Dec` INT DEFAULT 0,
-    PRIMARY KEY (ID , Year)
+    PRIMARY KEY (ID , yr)
 );
         
 DELIMITER $$
@@ -138,7 +138,7 @@ CREATE TRIGGER addMemberToMonthlyHistory AFTER INSERT ON MEMBER_TABLE FOR EACH R
 BEGIN
 	DECLARE yearr INT;
     SELECT YEAR(CURDATE()) into yearr;
-	INSERT INTO MONTHLY_PAYMENT_HISTORY (ID, Year)
+	INSERT INTO MONTHLY_PAYMENT_HISTORY (ID, yr)
 	VALUES (New.ID, yearr);
 END $$
 
@@ -147,7 +147,7 @@ DELIMITER ;
 -- A function to add all the members in to MONTHLY_PAYMENT_HISTORY as New Year comes
 DELIMITER $$
 
-CREATE PROCEDURE populateMonthlyPaymentHistory(yearr INT) 
+CREATE PROCEDURE populateMonthlyPaymentHistory(newYear INT) 
 BEGIN
 	DECLARE n INT DEFAULT 0;
 	DECLARE i INT DEFAULT 0;
@@ -156,8 +156,8 @@ BEGIN
 	SET i=0;
 	WHILE i<n DO 
 		SELECT (ID) FROM MEMBER_TABLE LIMIT i,1 INTO member_id;
-		INSERT INTO MONTHLY_PAYMENT_HISTORY (ID, Year)
-        VALUES (member_id, yearr);
+		INSERT INTO MONTHLY_PAYMENT_HISTORY (ID, yr)
+        VALUES (member_id, newYear);
 		SET i = i + 1;
 	END WHILE;
 END $$
@@ -170,3 +170,36 @@ ON SCHEDULE EVERY 1 YEAR
 STARTS CONCAT(YEAR(CURDATE()) + 1, '-01-01')
 DO 
 CALL populateMonthlyPaymentHistory(YEAR(CURDATE()));
+
+-- Triggers for Increasing or Decreasing the Total Amount of idir
+DELIMITER $$
+
+CREATE TRIGGER addOrSubtractTotalAmount AFTER INSERT ON RECEIPT FOR EACH ROW
+BEGIN
+	IF New.Money_Type = "Income" THEN
+		UPDATE IDIR_TABLE
+		SET Total_Amount = Total_Amount + New.Amount;
+	ELSE 
+		UPDATE IDIR_TABLE
+		SET Total_Amount = Total_Amount - New.Amount;
+	END IF;
+END $$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER addOrSubtractTotalAmountAfterDelete AFTER UPDATE ON RECEIPT FOR EACH ROW
+BEGIN
+	IF New.Deleted <> "NO" THEN
+		IF New.Money_Type = "Income" THEN
+			UPDATE IDIR_TABLE
+			SET Total_Amount = Total_Amount - New.Amount;
+		ELSE 
+			UPDATE IDIR_TABLE
+			SET Total_Amount = Total_Amount + New.Amount;
+		END IF;
+	END IF;
+END $$
+
+DELIMITER ;
