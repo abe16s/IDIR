@@ -30,7 +30,7 @@ public class App {
 
         String url = "jdbc:mysql://localhost:3306/idir";
         String username = "root";
-        String password = "password";
+        String password = "bekabirhanu";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DATABASE_CONNECTION = DriverManager.getConnection(url, username, password);

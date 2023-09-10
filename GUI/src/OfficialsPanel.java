@@ -9,6 +9,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -131,9 +134,33 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
 
         this.add(footer, BorderLayout.SOUTH);
         viewOnlyPage();
+        refreshOfficialsData();
     }
 
     public void updateData(String memberID){
+    }
+
+    public void refreshOfficialsData(){
+        ArrayList<Object[]> data = new ArrayList<Object[]>();
+        String[] rowData;
+         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
+            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveOfficials");
+            while (retrieveIdirInfo.next()) {
+                rowData = new String[5];
+                for(int i = 0; i < 4; i++){
+                    rowData[i] = retrieveIdirInfo.getString(i+1);
+                }
+                data.add(rowData);
+                if (!retrieveIdirInfo.isAfterLast()){data.add(new Object[]{"","","","",""});}
+            }
+        } 
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (data.size() > 0){
+                officialTable.updateTableData(data);
+            }
+            
     }
 
     private void viewOnlyPage() {
@@ -158,7 +185,7 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
         if (source == 4 & !values[0].equals(""))new PopUpMembers(this,(String)values[3]);
         
         if(!values[0].equals("") && edit.isVisible()){
-            App.INDIVIDUAL_PROFILE.prepareToShowProfile((String) values[1]);
+            App.INDIVIDUAL_PROFILE.prepareToShowProfile(Integer.parseInt((String) values[1]));
             displayPanel.showMyTab("individualProfile");
 
             for (TransparentButton transparentButton: affectedButtons) {
