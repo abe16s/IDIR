@@ -2,11 +2,16 @@ package GUI.src.utilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 
 public class CustomTable extends JTable {
@@ -172,5 +177,25 @@ public class CustomTable extends JTable {
             }
         }
     }}
+    public void updateTableData(ArrayList<Object[]> newData) {
+        TableColumnModel columnModel = getColumnModel();
+        int columnCount = columnModel.getColumnCount();
+
+        Object[] columnIdentifiers = new Object[columnCount];
+
+        for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+            TableColumn column = columnModel.getColumn(columnIndex);
+            
+            columnIdentifiers[columnIndex] =  column.getHeaderValue();
+        }
+
+        DefaultTableModel newModel = new DefaultTableModel();
+        newModel.setColumnIdentifiers(columnIdentifiers);
+
+        for (Object[] rowData:newData) {
+            newModel.addRow(rowData);
+        }
+        setModel(newModel);
+    }
 
 }

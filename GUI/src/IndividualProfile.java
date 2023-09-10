@@ -2,6 +2,9 @@ package GUI.src;
 
 import java.awt.*;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -252,10 +255,8 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             t.setMaximumSize(new Dimension(t.getPreferredSize().width, 20));
             t.setEditable(true);
         }
-        JTextField t = personalInfoInputFields.get(0).getTextField();
-        t.setEditable(false);
-        t.setText("2");
-        t.setBackground(new Color(247, 247, 247));
+        queryPanel t = personalInfoInputFields.get(0);
+        t.setVisible(false);
         personalInfoInputFields.get(7).setVisible(true);
 
         familiesSize = 0;
@@ -291,9 +292,9 @@ public class IndividualProfile extends JPanel implements ParentPanel{
         personalInfoInputFields.get(0).getTextField().setEditable(false);
         personalInfoInputFields.get(0).getTextField().setBackground(new Color(247, 247, 247));
 
-        for(FamilyInfoInputPanel I : familyInfoInputPanels){
-            I.setEditable(true);
-        }
+        // for(FamilyInfoInputPanel I : familyInfoInputPanels){
+        //     I.setEditable(true);
+        // }
         addFamily.setVisible(true);
         discard.setVisible(true);
         save.setVisible(true);
@@ -302,25 +303,36 @@ public class IndividualProfile extends JPanel implements ParentPanel{
     }
 
 
-    public void prepareToShowProfile(String memberID){
+    public void prepareToShowProfile(Integer memberID){
+
+        String pht;
+
+         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
+            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveMember(" + memberID.toString() +")");
+            if (retrieveIdirInfo.next()) {
+                // update personal info query panels to current member being displayed and uneditable
+                for (int i = 0; i < 7; i++ ){
+                    JTextField t = personalInfoInputFields.get(i).getTextField();
+                    t.setText(retrieveIdirInfo.getString(i+1));
+                    t.setEditable(false);
+                    t.setBackground(Color.white);
+                    t.setColumns(retrieveIdirInfo.getString(i+1).length());
+                    t.setMaximumSize(new Dimension(t.getPreferredSize().width, 20));  
+                }
+                fullName.setText(retrieveIdirInfo.getString(7));
+            }
+        } 
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
         // update photo and full name to current member being displayed
         photo.setIcon(ImageIcons.reSize(new ImageIcon("GUI\\Icons\\dark\\Example-Photo.jpg"),200,200)); 
-        fullName.setText(exampleSelected[7]);
         fullName.setVisible(true);
         choosePhoto.setVisible(false);
         
-        // update personal info query panels to current member being displayed and uneditable
-        for (int i = 0; i < 7; i++ ){
-            JTextField t = personalInfoInputFields.get(i).getTextField();
-            t.setText(exampleSelected[i]);
-            t.setEditable(false);
-            t.setBackground(Color.white);
-            t.setColumns(exampleSelected[i].length());
-            t.setMaximumSize(new Dimension(t.getPreferredSize().width, 20));
-            
-        }
         personalInfoInputFields.get(7).setVisible(false);// make full name input invisible 
-
+        queryPanel t = personalInfoInputFields.get(0);
+        t.setVisible(true);
 
         // update family input panels to current member being displayed and uneditable
         familiesSize = 0;
@@ -362,7 +374,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             else JOptionPane.showMessageDialog(this.displayPanel,"Added New Member Successfully!", "Add Member", JOptionPane.INFORMATION_MESSAGE);
 
             saveProfile();
-            prepareToShowProfile(exampleSelected[0]);
+            prepareToShowProfile(Integer.parseInt(exampleSelected[0]));
 
         } else if (buttonName.equals("Edit")){
             prepareToEditMember();
@@ -372,7 +384,7 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             
             if (result == JOptionPane.YES_OPTION) {
                 familiesSize = 0 ;
-                if (editing){prepareToShowProfile(exampleSelected[0]);}
+                if (editing){prepareToShowProfile(Integer.parseInt(exampleSelected[0]));}
                 else {displayPanel.showMyTab("Members");} }
 
         }else{ // if the button clicked is add a family check if a family input panel is already created
