@@ -297,17 +297,15 @@ public class FinancePanel extends JPanel implements ParentPanel {
             }
             if (ctr > 0)
                 properties = curProperties.toArray(Object[][]::new);
+                DefaultTableModel propertiesModel = new DefaultTableModel();
+                propertiesModel.setColumnIdentifiers(propertiesColumns);
+                for (Object[] rowData:properties) {
+                    propertiesModel.addRow(rowData);
+                }
+                propertiesTable.setModel(propertiesModel);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        DefaultTableModel propertiesModel = new DefaultTableModel();
-        propertiesModel.setColumnIdentifiers(propertiesColumns);
-        Object[][] newPptyData = properties;
-        for (Object[] rowData:newPptyData) {
-            propertiesModel.addRow(rowData);
-        }
-        propertiesTable.setModel(propertiesModel);
 
         try (Statement expendingsStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveExpendings = expendingsStmt.executeQuery("SELECT Issued_Date, LPAD(Receipt_No, 6, '0'), Amount, Reason_for_Payment " + //
@@ -323,6 +321,12 @@ public class FinancePanel extends JPanel implements ParentPanel {
             }
             if (ctr > 0) 
                 expendings = curExpendings.toArray(Object[][]::new);
+                DefaultTableModel expendingsModel = new DefaultTableModel();
+                expendingsModel.setColumnIdentifiers(expendingsColumns);
+                for (Object[] rowData:expendings) {
+                    expendingsModel.addRow(rowData);
+        }
+        expendingsTable.setModel(expendingsModel);
         } catch (SQLException e) {
             e.printStackTrace();
         }   
@@ -332,14 +336,6 @@ public class FinancePanel extends JPanel implements ParentPanel {
                 yearlyIncomeExpendings[i][k] = 0;
             }
         }
-
-        DefaultTableModel expendingsModel = new DefaultTableModel();
-        expendingsModel.setColumnIdentifiers(expendingsColumns);
-        Object[][] newExpeData = expendings;
-        for (Object[] rowData:newExpeData) {
-            expendingsModel.addRow(rowData);
-        }
-        expendingsTable.setModel(expendingsModel);
 
         try (Statement reportStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveReport = reportStmt.executeQuery("Select YEAR(Issued_Date), MONTH(Issued_Date), Money_Type, SUM(Amount) " + //
