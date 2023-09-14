@@ -145,6 +145,8 @@ public class AgendaList extends JPanel implements ParentPanel {
             private queryPanel writer;
             private queryPanel writerID;
             private String nextAvailableNo = "0001"; 
+            private ArrayList<queryPanel> required = new ArrayList<>();
+            private boolean insertionError = false;
 
             public inputPanel (AddAgenda parent){
                 this.parent = parent;
@@ -169,6 +171,7 @@ public class AgendaList extends JPanel implements ParentPanel {
                 title = new queryPanel("Title", 20, Color.LIGHT_GRAY);
                 title.setAlignmentX(LEFT_ALIGNMENT);
                 title.adjustSize();
+                required.add(title);
 
                 writer = new queryPanel("Writer", 20, Color.LIGHT_GRAY);
                 writer.setAlignmentX(LEFT_ALIGNMENT);
@@ -177,6 +180,8 @@ public class AgendaList extends JPanel implements ParentPanel {
                 writerID = new queryPanel("Writer ID", 5, Color.LIGHT_GRAY);
                 writerID.setAlignmentX(LEFT_ALIGNMENT);
                 writerID.adjustSize();
+                writerID.setNumeric();
+                required.add(writerID);
 
                 generalInput.add(agendaNo);
                 generalInput.add(date);
@@ -204,13 +209,18 @@ public class AgendaList extends JPanel implements ParentPanel {
                 save.setNormalColor(new Color(147, 175, 207));
                 save.setSelectedColor(new Color(79,170,255));
                 save.addActionListener(new ActionListener() {
-
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        insertAgenda();
-                        AgendaList.this.refresh();
+                        if (checkBeforeInsert()) {
+                           insertAgenda();
+                            if (insertionError) {
+                                JOptionPane.showMessageDialog(displayPanel,"Check if the specified ID correctly represent a member!", "Check Inputs", JOptionPane.INFORMATION_MESSAGE);
+                                insertionError = false;
+                            } else {
+                                AgendaList.this.refresh(); 
+                            }
+                        }   
                     }
-                    
                 });
 
                 ColoredButton discard = new ColoredButton("Discard",this);
@@ -283,8 +293,31 @@ public class AgendaList extends JPanel implements ParentPanel {
                 try (Statement insertStmt = App.DATABASE_CONNECTION.createStatement()) {
                     insertStmt.executeUpdate(query);
                 } catch (SQLException e) {
+                    insertionError = true;
                     e.printStackTrace();
                 }
+            }
+
+            private boolean checkBeforeInsert() {
+                for (queryPanel qPanel : required) {
+                    if (qPanel.getTextField().getText().equals("")) {
+                        JOptionPane.showMessageDialog(displayPanel,"Please Enter " + qPanel.getCaption().getText() + "!", "Required", JOptionPane.INFORMATION_MESSAGE);
+                        return false;
+                    }
+                }
+
+                if (fileChosen == null) {
+                    JOptionPane.showMessageDialog(displayPanel,"Please Choose File!", "Required", JOptionPane.INFORMATION_MESSAGE);
+                    return false;
+                }
+
+                return true;
+            }
+
+
+            @Override
+            public void refresh() {
+                
             }
         }
     }
@@ -315,10 +348,11 @@ public class AgendaList extends JPanel implements ParentPanel {
 
     }
     
-    private void refresh() {
+    @Override
+    public void refresh() {
         try (Statement allAgendasStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveAgendas = allAgendasStmt.executeQuery("SELECT LPAD(Agenda_No, 4, '0'), Written_Date, Title, CONCAT(M.First_Name, ' ', M.Father_Name, ' ', M.Grandfather_Name) AS Writter_Name\n" + //
-                    "FROM AGENDA AS A JOIN MEMBER_TABLE AS M ON A.Writer = M.ID;");
+                    "FROM AGENDA AS A JOIN MEMBER_TABLE AS M ON A.Writer = M.ID ORDER BY Agenda_No DESC;");
             ArrayList<Object[]> curAgendas = new ArrayList<Object[]>();
             int ctr = 0;
             while (retrieveAgendas.next()) {

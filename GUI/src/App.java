@@ -5,9 +5,11 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.HashMap;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import GUI.src.utilities.*;
 
@@ -17,6 +19,7 @@ public class App {
     public static IndividualProfile INDIVIDUAL_PROFILE;
     public static IndividualReceiptPanel INDIVIDUAL_RECEIPT;
     public static Connection DATABASE_CONNECTION;
+    public static HashMap<String, ParentPanel> panelsHashMap = new HashMap<>();
 
     App(String title){
         //This block of code is to make the whole GUI look and feel like the operating system. Can be seen in the ScrollPane and the file choosers
@@ -102,7 +105,8 @@ public class App {
     }
 
     public static void main(String[] args) {
-        new App("Idir");
+        SwingUtilities.invokeLater(()-> {
+            new App("Idir");
+        });   
     }
-    
 }

@@ -74,11 +74,21 @@ public class SkeletalWindow extends JFrame{
         }
 
         public void showMyTab(String buttonName) {
+            try {
+                App.panelsHashMap.get(buttonName).refresh();   
+            } catch (Exception e) {
+                
+            }
             cardLayout.show(this, buttonName);
         }
 
 
         public void addMyTab(JPanel clickedPanel, String buttonName){
+            try {
+                App.panelsHashMap.put(buttonName,  (ParentPanel)clickedPanel);
+            } catch (Exception e) {
+                
+            }
             add(clickedPanel, buttonName);
         }
 
@@ -96,6 +106,11 @@ public class SkeletalWindow extends JFrame{
         @Override
         public void workWithFileChosen(File selectedFile) {
 
+        }
+
+        @Override
+        public void refresh() {
+            
         }
 
     }
@@ -154,6 +169,12 @@ public class SkeletalWindow extends JFrame{
         @Override
         public void workWithFileChosen(File selectedFile) {
            
+        }
+
+
+        @Override
+        public void refresh() {
+    
         }
     }
 }
