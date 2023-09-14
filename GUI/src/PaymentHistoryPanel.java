@@ -192,5 +192,10 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
             e.printStackTrace();
         }
         return exampleData;
+    }
+
+    @Override
+    public void refresh() {
+       years.setSelectedItem(years.getSelectedItem());
     } 
 }

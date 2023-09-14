@@ -134,4 +134,9 @@ public class HomePage extends JPanel implements ParentPanel{
     @Override
     public void workWithFileChosen(File selectedFile) {
     }
+
+    @Override
+    public void refresh() {
+        
+    }
 }

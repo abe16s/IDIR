@@ -296,9 +296,21 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
         @Override
         public void workWithFileChosen(File selectedFile) {
         
-        }}
+        }
+
+
+    @Override
+    public void refresh() {
+        
+    }}
 
     @Override
     public void workWithFileChosen(File selectedFile) {
         
-    }}
+    }
+
+    @Override
+    public void refresh() {
+        
+    }
+}

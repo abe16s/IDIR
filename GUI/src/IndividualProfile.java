@@ -501,4 +501,9 @@ public class IndividualProfile extends JPanel implements ParentPanel{
             return  values;
         }
     }
+
+    @Override
+    public void refresh() {
+        
+    }
 }
