@@ -14,7 +14,7 @@ import GUI.src.utilities.*;
 
 public class MembersPanel extends JPanel implements ParentPanel {
     private BasePanel displayPanel;
-    private CustomTable MembersList;
+    public static CustomTable MembersList;
     private ColoredButton AddMember;
     private JPanel panelNull;
     private JScrollPane ScrollList;
@@ -25,8 +25,53 @@ public class MembersPanel extends JPanel implements ParentPanel {
         this.setBackground(new Color(228, 228, 228));
         
         String[] columnNames = {"ID", "Full Name", "Address", "Phone No", "Age", "Occupation", "Religion"};
-        String[][] data = {{"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"}};
-
+        String[][] data = { {"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka Birhanu Atomsa", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
+        {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
+        {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"}
+    };
         MembersList = new CustomTable(this,data, columnNames);
         MembersList.setAlternatingColor( Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
 
@@ -54,9 +99,9 @@ public class MembersPanel extends JPanel implements ParentPanel {
 
         this.add(addBar, BorderLayout.SOUTH);
         this.add(ScrollList, BorderLayout.CENTER);
-        updateData();
+        refreshData();
     }
-    public void updateData(){
+    public void refreshData(){
         ArrayList<Object[]> data = new ArrayList<Object[]>();
         String[] rowData;
          try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
@@ -70,12 +115,13 @@ public class MembersPanel extends JPanel implements ParentPanel {
             }
         } 
             catch (SQLException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             }
         if (data.size() > 0){
             MembersList.updateTableData(data);
             panelNull.setVisible(false);
+            ScrollList.setVisible(true);
         }else{
             ScrollList.setVisible(false);
             panelNull.setVisible(true);
