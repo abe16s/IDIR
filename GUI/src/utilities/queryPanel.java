@@ -91,4 +91,34 @@ public class queryPanel extends JPanel {
             super.insertString(offs, str, a);
         }
     }
+
+    public void setPhoneNumber() {
+        this.captionField.setDocument(new PhoneNumberDocument());
+    }
+
+    public class PhoneNumberDocument extends PlainDocument {
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            if (str == null) {
+                return;
+            }
+
+            // Ensure that the total length of the text in the field does not exceed 10
+            // characters
+            int currentLength = getLength();
+            if (currentLength + str.length() > 10) {
+                return;
+            }
+
+            // Check if the input is numeric
+            for (int i = 0; i < str.length(); i++) {
+                if (!Character.isDigit(str.charAt(i))) {
+                    return;
+                }
+            }
+
+            // Allow the insertion if it meets the criteria
+            super.insertString(offs, str, a);
+        }
+    }
 }
