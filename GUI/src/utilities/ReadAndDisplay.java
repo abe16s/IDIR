@@ -12,7 +12,7 @@ public class ReadAndDisplay extends JTextArea {
 
     public ReadAndDisplay() {
         setEditable(false);
-        setLineWrap(true); 
+        setLineWrap(true);
         setWrapStyleWord(true);
         scrollPane = new JScrollPane(this);
         scrollPane.setBorder(null);
@@ -36,5 +36,5 @@ public class ReadAndDisplay extends JTextArea {
         }
         setCaretPosition(0);
     }
-        
+
 }

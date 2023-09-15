@@ -104,7 +104,6 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         viewOnlyPage();
     }
 
-
     private void viewOnlyPage() {
         columnModel.removeColumn(column);
         saveDiscardPanel.setVisible(false);
@@ -117,12 +116,13 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         this.menuBar = menuBar;
     }
 
-    private void showChange(String memberID){
-        TableModel model = (TableModel)officialTable.getModel();
-        try(Statement st = App.DATABASE_CONNECTION.createStatement()){
-            ResultSet member = st.executeQuery("call retrieveMember(" + ((Integer)Integer.parseInt(memberID)).toString() + ")");
-            if (member.next()){
-                ImageIcon photo =  ImageIcons.reSize(new ImageIcon(member.getString(8)), 100, 100);
+    private void showChange(String memberID) {
+        TableModel model = (TableModel) officialTable.getModel();
+        try (Statement st = App.DATABASE_CONNECTION.createStatement()) {
+            ResultSet member = st
+                    .executeQuery("call retrieveMember(" + ((Integer) Integer.parseInt(memberID)).toString() + ")");
+            if (member.next()) {
+                ImageIcon photo = ImageIcons.reSize(new ImageIcon(member.getString(8)), 100, 100);
                 String name = member.getString(9);
 
                 model.setValueAt(photo, changedOfficial, 0);
@@ -135,17 +135,24 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         }
     }
 
-    private void updateOfficialData(){
-        HashMap<String,String> officials = new HashMap<>();
-        TableModel model = (TableModel)officialTable.getModel();
+    private void updateOfficialData() {
+        HashMap<String, String> officials = new HashMap<>();
+        TableModel model = (TableModel) officialTable.getModel();
         int rowNo = model.getRowCount();
-        for(int row = 0 ; row <rowNo; row ++){
-            if(model.getValueAt(row,0).equals("")){
-                officials.put((String)model.getValueAt(row,3),((Integer)Integer.parseInt((String)model.getValueAt(row,1))).toString());
+        for (int row = 0; row < rowNo; row++) {
+            if (model.getValueAt(row, 0).equals("")) {
+                officials.put((String) model.getValueAt(row, 3),
+                        ((Integer) Integer.parseInt((String) model.getValueAt(row, 1))).toString());
             }
         }
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            generalsStmt.executeQuery("call UpdateOfficials(" + officials.get("Chairman") + "," + officials.get("Vice Chairman") + "," + officials.get("Secretary") + "," + officials.get("Accountant") + "," + officials.get("Money Holder") + "," + officials.get("Money Collector") + "," + officials.get("Property Buyer") +officials.get("Shift Supervisor 1")+ officials.get("Shift Supervisor 2")+  officials.get("Shift Supervisor 3")+ officials.get("Auditor 1")+officials.get("Auditor 1") + ")");
+            generalsStmt.executeQuery(
+                    "call UpdateOfficials(" + officials.get("Chairman") + "," + officials.get("Vice Chairman") + ","
+                            + officials.get("Secretary") + "," + officials.get("Accountant") + ","
+                            + officials.get("Money Holder") + "," + officials.get("Money Collector") + ","
+                            + officials.get("Property Buyer") + officials.get("Shift Supervisor 1")
+                            + officials.get("Shift Supervisor 2") + officials.get("Shift Supervisor 3")
+                            + officials.get("Auditor 1") + officials.get("Auditor 1") + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -180,10 +187,11 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
     }
 
     @Override
-    public void showMyTab(CustomTable table,int selectedRow, int selectedColumn) {
-        if (selectedColumn == 4 & !table.getValueAt(selectedRow, 0).equals("")){
+    public void showMyTab(CustomTable table, int selectedRow, int selectedColumn) {
+        if (selectedColumn == 4 & !table.getValueAt(selectedRow, 0).equals("")) {
             new PopUpMembers(this, (String) table.getValueAt(selectedRow, 3));
-            changedOfficial = selectedRow;}
+            changedOfficial = selectedRow;
+        }
 
         if (!table.getValueAt(selectedRow, 0).equals("") && edit.isVisible()) {
             App.INDIVIDUAL_PROFILE.prepareToShowProfile(Integer.parseInt((String) table.getValueAt(selectedRow, 1)));
@@ -198,7 +206,8 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
             }
         }
     }
- @Override
+
+    @Override
     public void workWithFileChosen(File selectedFile) {
 
     }
@@ -267,7 +276,7 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         }
 
         @Override
-        public void showMyTab(CustomTable table,int selectedRow, int selectedColumn) {
+        public void showMyTab(CustomTable table, int selectedRow, int selectedColumn) {
             parent.showChange((String) table.getValueAt(selectedRow, 0));
             dialog.setVisible(false);
 
@@ -313,5 +322,4 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         }
     }
 
-   
 }

@@ -8,22 +8,22 @@ import javax.swing.text.PlainDocument;
 
 import java.awt.*;
 
-
-public class queryPanel extends JPanel{
+public class queryPanel extends JPanel {
     /*
-     * This custom panel is to be used in the adding members and showing individual members
+     * This custom panel is to be used in the adding members and showing individual
+     * members
      * It has two constructors / two versions for receiving and showing information
      * i. for creating query panel with caption label and a text field
      * ii. for showing information with caption and info to be showed labels
      */
-    
+
     private JLabel caption;
     private JTextField captionField;
     private JLabel info;
     private int columns;
 
-    public queryPanel(String captionText, Color color) {    
-        this.caption = new JLabel(captionText+":");
+    public queryPanel(String captionText, Color color) {
+        this.caption = new JLabel(captionText + ":");
         this.caption.setOpaque(true);
         this.caption.setBackground(color);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -35,7 +35,7 @@ public class queryPanel extends JPanel{
 
     public queryPanel(String captionText, int columns, Color color) {
         this(captionText, color);
-        this.captionField = new JTextField(); 
+        this.captionField = new JTextField();
         this.captionField.setBorder(null);
         this.add(this.captionField);
         this.columns = columns;
@@ -84,7 +84,7 @@ public class queryPanel extends JPanel{
             }
 
             for (int i = 0; i < str.length(); i++) {
-                if(!Character.isDigit(str.charAt(i)) & str.charAt(i) != '.') {
+                if (!Character.isDigit(str.charAt(i)) & str.charAt(i) != '.') {
                     return;
                 }
             }

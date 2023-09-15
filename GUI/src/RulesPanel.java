@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.ReadAndDisplay;
 
-public class RulesPanel extends JPanel{
+public class RulesPanel extends JPanel {
     private String rules = "GUI\\src\\utilities\\Sample Rule.txt";
 
     public RulesPanel(BasePanel displayPanel) {

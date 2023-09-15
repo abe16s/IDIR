@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 public final class ImageIcons {
     public static final ImageIcon OFFICIAL = new ImageIcon("GUI\\Icons\\colored\\administrator-male.png");
     public static final ImageIcon OFFICIALdark = new ImageIcon("GUI\\Icons\\dark\\administrator-male.png");
-    
 
     public static final ImageIcon COINS = new ImageIcon("GUI\\Icons\\colored\\coins.png");
     public static final ImageIcon COINSdark = new ImageIcon("GUI\\Icons\\dark\\coins.png");
@@ -37,18 +36,18 @@ public final class ImageIcons {
     public static final ImageIcon UNKNOWN = new ImageIcon("GUI\\Icons\\dark\\unknonwn-photo.png");
 
     public static final ImageIcon ADD_MEMBER = new ImageIcon("GUI\\Icons\\dark\\add-user-male.png");
-    
+
     public static final ImageIcon CHANGE = new ImageIcon("GUI\\Icons\\colored\\change.png");
 
     public static final ImageIcon FILE = new ImageIcon("GUI\\Icons\\colored\\file.png");
 
     public static final ImageIcon Discard_FILE = new ImageIcon("GUI\\Icons\\dark\\file discard.png");
-    
+
     public static final ImageIcon DOWN_ARROW = new ImageIcon("GUI\\Icons\\dark\\down-arrow.png");
     public static final ImageIcon RIGHT_ARROW = new ImageIcon("GUI\\Icons\\dark\\right-arrow.png");
 
     public static final ImageIcon DISCARD_RECEIPT = new ImageIcon("GUI\\Icons\\dark\\delete-receipt.png");
-    
+
     public static final ImageIcon RECEIPT = new ImageIcon("GUI\\Icons\\dark\\receipt.png");
 
     public static final ImageIcon PAYMENT_HISTORY = new ImageIcon("GUI\\Icons\\dark\\history.png");
@@ -58,7 +57,7 @@ public final class ImageIcons {
     public static final ImageIcon OFF = new ImageIcon("GUI\\Icons\\dark\\off.png");
     public static final ImageIcon ON = new ImageIcon("GUI\\Icons\\colored\\on.png");
 
-    public static ImageIcon reSize(ImageIcon icon, int width, int height){
+    public static ImageIcon reSize(ImageIcon icon, int width, int height) {
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(newImage);

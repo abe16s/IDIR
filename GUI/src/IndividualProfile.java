@@ -355,7 +355,8 @@ public class IndividualProfile extends JPanel implements ParentPanel {
             familiesSize = 0;// as long there is a panel already created just update the data on it set it
                              // visible
             while (familiesSize < familyInfoInputPanels.size() && retrieveIdirInfo.next()) {
-                familyInfoInputPanels.get(familiesSize).updateData(retrieveIdirInfo.getString(1),retrieveIdirInfo.getString(3), retrieveIdirInfo.getString(2));
+                familyInfoInputPanels.get(familiesSize).updateData(retrieveIdirInfo.getString(1),
+                        retrieveIdirInfo.getString(3), retrieveIdirInfo.getString(2));
                 familiesSize++;
             }
             // if the panels already created are not enough add as many needed
@@ -411,8 +412,8 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } 
-        }else{
+            }
+        } else {
             String gender = personalInfoInputFields.get(1).getTextField().getText();
             String age = personalInfoInputFields.get(2).getTextField().getText();
             String religion = personalInfoInputFields.get(3).getTextField().getText();
@@ -424,23 +425,24 @@ public class IndividualProfile extends JPanel implements ParentPanel {
             try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
                 generalsStmt.executeQuery("call updateMember('" + id + "','" + address + "','" + phone + "'," + age
                         + ",'" + gender + "','" + occupation + "','" + religion + "')");
-                    for (FamilyInfoInputPanel x : familyInfoInputPanels) {
-                        String name = x.getData()[0];
-                        phone = x.getData()[1];
-                        String relation = x.getData()[2];
-                        try {
-                            generalsStmt.executeQuery("call addFamily(" + id + ",'" + name + "','" + phone
-                                + "','" + relation + "')");
-                        } catch (Exception e) {
+                for (FamilyInfoInputPanel x : familyInfoInputPanels) {
+                    String name = x.getData()[0];
+                    phone = x.getData()[1];
+                    String relation = x.getData()[2];
+                    try {
+                        generalsStmt.executeQuery("call addFamily(" + id + ",'" + name + "','" + relation
+                                + "','" + phone + "')");
+                    } catch (Exception e) {
 
-                        }
-                        
                     }
-                    prepareToShowProfile(Integer.parseInt(id));
-                } catch (SQLException e) {
+
+                }
+                prepareToShowProfile(Integer.parseInt(id));
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }}
+        }
+    }
 
     @Override
     public void showMyTab(String buttonName) {
@@ -485,7 +487,6 @@ public class IndividualProfile extends JPanel implements ParentPanel {
         }
 
     }
-
 
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
@@ -609,7 +610,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
 
     @Override
     public void refresh() {
-        
+
     }
 
     @Override

@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 
 public class TextFieldPlaceHolder implements FocusListener {
     private String text;
-    
+
     public TextFieldPlaceHolder(String text) {
         this.text = text;
     }
@@ -21,6 +21,7 @@ public class TextFieldPlaceHolder implements FocusListener {
             source.setForeground(Color.BLACK);
         }
     }
+
     @Override
     public void focusLost(FocusEvent e) {
         JTextField source = (JTextField) e.getSource();
