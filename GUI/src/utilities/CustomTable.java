@@ -172,7 +172,7 @@ public class CustomTable extends JTable {
             int selectedColumn = getSelectedColumn();        
 
             if (selectedRow != -1) { 
-                parent.showMyTab(CustomTable.this, getRowValue(selectedRow),selectedColumn);
+                parent.showMyTab(CustomTable.this, selectedRow, selectedColumn);
                 clearSelection();
             }
         }

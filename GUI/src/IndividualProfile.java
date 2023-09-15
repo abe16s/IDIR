@@ -486,9 +486,6 @@ public class IndividualProfile extends JPanel implements ParentPanel {
 
     }
 
-    @Override
-    public void showMyTab(CustomTable table, Object[] values, int source) {
-    }
 
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
@@ -613,5 +610,10 @@ public class IndividualProfile extends JPanel implements ParentPanel {
     @Override
     public void refresh() {
         
+    }
+
+    @Override
+    public void showMyTab(CustomTable table, int selectedRow, int selectedColumn) {
+
     }
 }

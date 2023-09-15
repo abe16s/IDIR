@@ -226,9 +226,9 @@ public class FinancePanel extends JPanel implements ParentPanel {
     }
 
     @Override
-    public void showMyTab(CustomTable table, Object[] values, int source) {
+    public void showMyTab(CustomTable table,int selectedRow, int selectedColumn) {
         if (table.equals(expendingsTable)) {
-            App.INDIVIDUAL_RECEIPT.prepareToShow((String)values[1]);
+            App.INDIVIDUAL_RECEIPT.prepareToShow((String) table.getValueAt(selectedRow, 1));
             displayPanel.showMyTab("individualReceipt");
         }   
     }

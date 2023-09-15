@@ -251,10 +251,6 @@ public class AgendaList extends JPanel implements ParentPanel {
 
 
             @Override
-            public void showMyTab(CustomTable table, Object[] values, int source) {
-            }
-
-            @Override
             public void addTab(JButton button, JPanel clickedPanel) {
             }
 
@@ -319,6 +315,12 @@ public class AgendaList extends JPanel implements ParentPanel {
             public void refresh() {
                 
             }
+
+
+            @Override
+            public void showMyTab(CustomTable table, int selectedRow, int selectedColumn) {
+
+            }
         }
     }
 
@@ -330,11 +332,11 @@ public class AgendaList extends JPanel implements ParentPanel {
 
 
     @Override
-    public void showMyTab(CustomTable table, Object[] values, int source) {
+    public void showMyTab(CustomTable table,int selectedRow, int selectedColumn) {
         displayPanel.remove(individualAgenda);
-        individualAgenda.updateData(Integer.parseInt((String)values[0]));
-        displayPanel.addMyTab(individualAgenda,values[0].toString());
-        displayPanel.showMyTab(values[0].toString());
+        individualAgenda.updateData(Integer.parseInt((String)table.getValueAt(selectedRow, 0)));
+        displayPanel.addMyTab(individualAgenda,table.getValueAt(selectedRow, 0).toString());
+        displayPanel.showMyTab(table.getValueAt(selectedRow, 0).toString());
     }
     
 
