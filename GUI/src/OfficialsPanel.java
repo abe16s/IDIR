@@ -16,12 +16,10 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -147,10 +145,11 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
             }
         }
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            generalsStmt.executeQuery("call UpdateOfficials(" + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + ")");
+            generalsStmt.executeQuery("call UpdateOfficials(" + officials.get("Chairman") + "," + officials.get("Vice Chairman") + "," + officials.get("Secretary") + "," + officials.get("Accountant") + "," + officials.get("Money Holder") + "," + officials.get("Money Collector") + "," + officials.get("Property Buyer") +officials.get("Shift Supervisor 1")+ officials.get("Shift Supervisor 2")+  officials.get("Shift Supervisor 3")+ officials.get("Auditor 1")+officials.get("Auditor 1") + ")");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
-
 
     @Override
     public void showMyTab(String buttonName) {
