@@ -101,6 +101,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
         gender.setAlignmentX(LEFT_ALIGNMENT);
 
         queryPanel age = new queryPanel("Age", 3, getBackground());
+        age.setNumeric();
         age.setAlignmentX(LEFT_ALIGNMENT);
 
         queryPanel religion = new queryPanel("Religion", 12, getBackground());
@@ -110,6 +111,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
         address.setAlignmentX(LEFT_ALIGNMENT);
 
         queryPanel phone = new queryPanel("Phone", 10, getBackground());
+        phone.setNumeric();
         phone.setAlignmentX(LEFT_ALIGNMENT);
 
         queryPanel occupation = new queryPanel("Occupation", 20, getBackground());
@@ -394,24 +396,29 @@ public class IndividualProfile extends JPanel implements ParentPanel {
             String phone = personalInfoInputFields.get(5).getTextField().getText();
             String occupation = personalInfoInputFields.get(6).getTextField().getText();
             String name = personalInfoInputFields.get(7).getTextField().getText();
-
-            try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-                generalsStmt.executeQuery("call addMember('" + name + "','" + address + "','" + phone + "'," + age
-                        + ",'" + gender + "','" + occupation + "','" + religion + "','" + photoPath + "')");
-                ResultSet resultSet = generalsStmt.executeQuery("SELECT LAST_INSERT_ID()");
-                if (resultSet.next()) {
-                    String lastGeneratedID = resultSet.getString(1);
-                    for (FamilyInfoInputPanel x : familyInfoInputPanels) {
-                        name = x.getData()[0];
-                        phone = x.getData()[1];
-                        String relation = x.getData()[2];
-                        generalsStmt.executeQuery("call addFamily(" + lastGeneratedID + ",'" + name + "','" + relation
-                                + "','" + phone + "')");
+            if (name.equals("") || photoPath.equals("GUI\\Icons\\dark\\Example-Photo.jpg")) {
+                JOptionPane.showMessageDialog(displayPanel, "Please Enter All Required Informations \n For more info refer in help", "Required",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
+                    generalsStmt.executeQuery("call addMember('" + name + "','" + address + "','" + phone + "'," + age
+                            + ",'" + gender + "','" + occupation + "','" + religion + "','" + photoPath + "')");
+                    ResultSet resultSet = generalsStmt.executeQuery("SELECT LAST_INSERT_ID()");
+                    if (resultSet.next()) {
+                        String lastGeneratedID = resultSet.getString(1);
+                        for (FamilyInfoInputPanel x : familyInfoInputPanels) {
+                            name = x.getData()[0];
+                            phone = x.getData()[1];
+                            String relation = x.getData()[2];
+                            generalsStmt
+                                    .executeQuery("call addFamily(" + lastGeneratedID + ",'" + name + "','" + relation
+                                            + "','" + phone + "')");
+                        }
+                        prepareToShowProfile(Integer.parseInt(lastGeneratedID));
                     }
-                    prepareToShowProfile(Integer.parseInt(lastGeneratedID));
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         } else {
             String gender = personalInfoInputFields.get(1).getTextField().getText();
