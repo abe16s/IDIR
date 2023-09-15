@@ -30,7 +30,7 @@ public class CustomTable extends JTable {
     public CustomTable(ParentPanel parent,Object[][] rowData, Object[] columnNames) {
         super(rowData, columnNames);
         this.parent = parent;
-
+        this.getTableHeader(). setReorderingAllowed(false);
         setShowGrid(false);
         setDefaultEditor(Object.class, null);
         setRowSelectionAllowed(false);

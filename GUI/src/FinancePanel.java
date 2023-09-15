@@ -9,6 +9,7 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -212,7 +213,6 @@ public class FinancePanel extends JPanel implements ParentPanel {
 
         this.add(tab, BorderLayout.CENTER);
         this.add(footer, BorderLayout.SOUTH);
-        refresh();
     }
 
     
@@ -242,7 +242,9 @@ public class FinancePanel extends JPanel implements ParentPanel {
     public void workWithFileChosen(File selectedFile) {
     }
 
+    @Override
     public void refresh() {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveIdirInfo = generalsStmt.executeQuery("SELECT Official_Name, Bank_Acc_No, Total_Amount From IDIR_TABLE;");
             while (retrieveIdirInfo.next()) {
@@ -281,7 +283,7 @@ public class FinancePanel extends JPanel implements ParentPanel {
         Component[] generalComponents = generalData.getComponents();
         for (int i = 0; i < generalComponents.length; i++) {
             if (i <= 1) ((queryPanel)generalComponents[i]).getInfoLabel().setText((String)basicInfo[i]);
-            else ((queryPanel)generalComponents[i]).getInfoLabel().setText(Double.toString((double)basicInfo[i]));
+            else ((queryPanel)generalComponents[i]).getInfoLabel().setText(numberFormat.format((double)basicInfo[i]));
         }
 
         int ctr = 0;
@@ -292,22 +294,20 @@ public class FinancePanel extends JPanel implements ParentPanel {
             ctr = 0;
             while (retrieveProperties.next()) {
                 ctr++;
-                Object[] cur = {retrieveProperties.getString(1), retrieveProperties.getInt(2), retrieveProperties.getDouble(3)};
+                Object[] cur = {retrieveProperties.getString(1), retrieveProperties.getInt(2), numberFormat.format(retrieveProperties.getDouble(3))};
                 curProperties.add(cur);
             }
             if (ctr > 0)
                 properties = curProperties.toArray(Object[][]::new);
+                DefaultTableModel propertiesModel = new DefaultTableModel();
+                propertiesModel.setColumnIdentifiers(propertiesColumns);
+                for (Object[] rowData:properties) {
+                    propertiesModel.addRow(rowData);
+                }
+                propertiesTable.setModel(propertiesModel);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        DefaultTableModel propertiesModel = new DefaultTableModel();
-        propertiesModel.setColumnIdentifiers(propertiesColumns);
-        Object[][] newPptyData = properties;
-        for (Object[] rowData:newPptyData) {
-            propertiesModel.addRow(rowData);
-        }
-        propertiesTable.setModel(propertiesModel);
 
         try (Statement expendingsStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveExpendings = expendingsStmt.executeQuery("SELECT Issued_Date, LPAD(Receipt_No, 6, '0'), Amount, Reason_for_Payment " + //
@@ -318,11 +318,17 @@ public class FinancePanel extends JPanel implements ParentPanel {
             ctr = 0;
             while (retrieveExpendings.next()) {
                 ctr++;
-                Object[] cur = {retrieveExpendings.getDate(1), retrieveExpendings.getString(2), retrieveExpendings.getDouble(3), retrieveExpendings.getString(4)};
+                Object[] cur = {retrieveExpendings.getDate(1), retrieveExpendings.getString(2), numberFormat.format(retrieveExpendings.getDouble(3)), retrieveExpendings.getString(4)};
                 curExpendings.add(cur);
             }
             if (ctr > 0) 
                 expendings = curExpendings.toArray(Object[][]::new);
+                DefaultTableModel expendingsModel = new DefaultTableModel();
+                expendingsModel.setColumnIdentifiers(expendingsColumns);
+                for (Object[] rowData:expendings) {
+                    expendingsModel.addRow(rowData);
+        }
+        expendingsTable.setModel(expendingsModel);
         } catch (SQLException e) {
             e.printStackTrace();
         }   
@@ -332,14 +338,6 @@ public class FinancePanel extends JPanel implements ParentPanel {
                 yearlyIncomeExpendings[i][k] = 0;
             }
         }
-
-        DefaultTableModel expendingsModel = new DefaultTableModel();
-        expendingsModel.setColumnIdentifiers(expendingsColumns);
-        Object[][] newExpeData = expendings;
-        for (Object[] rowData:newExpeData) {
-            expendingsModel.addRow(rowData);
-        }
-        expendingsTable.setModel(expendingsModel);
 
         try (Statement reportStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveReport = reportStmt.executeQuery("Select YEAR(Issued_Date), MONTH(Issued_Date), Money_Type, SUM(Amount) " + //
@@ -356,8 +354,8 @@ public class FinancePanel extends JPanel implements ParentPanel {
                 int mnt = retrieveReport.getInt(2);
                 if (yr < 0 || yr >= yearInterval*2) continue;
                 Double amt = retrieveReport.getDouble(4);
-                yearlyIncomeExpendings[yr][mnt] = amt;
-                yearlyIncomeExpendings[yr][13] = Double.valueOf(yearlyIncomeExpendings[yr][13].toString()) + amt;
+                yearlyIncomeExpendings[yr][mnt] = numberFormat.format(amt);
+                yearlyIncomeExpendings[yr][13] = numberFormat.format(Double.valueOf(yearlyIncomeExpendings[yr][13].toString()) + amt);
             }
             
         } catch (SQLException e) {

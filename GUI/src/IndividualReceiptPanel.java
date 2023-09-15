@@ -39,7 +39,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
     private JComboBox<String> extraReason;
     private queryPanel reasonInfo;
     private JTextField other;
-    private JTextField quantity;
+    private queryPanel quantity;
     private JComboBox<String> chooseYear;
     private JPanel type;
     private JPanel reasonsPanel;
@@ -50,6 +50,8 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
     private String formattedDate;
     private ButtonGroup moneyFor;
     private String deleteReason;
+    private ArrayList<queryPanel> required = new ArrayList<>();
+    private boolean insertionError = false;
 
     public IndividualReceiptPanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
@@ -92,7 +94,11 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
 
         issuedFor.adjustSize();
         issuedForID.adjustSize();
+        issuedForID.setNumeric();
+        required.add(issuedForID);
         amount.adjustSize();
+        amount.setNumeric();
+        required.add(amount);
 
         reasonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         reasonsPanel.setOpaque(false);
@@ -102,6 +108,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         reason.addActionListener(new comboListener());
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         extraReason = new JComboBox<String>(months);
+        extraReason.setSelectedIndex(LocalDate.now().getMonthValue()-1);
         extraReason.setFocusable(false);
 
         other = new JTextField("Reason", 15);
@@ -109,10 +116,13 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         other.setForeground(Color.GRAY);
         other.addFocusListener(new TextFieldPlaceHolder(other.getText()));
 
-        quantity = new JTextField("Qty",3);
-        quantity.setVisible(false);
-        quantity.setForeground(Color.GRAY);
-        quantity.addFocusListener(new TextFieldPlaceHolder(quantity.getText()));
+        quantity = new queryPanel("Quantity", 3, getBackground());
+        quantity.adjustSize();       
+        quantity.setNumeric(); 
+        quantity.getTextField().setVisible(false);
+        quantity.getTextField().setText("Qty");
+        quantity.getTextField().setForeground(Color.GRAY);
+        quantity.getTextField().addFocusListener(new TextFieldPlaceHolder(quantity.getTextField().getText()));
 
         Integer curYear = currentDate.getYear();
         chooseYear =  new JComboBox<>();    
@@ -125,7 +135,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         reasonsPanel.add(reason);
         reasonsPanel.add(extraReason);
         reasonsPanel.add(other);
-        reasonsPanel.add(quantity);
+        reasonsPanel.add(quantity.getTextField());
         reasonsPanel.add(chooseYear);
 
         reasonInfo = new queryPanel("Reason", "", Contents.getBackground());
@@ -159,6 +169,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
 
         signerName.adjustSize();
         signerID.adjustSize();
+        required.add(signerID);
 
         signature.add(signerName);
         signature.add(signerID);
@@ -199,10 +210,17 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                insertReceipt();
-                customTrigger();
-                JOptionPane.showMessageDialog(displayPanel,"Saved Successfully!", "Save Receipt", JOptionPane.INFORMATION_MESSAGE);
-                App.INDIVIDUAL_RECEIPT.prepareToShow(receiptNo.getInfoLabel().getText());
+                if (checkBeforeInsert()) {
+                    insertReceipt();
+                    if (insertionError) {
+                        JOptionPane.showMessageDialog(displayPanel,"Check if the specified IDs correctly represent members and also enter other values correctly!", "Check Inputs", JOptionPane.INFORMATION_MESSAGE);
+                        insertionError = false;
+                    } else {
+                        customTrigger();
+                        JOptionPane.showMessageDialog(displayPanel,"Saved Successfully!", "Save Receipt", JOptionPane.INFORMATION_MESSAGE);
+                        App.INDIVIDUAL_RECEIPT.prepareToShow(receiptNo.getInfoLabel().getText());
+                    }
+                }     
             }
         });
 
@@ -333,15 +351,16 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
             String selected = (String)((JComboBox<String>)e.getSource()).getSelectedItem();
             extraReason.removeAllItems();
             other.setVisible(false);
-            quantity.setVisible(false);
+            quantity.getTextField().setVisible(false);
             extraReason.setVisible(true);
             chooseYear.setVisible(false);
             if (selected.equals("Monthly Payment of")) {
-                String[] months = {"Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"};
+                String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
                 for (String mon : months) {
                     extraReason.addItem(mon);
-                    chooseYear.setVisible(true);
                 }
+                chooseYear.setVisible(true);
+                extraReason.setSelectedIndex(LocalDate.now().getMonthValue()-1);
             } else if (selected.equals("Celebration dues of")) {
                 String[] exReason = {"Wedding", "Graduation"};
                 for (String reason : exReason) {
@@ -358,11 +377,11 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
                     extraReason.addItem(utility);
                 }   
             } else if (selected.equals("Buying of")) {
-                String[] properties = {"Chair", "Table","Tent", "Casserole"};
+                String[] properties = {"Chair", "Table","Tent", "Casserole", "Desktop"};
                 for (String property : properties) {
                     extraReason.addItem(property);
                 }
-                quantity.setVisible(true);   
+                quantity.getTextField().setVisible(true);   
             } else if (selected.equals("Other")){
                 other.setVisible(true);
                 extraReason.setVisible(false);
@@ -461,6 +480,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         try (Statement insertStmt = App.DATABASE_CONNECTION.createStatement()) {
             insertStmt.executeUpdate(query);
         } catch (SQLException e) {
+            insertionError = true;
             e.printStackTrace();
         }
     }
@@ -487,13 +507,13 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
                 int ctr = 0;
                 if (retrieveProperties.next()) {
                     ctr = retrieveProperties.getInt(1);}
-                String individualPrice = String.format("%.2f", Double.parseDouble(amount.getTextField().getText()) / Double.parseDouble(quantity.getText()));
+                String individualPrice = String.format("%.2f", Double.parseDouble(amount.getTextField().getText()) / Double.parseDouble(quantity.getTextField().getText()));
                 if (ctr == 0) {
                     updateProperties.executeUpdate("INSERT INTO PROPERTY(Property_Type, Number_Of_Items, Individual_Price) " + //
-                            "VALUES ('" + extraReason.getSelectedItem()+ "', " + quantity.getText() + ", " + individualPrice + ");");
+                            "VALUES ('" + extraReason.getSelectedItem()+ "', " + quantity.getTextField().getText() + ", " + individualPrice + ");");
                 } else if (ctr > 0) {
                     updateProperties.executeUpdate("UPDATE PROPERTY " + //
-                            "SET Number_Of_Items = Number_Of_Items + " + quantity.getText() + ", Individual_Price = " + individualPrice + //
+                            "SET Number_Of_Items = Number_Of_Items + " + quantity.getTextField().getText() + ", Individual_Price = " + individualPrice + //
                             " WHERE Property_Type = '" + extraReason.getSelectedItem() + "';");
                 }
             } catch (SQLException e) {
@@ -527,5 +547,26 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkBeforeInsert() {
+        for (queryPanel queryPanel : required) {
+            if (queryPanel.getTextField().getText().equals("")) {
+                JOptionPane.showMessageDialog(displayPanel,"Please Enter " + queryPanel.getCaption().getText() + " Value!", "Required", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
+        }
+
+        if ((other.isVisible() && other.getText().equals("Reason")) || (quantity.getTextField().isVisible() && quantity.getTextField().getText().equals("Qty"))) {
+            JOptionPane.showMessageDialog(displayPanel,"Please Enter All Reason Fields!", "Required", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void refresh() {
+        
     }
 }

@@ -19,4 +19,6 @@ public interface ParentPanel{
 
     public void workWithFileChosen(File selectedFile);
 
+    public void refresh();
+
 }

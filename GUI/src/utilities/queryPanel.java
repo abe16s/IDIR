@@ -2,6 +2,9 @@ package GUI.src.utilities;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 import java.awt.*;
 
@@ -62,5 +65,30 @@ public class queryPanel extends JPanel{
         this.captionField.setColumns(columns);
         this.captionField.setPreferredSize(new Dimension(this.captionField.getPreferredSize().width, 20));
         this.captionField.setMaximumSize(this.captionField.getPreferredSize());
+    }
+
+    public void setNumeric() {
+        this.captionField.setDocument(new NumericDocument());
+    }
+
+    private class NumericDocument extends PlainDocument {
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            if (str == null) {
+                return;
+            }
+
+            if (str.equals("Qty")) {
+                super.insertString(offs, str, a);
+                return;
+            }
+
+            for (int i = 0; i < str.length(); i++) {
+                if(!Character.isDigit(str.charAt(i)) & str.charAt(i) != '.') {
+                    return;
+                }
+            }
+            super.insertString(offs, str, a);
+        }
     }
 }

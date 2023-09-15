@@ -154,5 +154,11 @@ public class MembersPanel extends JPanel implements ParentPanel {
     public void workWithFileChosen(File selectedFile) {
         
     }
+
+
+    @Override
+    public void refresh() {
+        
+    }
     
 }
