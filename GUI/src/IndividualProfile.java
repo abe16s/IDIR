@@ -10,6 +10,10 @@ import java.util.Arrays;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.PlainDocument;
 
 import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.utilities.*;
@@ -111,7 +115,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
         address.setAlignmentX(LEFT_ALIGNMENT);
 
         queryPanel phone = new queryPanel("Phone", 10, getBackground());
-        phone.setNumeric();
+        phone.setPhoneNumber();
         phone.setAlignmentX(LEFT_ALIGNMENT);
 
         queryPanel occupation = new queryPanel("Occupation", 20, getBackground());
@@ -386,7 +390,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
 
     }
 
-    public void saveProfile() {
+    public boolean saveProfile() {
         familiesSize = 0;
         if (!editing) {
             String gender = personalInfoInputFields.get(1).getTextField().getText();
@@ -397,8 +401,8 @@ public class IndividualProfile extends JPanel implements ParentPanel {
             String occupation = personalInfoInputFields.get(6).getTextField().getText();
             String name = personalInfoInputFields.get(7).getTextField().getText();
             if (name.equals("") || photoPath.equals("GUI\\Icons\\dark\\Example-Photo.jpg")) {
-                JOptionPane.showMessageDialog(displayPanel, "Please Enter All Required Informations \n For more info refer in help", "Required",
-                        JOptionPane.INFORMATION_MESSAGE);
+                return false;
+
             } else {
                 try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
                     generalsStmt.executeQuery("call addMember('" + name + "','" + address + "','" + phone + "'," + age
@@ -410,9 +414,17 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                             name = x.getData()[0];
                             phone = x.getData()[1];
                             String relation = x.getData()[2];
-                            generalsStmt
-                                    .executeQuery("call addFamily(" + lastGeneratedID + ",'" + name + "','" + relation
-                                            + "','" + phone + "')");
+                            try {
+                                generalsStmt
+                                        .executeQuery(
+                                                "call addFamily(" + lastGeneratedID + ",'" + name + "','" + relation
+                                                        + "','" + phone + "')");
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+
                         }
                         prepareToShowProfile(Integer.parseInt(lastGeneratedID));
                     }
@@ -440,29 +452,36 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                         generalsStmt.executeQuery("call addFamily(" + id + ",'" + name + "','" + relation
                                 + "','" + phone + "')");
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
 
                 }
                 prepareToShowProfile(Integer.parseInt(id));
             } catch (SQLException e) {
                 e.printStackTrace();
+                return false;
             }
         }
+        return true;
     }
 
     @Override
     public void showMyTab(String buttonName) {
         if (buttonName.equals("Save")) { // check if what we are saving is editing or not and customize the info as
                                          // displayed
-            if (editing)
-                JOptionPane.showMessageDialog(this.displayPanel, "Edited Successfully!", "Edit Member",
-                        JOptionPane.INFORMATION_MESSAGE);
-            else
-                JOptionPane.showMessageDialog(this.displayPanel, "Added New Member Successfully!", "Add Member",
-                        JOptionPane.INFORMATION_MESSAGE);
+            if (saveProfile()) {
+                if (editing)
+                    JOptionPane.showMessageDialog(this.displayPanel, "Edited Successfully!", "Edit Member",
+                            JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(this.displayPanel, "Added New Member Successfully!", "Add Member",
+                            JOptionPane.INFORMATION_MESSAGE);
 
-            saveProfile();
+            } else {
+                JOptionPane.showMessageDialog(displayPanel,
+                        "Please Enter All Required Informations \n For more info refer in help", "Required",
+                        JOptionPane.WARNING_MESSAGE);
+            }
 
         } else if (buttonName.equals("Edit")) {
             prepareToEditMember();
@@ -528,6 +547,32 @@ public class IndividualProfile extends JPanel implements ParentPanel {
             this.phone.setBorder(null);
             this.phone.setPreferredSize(
                     new Dimension(this.phone.getPreferredSize().width, this.phone.getPreferredSize().height + 8));
+            this.phone.setDocument(new PlainDocument() {
+                @Override
+                public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+                    if (str == null) {
+                        return;
+                    }
+
+                    // Ensure that the total length of the text in the field does not exceed 10
+                    // characters
+                    int currentLength = getLength();
+                    if (currentLength + str.length() > 10) {
+                        return;
+                    }
+
+                    // Check if the input is numeric
+                    for (int i = 0; i < str.length(); i++) {
+                        if (!Character.isDigit(str.charAt(i))) {
+                            return;
+                        }
+                    }
+
+                    // Allow the insertion if it meets the criteria
+                    super.insertString(offs, str, a);
+                }
+
+            });
 
             this.relation.setBorder(null);
             this.relation.setEditable(false);
@@ -558,6 +603,32 @@ public class IndividualProfile extends JPanel implements ParentPanel {
             this.phone.setBorder(null);
             this.phone.setPreferredSize(
                     new Dimension(this.phone.getPreferredSize().width, this.phone.getPreferredSize().height + 8));
+            this.phone.setDocument(new PlainDocument() {
+                @Override
+                public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+                    if (str == null) {
+                        return;
+                    }
+
+                    // Ensure that the total length of the text in the field does not exceed 10
+                    // characters
+                    int currentLength = getLength();
+                    if (currentLength + str.length() > 10) {
+                        return;
+                    }
+
+                    // Check if the input is numeric
+                    for (int i = 0; i < str.length(); i++) {
+                        if (!Character.isDigit(str.charAt(i))) {
+                            return;
+                        }
+                    }
+
+                    // Allow the insertion if it meets the criteria
+                    super.insertString(offs, str, a);
+                }
+
+            });
 
             this.relation.setBorder(null);
             this.relation.setEditable(false);
