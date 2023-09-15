@@ -13,6 +13,7 @@ import GUI.src.utilities.*;
 
 public class App {
     private SkeletalWindow window;
+    public static MembersPanel membersPanel;
     public static IndividualProfile INDIVIDUAL_PROFILE;
     public static IndividualReceiptPanel INDIVIDUAL_RECEIPT;
     public static Connection DATABASE_CONNECTION;
@@ -50,7 +51,8 @@ public class App {
 
         TransparentButton MEMBERS = new TransparentButton("Members", ImageIcons.reSize(ImageIcons.CONTACTSdark,25,25), window.getMenu());
         MEMBERS.setSelectedIcon(ImageIcons.reSize(ImageIcons.CONTACTS,30,30));
-        window.getMenu().addTab(MEMBERS, new MembersPanel(window.getBasePanel()));
+        membersPanel = new MembersPanel(window.getBasePanel());
+        window.getMenu().addTab(MEMBERS, membersPanel);
         window.getMenu().add(Box.createVerticalStrut(5));
 
         INDIVIDUAL_PROFILE = new IndividualProfile(window.getBasePanel());
