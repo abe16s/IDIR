@@ -97,7 +97,7 @@ CREATE TABLE FAMILY (
 CREATE TABLE AGENDA (
     Agenda_No INT AUTO_INCREMENT PRIMARY KEY,
     Written_Date DATE,
-    Title VARCHAR(20),
+    Title VARCHAR(100),
     Writer INT NOT NULL,
     Written_Text VARCHAR(255),
     FOREIGN KEY (Writer)
