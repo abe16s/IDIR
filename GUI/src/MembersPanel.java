@@ -14,7 +14,7 @@ import GUI.src.utilities.*;
 
 public class MembersPanel extends JPanel implements ParentPanel {
     private BasePanel displayPanel;
-    public static CustomTable MembersList;
+    public CustomTable MembersList;
     private ColoredButton AddMember;
     private JPanel panelNull;
     private JScrollPane ScrollList;
