@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Insets;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JPanel;
@@ -33,7 +32,7 @@ public class RulesPanel extends JPanel{
             while (resultSet.next()) {
                 rules = resultSet.getString(1);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return rules;

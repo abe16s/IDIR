@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -62,7 +61,7 @@ public class IndividualAgenda extends JPanel {
                     agendaInfo[i-1] = retrieveReceipt.getString(i);
                 }
             }     
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         

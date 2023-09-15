@@ -31,6 +31,7 @@ public class ReadAndDisplay extends JTextArea {
             }
             reader.close();
         } catch (IOException e) {
+            append("File Not Found! File must have been moved or deleted.");
             e.printStackTrace();
         }
         setCaretPosition(0);
