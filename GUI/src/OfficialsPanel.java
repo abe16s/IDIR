@@ -10,16 +10,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 import GUI.src.SkeletalWindow.BasePanel;
 import GUI.src.SkeletalWindow.MenuBar;
@@ -51,6 +56,7 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
     private JPanel footer;
     private ArrayList<TransparentButton> affectedButtons = new ArrayList<>();
     private MenuBar menuBar;
+    private int changedOfficial;
 
     public OfficialsPanel(BasePanel displayPanel) {
         this.displayPanel = displayPanel;
@@ -100,8 +106,6 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         viewOnlyPage();
     }
 
-    public void updateData(String memberID, String position) {
-    }
 
     private void viewOnlyPage() {
         columnModel.removeColumn(column);
@@ -115,9 +119,43 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         this.menuBar = menuBar;
     }
 
+    private void showChange(String memberID){
+        TableModel model = (TableModel)officialTable.getModel();
+        try(Statement st = App.DATABASE_CONNECTION.createStatement()){
+            ResultSet member = st.executeQuery("call retrieveMember(" + ((Integer)Integer.parseInt(memberID)).toString() + ")");
+            if (member.next()){
+                ImageIcon photo =  ImageIcons.reSize(new ImageIcon(member.getString(8)), 100, 100);
+                String name = member.getString(9);
+
+                model.setValueAt(photo, changedOfficial, 0);
+                model.setValueAt(memberID, changedOfficial, 1);
+                model.setValueAt(name, changedOfficial, 2);
+                ((AbstractTableModel) model).fireTableRowsUpdated(changedOfficial, changedOfficial);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateOfficialData(){
+        HashMap<String,String> officials = new HashMap<>();
+        TableModel model = (TableModel)officialTable.getModel();
+        int rowNo = model.getRowCount();
+        for(int row = 0 ; row <rowNo; row ++){
+            if(model.getValueAt(row,0).equals("")){
+                officials.put((String)model.getValueAt(row,3),((Integer)Integer.parseInt((String)model.getValueAt(row,1))).toString());
+            }
+        }
+        try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
+            generalsStmt.executeQuery("call UpdateOfficials(" + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + "," + officials.get("Chairman") + ")");
+    }
+
+
+
     @Override
     public void showMyTab(String buttonName) {
         if (buttonName.equals("Save")) {
+            updateOfficialData();
             refresh();
             JOptionPane.showMessageDialog(displayPanel, "Edited Successfully!", "Edit Officials",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -144,8 +182,9 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
 
     @Override
     public void showMyTab(CustomTable table,int selectedRow, int selectedColumn) {
-        if (selectedColumn == 4 & !table.getValueAt(selectedRow, 0).equals(""))
+        if (selectedColumn == 4 & !table.getValueAt(selectedRow, 0).equals("")){
             new PopUpMembers(this, (String) table.getValueAt(selectedRow, 3));
+            changedOfficial = selectedRow;}
 
         if (!table.getValueAt(selectedRow, 0).equals("") && edit.isVisible()) {
             App.INDIVIDUAL_PROFILE.prepareToShowProfile(Integer.parseInt((String) table.getValueAt(selectedRow, 1)));
@@ -160,6 +199,37 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
             }
         }
     }
+ @Override
+    public void workWithFileChosen(File selectedFile) {
+
+    }
+
+    @Override
+    public void refresh() {
+        ArrayList<Object[]> data = new ArrayList<Object[]>();
+        Object[] rowData;
+        try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
+            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveOfficials()");
+            while (retrieveIdirInfo.next()) {
+                rowData = new Object[5];
+                rowData[0] = ImageIcons.reSize(new ImageIcon(retrieveIdirInfo.getString(1)), 100, 100);
+                for (int i = 1; i < 4; i++) {
+                    rowData[i] = retrieveIdirInfo.getString(i + 1);
+                }
+                data.add(rowData);
+                if (!retrieveIdirInfo.isAfterLast()) {
+                    data.add(new Object[] { "", "", "", "", "" });
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (data.size() > 0) {
+            officialTable.updateTableData(data);
+            officialTable.updateRowHeights();
+        }
+
+    }
 
     @Override
     public void addTab(JButton button, JPanel clickedPanel) {
@@ -170,11 +240,9 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
 
         private OfficialsPanel parent;
         private Choose dialog;
-        private String position;
 
         public PopUpMembers(OfficialsPanel parent, String position) {
             this.parent = parent;
-            this.position = position;
             this.setLayout(new BorderLayout());
             this.setBackground(new Color(228, 228, 228));
 
@@ -201,7 +269,7 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
 
         @Override
         public void showMyTab(CustomTable table,int selectedRow, int selectedColumn) {
-            parent.updateData((String) table.getValueAt(selectedRow, 1), position);
+            parent.showChange((String) table.getValueAt(selectedRow, 0));
             dialog.setVisible(false);
 
         }
@@ -246,35 +314,5 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         }
     }
 
-    @Override
-    public void workWithFileChosen(File selectedFile) {
-
-    }
-
-    @Override
-    public void refresh() {
-        ArrayList<Object[]> data = new ArrayList<Object[]>();
-        Object[] rowData;
-        try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveOfficials()");
-            while (retrieveIdirInfo.next()) {
-                rowData = new Object[5];
-                rowData[0] = ImageIcons.reSize(new ImageIcon(retrieveIdirInfo.getString(1)), 100, 100);
-                for (int i = 1; i < 4; i++) {
-                    rowData[i] = retrieveIdirInfo.getString(i + 1);
-                }
-                data.add(rowData);
-                if (!retrieveIdirInfo.isAfterLast()) {
-                    data.add(new Object[] { "", "", "", "", "" });
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (data.size() > 0) {
-            officialTable.updateTableData(data);
-            officialTable.updateRowHeights();
-        }
-
-    }
+   
 }
