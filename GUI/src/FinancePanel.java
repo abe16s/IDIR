@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.io.File;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -40,7 +39,7 @@ public class FinancePanel extends JPanel implements ParentPanel {
     private CustomTable yearlyIncomeExpendingsTable;
 
     //example data
-    private Object[] basicInfo = {"Ye Shenkor Wereda Kebele 10 Newariwoch Meredaja Idir", "10001234567 (CBE)", 250000.0, 10000.0, 3000.0, 100000.0, 30000.0}; //Idir name, acc No, total amount, curMonth income, curMonth expendings, curYear income, curYear Expendings
+    private Object[] basicInfo = {"Ye Shenkor Wereda Kebele 10 Newariwoch Meredaja Idir", "10001234567 (CBE)", 0.0, 0.0, 0.0, 0.0, 0.0}; //Idir name, acc No, total amount, curMonth income, curMonth expendings, curYear income, curYear Expendings
     Object[][] properties = {
         {"Chair", 10, 5500},
         {"Table", 5, 7700},
@@ -276,7 +275,7 @@ public class FinancePanel extends JPanel implements ParentPanel {
                 basicInfo[type] = retrieveCurYearData.getDouble(2);
                 type++;
             } 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -305,13 +304,13 @@ public class FinancePanel extends JPanel implements ParentPanel {
                     propertiesModel.addRow(rowData);
                 }
                 propertiesTable.setModel(propertiesModel);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         try (Statement expendingsStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveExpendings = expendingsStmt.executeQuery("SELECT Issued_Date, LPAD(Receipt_No, 6, '0'), Amount, Reason_for_Payment " + //
-                    "FROM Receipt " + //
+                    "FROM RECEIPT " + //
                     "WHERE Money_Type = 'Expenditure' AND Deleted = 'NO' " + //
                     "ORDER BY Issued_Date DESC;");
             ArrayList<Object[]> curExpendings = new ArrayList<Object[]>();
@@ -329,7 +328,7 @@ public class FinancePanel extends JPanel implements ParentPanel {
                     expendingsModel.addRow(rowData);
         }
         expendingsTable.setModel(expendingsModel);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }   
         
@@ -358,7 +357,7 @@ public class FinancePanel extends JPanel implements ParentPanel {
                 yearlyIncomeExpendings[yr][13] = numberFormat.format(Double.valueOf(yearlyIncomeExpendings[yr][13].toString()) + amt);
             }
             
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

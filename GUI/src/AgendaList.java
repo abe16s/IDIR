@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -288,7 +287,7 @@ public class AgendaList extends JPanel implements ParentPanel {
                 query += ");";
                 try (Statement insertStmt = App.DATABASE_CONNECTION.createStatement()) {
                     insertStmt.executeUpdate(query);
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     insertionError = true;
                     e.printStackTrace();
                 }
@@ -370,7 +369,7 @@ public class AgendaList extends JPanel implements ParentPanel {
                     agendasModel.addRow(rowData);
                 }
                 agendaList.setModel(agendasModel);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }   
     }
