@@ -395,7 +395,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
     }
 
     @Override
-    public void showMyTab(CustomTable table, Object[] values, int source) {
+    public void showMyTab(CustomTable table,int selectedRow, int selectedColumn) {
     }
 
     @Override

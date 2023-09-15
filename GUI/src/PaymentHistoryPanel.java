@@ -138,15 +138,15 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
     }
 
     @Override
-    public void showMyTab(CustomTable table, Object[] values, int source) {
-        if (!values[source].equals("-") && Integer.parseInt((String)values[source]) != 0 && source>0) {
+    public void showMyTab(CustomTable table,int selectedRow, int selectedColumn) {
+        if (!table.getValueAt(selectedRow, selectedColumn).equals("-") && Integer.parseInt((String)table.getValueAt(selectedRow, selectedColumn)) != 0 && selectedColumn>0) {
             //get the receipt for the source column month years combobox year and values[0] id
             String rNo = "110011";
             try (Statement statement = App.DATABASE_CONNECTION.createStatement()) {
                 ResultSet resultSet = statement.executeQuery("SELECT Receipt_No " + //
                         "FROM RECEIPT " + //
-                        "WHERE Reason_for_Payment = 'Monthly Payment of " + columnNames[source] + " " + //
-                        years.getSelectedItem() + "' AND Issued_For = " + values[0] + " AND Deleted = 'NO';");
+                        "WHERE Reason_for_Payment = 'Monthly Payment of " + columnNames[selectedColumn] + " " + //
+                        years.getSelectedItem() + "' AND Issued_For = " + table.getValueAt(selectedRow, 0) + " AND Deleted = 'NO';");
                 if (resultSet.next()) {
                     rNo = resultSet.getString(1);
                 }
