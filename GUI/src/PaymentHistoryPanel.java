@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -150,7 +149,7 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
                 if (resultSet.next()) {
                     rNo = resultSet.getString(1);
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -188,7 +187,7 @@ public class PaymentHistoryPanel extends JPanel implements ParentPanel{
             }
             if (ctr > 0)
                 return curTable.toArray(Object[][]::new);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return exampleData;

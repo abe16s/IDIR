@@ -31,9 +31,9 @@ public class App {
         window = new SkeletalWindow(title);
         window.setIconImage(ImageIcons.LOGO.getImage());
 
-        String url = "jdbc:mysql://localhost:3306/idir";
-        String username = "root";
-        String password = "abenezer16";
+        String url = "jdbc:mysql://db4free.net:3306/db4freeidir";
+        String username = "abenezer";
+        String password = "#nJ@K$9NEW2Eqwf";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DATABASE_CONNECTION = DriverManager.getConnection(url, username, password);

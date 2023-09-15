@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -277,7 +276,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
                     receiptInfo[i-1] = retrieveReceipt.getString(i);
                 }
             }     
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         
@@ -479,7 +478,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         query += ");";
         try (Statement insertStmt = App.DATABASE_CONNECTION.createStatement()) {
             insertStmt.executeUpdate(query);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             insertionError = true;
             e.printStackTrace();
         }
@@ -495,7 +494,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
             query += (mon + " = " + amount.getTextField().getText() + " WHERE ID = " + issuedForID.getTextField().getText() + " AND yr = " + chooseYear.getSelectedItem() + ";");
             try (Statement updateHistory = App.DATABASE_CONNECTION.createStatement()) {
                 updateHistory.executeUpdate(query);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (reason.getSelectedItem().equals("Buying of")) {
@@ -516,7 +515,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
                             "SET Number_Of_Items = Number_Of_Items + " + quantity.getTextField().getText() + ", Individual_Price = " + individualPrice + //
                             " WHERE Property_Type = '" + extraReason.getSelectedItem() + "';");
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -544,7 +543,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
                             " WHERE Property_Type = '" + rsn[2] + "';");
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
