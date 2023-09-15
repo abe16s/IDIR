@@ -84,33 +84,11 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
         ColoredButton save = new ColoredButton("Save", this);
         save.setIcon(ImageIcons.reSize(ImageIcons.SAVE, 20, 20));
         save.setNormalColor(new Color(147, 175, 207));
-        save.addActionListener( new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OfficialsPanel officialsPanel = null;
-                JOptionPane.showMessageDialog(displayPanel,"Edited Successfully!", "Edit Officials", JOptionPane.INFORMATION_MESSAGE);
-                for (Component panel : displayPanel.getComponents()){
-                    if (panel instanceof OfficialsPanel){
-                        officialsPanel = ((OfficialsPanel)panel);
-                    }
-                }
-                officialsPanel.updateData("");
-                viewOnlyPage();
-            }
-        });
+
 
         ColoredButton discard = new ColoredButton("Discard",this);
         discard.setIcon(ImageIcons.reSize(ImageIcons.ADD_MEMBER, 20, 20));
         discard.setNormalColor(new Color(147, 175, 207));
-        discard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int result = JOptionPane.showConfirmDialog(displayPanel,"This will discard every unsaved changes. Do you wish to continue?", "Discard Changes", JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION) {
-                    viewOnlyPage();
-                }
-            } 
-        });
 
         saveDiscardPanel.add(save.getWhole());
         saveDiscardPanel.add(discard.getWhole());
@@ -119,15 +97,6 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
         edit.setIcon(ImageIcons.reSize(ImageIcons.EDIT, 20,20));
         edit.setNormalColor(new Color(147, 175, 207));
         edit.setSelectedColor(new Color(79,170,255));
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveDiscardPanel.setVisible(true);
-                edit.setVisible(false);
-                footer.setLayout(new FlowLayout());
-                columnModel.addColumn(column);
-            } 
-        });
         
         footer.add(saveDiscardPanel);
         footer.add(edit.getWhole());
@@ -137,17 +106,18 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
         refreshOfficialsData();
     }
 
-    public void updateData(String memberID){
+    public void updateData(String memberID,String position){
     }
 
     public void refreshOfficialsData(){
         ArrayList<Object[]> data = new ArrayList<Object[]>();
-        String[] rowData;
+        Object[] rowData;
          try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveOfficials");
             while (retrieveIdirInfo.next()) {
-                rowData = new String[5];
-                for(int i = 0; i < 4; i++){
+                rowData = new Object[5];
+                rowData[0] = ImageIcons.reSize(new ImageIcon(retrieveIdirInfo.getString(1)), 100, 100);
+                for(int i = 1; i < 4; i++){
                     rowData[i] = retrieveIdirInfo.getString(i+1);
                 }
                 data.add(rowData);
@@ -159,6 +129,7 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
             }
             if (data.size() > 0){
                 officialTable.updateTableData(data);
+                officialTable.updateRowHeights();
             }
             
     }
@@ -177,7 +148,26 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
     
     @Override
     public void showMyTab(String buttonName) {
-    }
+        if (buttonName.equals("Save")) { 
+            refreshOfficialsData();
+            JOptionPane.showMessageDialog(displayPanel,"Edited Successfully!", "Edit Officials", JOptionPane.INFORMATION_MESSAGE);
+            viewOnlyPage();
+
+        } else if (buttonName.equals("Edit")) {
+                saveDiscardPanel.setVisible(true);
+                edit.setVisible(false);
+                footer.setLayout(new FlowLayout());
+                columnModel.addColumn(column);
+
+        } else if (buttonName.equals("Discard")) { // check if what we are discarding is editing or not and customize
+                            // the info as displayed and determine which page to show
+            int result = JOptionPane.showConfirmDialog(displayPanel,"This will discard every unsaved changes. Do you wish to continue?", "Discard Changes",JOptionPane.YES_NO_OPTION);
+
+            if (result == JOptionPane.YES_OPTION) viewOnlyPage();
+
+        }
+
+        }
 
 
     @Override
@@ -207,66 +197,20 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
 
         private OfficialsPanel parent;
         private Choose dialog;
-
+        private String position;
         public PopUpMembers(OfficialsPanel parent, String position) {
             this.parent= parent;
-    
+            this.position = position;
             this.setLayout(new BorderLayout());
             this.setBackground(new Color(228, 228, 228));
             
             String[] columnNames = {"ID", "Full Name", "Address", "Phone No", "Age", "Occupation", "Religion"};
-            String[][] exampleData = {
-                {"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka Birhanu Atomsa", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"},
-                {"1", "Abenezer", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},
-                {"2", "Beka", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox"}
-            };
+            String[][] exampleData = {{"1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox"},};
         
             CustomTable MembersList = new CustomTable(this,exampleData, columnNames);
             MembersList.setAlternatingColor( Color.LIGHT_GRAY, new Color(228, 228, 228), Color.WHITE);
-    
+            MembersList.setModel(App.membersPanel.MembersList.getModel());
+            
             JScrollPane ScrollList = new JScrollPane(MembersList);
             ScrollList.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
             
@@ -285,7 +229,7 @@ public class OfficialsPanel extends JPanel implements ParentPanel{
     
         @Override
         public void showMyTab(CustomTable table, Object[] values, int source) {
-            parent.updateData((String)values[1]);
+            parent.updateData((String)values[1],position);
             dialog.setVisible(false);
             
         }
