@@ -3,26 +3,28 @@ package GUI.src.utilities;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 
-
 public class TransparentButton extends HoverableButton {
     private Icon selectedIcon;
 
-    public TransparentButton(String text,Icon icon, JPanel parent) {
-        super(text,icon,parent);
+    public TransparentButton(String text, Icon icon, JPanel parent) {
+        super(text, icon, parent);
     }
 
-    public void setSelectedIcon(Icon icon){
+    public void setSelectedIcon(Icon icon) {
         this.selectedIcon = icon;
     }
+
     @Override
     public void showEffect() {
-        if (this.selectedIcon != null){
-            this.setIcon(selectedIcon);            
+        if (this.selectedIcon != null) {
+            this.setIcon(selectedIcon);
         }
 
         try {
-            ((ParentPanel) super.parent).showMyTab(this.getName()); //Changed the cast for MenuBar to ParentPanel to include the MembersPanel
-        } catch (Exception e) {}
+            ((ParentPanel) super.parent).showMyTab(this.getName()); // Changed the cast for MenuBar to ParentPanel to
+                                                                    // include the MembersPanel
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -33,5 +35,5 @@ public class TransparentButton extends HoverableButton {
     public Icon getSelectedIcon() {
         return this.selectedIcon;
     }
-    
+
 }

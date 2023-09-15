@@ -8,44 +8,46 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-
 public abstract class HoverableButton extends JButton {
-    /*A Invisible Button that transparent through the background it is in and extends the JButton 
+    /*
+     * A Invisible Button that transparent through the background it is in and
+     * extends the JButton
      * it has features like
      * i. invisible background
      * ii. has an enlarged text when hovered over
-     * iii. it changes the main panel on the skeletalFrame according to its assigned name in the button 
+     * iii. it changes the main panel on the skeletalFrame according to its assigned
+     * name in the button
      * iv. it has customizable select effect.
-    */
+     */
     protected JPanel parent;
     protected Icon normalIcon;
     private int size;
 
     private MouseAdapter listener = new MouseAdapter() {
-        
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (! isSelected()){
-                    enlargeText();
-                }}
 
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            if (!isSelected()) {
+                enlargeText();
+            }
+        }
 
-            @Override
-            public void mouseExited(MouseEvent e) {  
-                if (! isSelected()){
-                    ReduceText();
-                }}
-
-
-            @Override
-            public void  mouseClicked(MouseEvent e){
-                setSelected(true);
+        @Override
+        public void mouseExited(MouseEvent e) {
+            if (!isSelected()) {
                 ReduceText();
-                showPanel();
-                   
-    }};
+            }
+        }
 
-   
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            setSelected(true);
+            ReduceText();
+            showPanel();
+
+        }
+    };
+
     public HoverableButton(String text, Icon icon, JPanel parent) {
         super(text, icon);
         super.setName(text);
@@ -55,9 +57,8 @@ public abstract class HoverableButton extends JButton {
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
         this.setFocusable(false);
-        this.addMouseListener(this.listener); 
+        this.addMouseListener(this.listener);
     }
-
 
     public HoverableButton(String text, JPanel parent) {
         super(text);
@@ -70,30 +71,29 @@ public abstract class HoverableButton extends JButton {
 
     }
 
-
-    public void unselect(){
-        setSelected(false);;
+    public void unselect() {
+        setSelected(false);
+        ;
     }
 
-
-    private void enlargeText(){
+    private void enlargeText() {
         size = this.getFont().getSize();
-        Font newFont = this.getFont().deriveFont((float)(size+2));;
+        Font newFont = this.getFont().deriveFont((float) (size + 2));
+        ;
         this.setFont(newFont);
     }
-
 
     private void ReduceText() {
-        Font newFont = this.getFont().deriveFont((float)(size));;
+        Font newFont = this.getFont().deriveFont((float) (size));
+        ;
         this.setFont(newFont);
     }
-    
 
     private void showPanel() {
         this.showEffect();
     }
 
-
     public abstract void showEffect();
+
     public abstract void removeEffect();
 }

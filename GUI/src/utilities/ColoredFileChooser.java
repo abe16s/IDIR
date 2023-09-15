@@ -8,12 +8,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class ColoredFileChooser extends ColoredButton{
+public class ColoredFileChooser extends ColoredButton {
     private FileNameExtensionFilter filter;
     private String dialogTitle;
     private ParentPanel parent;
 
-    public ColoredFileChooser(String text, JPanel parent, String dialogTitle, String... filterFor){
+    public ColoredFileChooser(String text, JPanel parent, String dialogTitle, String... filterFor) {
         super(text, parent);
         this.dialogTitle = dialogTitle;
         this.parent = (ParentPanel) parent;
@@ -25,7 +25,7 @@ public class ColoredFileChooser extends ColoredButton{
         this.addActionListener(new choosefile());
     }
 
-    private class choosefile implements ActionListener{
+    private class choosefile implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
@@ -39,4 +39,3 @@ public class ColoredFileChooser extends ColoredButton{
         }
     }
 }
-
