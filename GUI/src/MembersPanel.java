@@ -3,7 +3,6 @@ package GUI.src;
 import java.awt.*;
 import java.io.File;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -102,11 +101,13 @@ public class MembersPanel extends JPanel implements ParentPanel {
         this.add(ScrollList, BorderLayout.CENTER);
     }
 
-    public void refreshData() {
+    @Override
+    public void refresh() {
         ArrayList<Object[]> data = new ArrayList<Object[]>();
         String[] rowData;
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveListOfMembers");
+            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("SELECT LPAD(ID, 4, '0') AS Formatted_ID, CONCAT(First_Name, \" \", Father_Name, \" \", Grandfather_Name) as FullName, Gender, Age, Religion, Member_Address, Phone_No\r\n" + //
+                    "FROM MEMBER_TABLE;");
             while (retrieveIdirInfo.next()) {
                 rowData = new String[7];
                 for (int i = 0; i < 7; i++) {
@@ -114,7 +115,7 @@ public class MembersPanel extends JPanel implements ParentPanel {
                 }
                 data.add(rowData);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -150,11 +151,6 @@ public class MembersPanel extends JPanel implements ParentPanel {
 
     @Override
     public void workWithFileChosen(File selectedFile) {
-
-    }
-
-    @Override
-    public void refresh() {
 
     }
 

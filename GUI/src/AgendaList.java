@@ -213,7 +213,7 @@ public class AgendaList extends JPanel implements ParentPanel {
                             if (insertionError) {
                                 JOptionPane.showMessageDialog(displayPanel,
                                         "Check if the specified ID correctly represent a member!", "Check Inputs",
-                                        JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.WARNING_MESSAGE);
                                 insertionError = false;
                             } else {
                                 AgendaList.this.refresh();
@@ -237,7 +237,7 @@ public class AgendaList extends JPanel implements ParentPanel {
             public void showMyTab(String buttonName) {
                 if (buttonName.equals("Save")) {
                     JOptionPane.showMessageDialog(displayPanel, "Added Successfully!", "Add Agenda",
-                            JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.WARNING_MESSAGE);
                     parent.report(this.fileChosen);
 
                 } else {
