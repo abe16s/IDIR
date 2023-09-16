@@ -3,7 +3,7 @@ DELIMITER $$
 
 CREATE PROCEDURE retrieveListOfMembers()
 BEGIN
-    SELECT LPAD(ID, 4, '0') AS Formatted_ID, CONCAT(First_Name, " ", Father_Name, " ", Grandfather_Name) as FullName, Gender, Age, Religion, Member_Address, Phone_No
+    SELECT LPAD(ID, 4, '0') AS Formatted_ID, CONCAT(First_Name, " ", Father_Name, " ", Grandfather_Name) as FullName, Gender, Age, Religion, Member_Address, Phone_No,Occupation
     FROM MEMBER_TABLE;
 END$$
 
@@ -43,7 +43,7 @@ DELIMITER $$
 
 CREATE PROCEDURE retrieveMember(IN ID INT)
 BEGIN
-    SELECT LPAD(ID, 4, '0'), CONCAT(First_Name, " ", Father_Name, " ", Grandfather_Name) as FullName, Gender, Age, Religion, Member_Address, Phone_No, Occupation, Photo
+    SELECT LPAD(ID, 4, '0'), Gender, Age, Religion, Member_Address, Phone_No, Occupation, Photo, CONCAT(First_Name, " ", Father_Name, " ", Grandfather_Name) as FullName
 FROM
     MEMBER_TABLE AS m
 WHERE
@@ -127,29 +127,6 @@ BEGIN
         Phone_No
     )
     VALUES (First_Name, Father_Name, Grandfather_Name, Relationship, Member_ID, Phone_No);
-END $$
-
-DELIMITER ;
-
--- for updating family member
-DELIMITER $$
-
-CREATE PROCEDURE updateFamilyMemberPhone(
-    IN Member_ID INT,
-    IN FullName VARCHAR(100),
-    IN Relationship VARCHAR(20),
-    IN newPhone_No CHAR(10)
-)
-BEGIN
-    UPDATE FAMILY
-    SET
-        Phone_No = newPhone_No
-    WHERE
-        Member_ID = Member_ID AND
-        First_Name = TRIM(SUBSTRING_INDEX(FullName, ' ', 1)) AND
-        Father_Name = TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(FullName, ' ', -2), ' ', 1)) AND
-        Grandfather_Name = TRIM(SUBSTRING_INDEX(FullName, ' ', -1)) AND
-        Relationship = Relationship;
 END $$
 
 DELIMITER ;
