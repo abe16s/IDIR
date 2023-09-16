@@ -24,7 +24,7 @@ public class MembersPanel extends JPanel implements ParentPanel {
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(228, 228, 228));
 
-        String[] columnNames = { "ID", "Full Name", "Address", "Phone No", "Age", "Occupation", "Religion" };
+        String[] columnNames = { "ID", "Full Name", "Gender", "Age", "Religion", "Address", "Phone No", "Occupation"};
         String[][] data = {
                 { "1", "Abenezer Seifu Dula", "Shenkor, 10, 551", "0936120470", "19", "Student", "Orthodox" },
                 { "2", "Beka Birhanu Atomsa", "Hakim, 17, 4423", "0919131212", "20", "Student", "Orthodox" },
@@ -106,11 +106,11 @@ public class MembersPanel extends JPanel implements ParentPanel {
         ArrayList<Object[]> data = new ArrayList<Object[]>();
         String[] rowData;
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("SELECT LPAD(ID, 4, '0') AS Formatted_ID, CONCAT(First_Name, \" \", Father_Name, \" \", Grandfather_Name) as FullName, Gender, Age, Religion, Member_Address, Phone_No\r\n" + //
+            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("SELECT LPAD(ID, 4, '0') AS Formatted_ID, CONCAT(First_Name, ' ' , Father_Name, ' ', Grandfather_Name) as FullName, Gender, Age, Religion, Member_Address, Phone_No, Occupation " + //
                     "FROM MEMBER_TABLE;");
             while (retrieveIdirInfo.next()) {
-                rowData = new String[7];
-                for (int i = 0; i < 7; i++) {
+                rowData = new String[8];
+                for (int i = 0; i < 8; i++) {
                     rowData[i] = retrieveIdirInfo.getString(i + 1);
                 }
                 data.add(rowData);

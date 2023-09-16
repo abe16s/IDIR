@@ -101,7 +101,6 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         footer.add(edit.getWhole());
 
         this.add(footer, BorderLayout.SOUTH);
-        viewOnlyPage();
     }
 
     private void viewOnlyPage() {
@@ -119,8 +118,11 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
     private void showChange(String memberID) {
         TableModel model = (TableModel) officialTable.getModel();
         try (Statement st = App.DATABASE_CONNECTION.createStatement()) {
-            ResultSet member = st
-                    .executeQuery("call retrieveMember(" + ((Integer) Integer.parseInt(memberID)).toString() + ")");
+            //ResultSet member = st
+            //        .executeQuery("call retrieveMember(" + ((Integer) Integer.parseInt(memberID)).toString() + ")");
+            ResultSet member = st.executeQuery("SELECT LPAD(ID, 4, '0'), Gender, Age, Religion, Member_Address, Phone_No, Occupation, Photo, CONCAT(First_Name, ' ', Father_Name, ' ', Grandfather_Name) as FullName \" + //\r\n" + //
+                    "FROM MEMBER_TABLE AS m " + //
+                    "WHERE m.ID = " + ((Integer) Integer.parseInt(memberID)).toString() + ";");            
             if (member.next()) {
                 ImageIcon photo = ImageIcons.reSize(new ImageIcon(member.getString(8)), 100, 100);
                 String name = member.getString(9);
@@ -146,13 +148,26 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
             }
         }
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            generalsStmt.executeQuery(
-                    "call UpdateOfficials(" + officials.get("Chairman") + "," + officials.get("Vice Chairman") + ","
-                            + officials.get("Secretary") + "," + officials.get("Accountant") + ","
-                            + officials.get("Money Holder") + "," + officials.get("Money Collector") + ","
-                            + officials.get("Property Buyer") + officials.get("Shift Supervisor 1")
-                            + officials.get("Shift Supervisor 2") + officials.get("Shift Supervisor 3")
-                            + officials.get("Auditor 1") + officials.get("Auditor 1") + ")");
+            //generalsStmt.executeQuery(
+            //        "call UpdateOfficials(" + officials.get("Chairman") + "," + officials.get("Vice Chairman") + ","
+            //                + officials.get("Secretary") + "," + officials.get("Accountant") + ","
+            //                + officials.get("Money Holder") + "," + officials.get("Money Collector") + ","
+            //                + officials.get("Property Buyer") + officials.get("Shift Supervisor 1")
+            //                + officials.get("Shift Supervisor 2") + officials.get("Shift Supervisor 3")
+            //                + officials.get("Auditor 1") + officials.get("Auditor 1") + ")");
+            generalsStmt.executeQuery("UPDATE IDIR_TABLE SET " + //
+                    "Chairman = " + officials.get("Chairman") + ", " + //
+                    "Vice_Chairman = " + officials.get("Vice Chairman")  + ", " + //
+                    "Secretary = " + officials.get("Secretary") + ", " + //
+                    "Accountant = " + officials.get("Accountant") + ", " + //
+                    "Money_Holder = " + officials.get("Money Holder") + ", " + //
+                    "Money_Collector = " + officials.get("Money Collector") + ", " + //
+                    "Property_Buyer = " + officials.get("Property Buyer") + ", " + //
+                    "Shift_Supervisor_1 = " + officials.get("Shift Supervisor 1") + ", " + //
+                    "Shift_Supervisor_2 = " + officials.get("Shift Supervisor 2") +", " + //
+                    "Shift_Supervisor_3 = " + officials.get("Shift Supervisor 3") + ", " + //
+                    "Auditor_1 = " + officials.get("Auditor 1") + ", " + //
+                    "Auditor_2 = " + officials.get("Auditor 1") + ";");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -217,24 +232,49 @@ public class OfficialsPanel extends JPanel implements ParentPanel {
         ArrayList<Object[]> data = new ArrayList<Object[]>();
         Object[] rowData;
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveOfficials()");
+            //ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveOfficials()");
+            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("SELECT \r\n" + //
+                    "        m.Photo, LPAD(m.ID, 4, '0') AS Official_ID, \r\n" + //
+                    "        CONCAT(m.First_Name, ' ', m.Father_Name, ' ', m.Grandfather_Name) AS FullName,\r\n" + //
+                    "        CASE " + //
+                    "            WHEN i.Chairman = m.ID THEN 'Chairman'\r\n" + //
+                    "            WHEN i.Vice_Chairman = m.ID THEN 'Vice_Chairman'\r\n" + //
+                    "            WHEN i.Secretary = m.ID THEN 'Secretary'\r\n" + //
+                    "            WHEN i.Accountant = m.ID THEN 'Accountant'\r\n" + //
+                    "            WHEN i.Money_Holder = m.ID THEN 'Money_Holder'\r\n" + //
+                    "            WHEN i.Money_Collector = m.ID THEN 'Money_Collector'\r\n" + //
+                    "            WHEN i.Property_Buyer = m.ID THEN 'Property_Buyer'\r\n" + //
+                    "            WHEN i.Shift_Supervisor_1 = m.ID THEN 'Shift_Supervisor'\r\n" + //
+                    "            WHEN i.Shift_Supervisor_2 = m.ID THEN 'Shift_Supervisor'\r\n" + //
+                    "            WHEN i.Shift_Supervisor_3 = m.ID THEN 'Shift_Supervisor'\r\n" + //
+                    "            WHEN i.Auditor_1 = m.ID THEN 'Auditor'\r\n" + //
+                    "            WHEN i.Auditor_2 = m.ID THEN 'Auditor'\r\n" + //
+                    "END AS Position" + //
+                    " FROM IDIR_TABLE AS i LEFT JOIN MEMBER_TABLE AS m ON  \r\n" + //
+                    "        m.ID IN (i.Chairman, i.Vice_Chairman, i.Secretary, i.Accountant, i.Money_Holder, i.Money_Collector,\r\n" + //
+                    "                 i.Property_Buyer, i.Shift_Supervisor_1, i.Shift_Supervisor_2, i.Shift_Supervisor_3,\r\n" + //
+                    "                 i.Auditor_1, i.Auditor_2);");
             while (retrieveIdirInfo.next()) {
                 rowData = new Object[5];
                 rowData[0] = ImageIcons.reSize(new ImageIcon(retrieveIdirInfo.getString(1)), 100, 100);
                 for (int i = 1; i < 4; i++) {
                     rowData[i] = retrieveIdirInfo.getString(i + 1);
                 }
+                rowData[4] = change;
                 data.add(rowData);
                 if (!retrieveIdirInfo.isAfterLast()) {
                     data.add(new Object[] { "", "", "", "", "" });
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (data.size() > 0) {
             officialTable.updateTableData(data);
             officialTable.updateRowHeights();
+            columnModel = officialTable.getColumnModel();
+            column = columnModel.getColumn(4);
+            viewOnlyPage();
         }
 
     }
