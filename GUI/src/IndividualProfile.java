@@ -327,8 +327,10 @@ public class IndividualProfile extends JPanel implements ParentPanel {
         photoPath = "GUI\\Icons\\dark\\Example-Photo.jpg";
 
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveMember(" + memberID.toString() + ")");
-           
+            //ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveMember(" + memberID.toString() + ")");
+            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("SELECT LPAD(ID, 4, '0'), Gender, Age, Religion, Member_Address, Phone_No, Occupation, Photo, CONCAT(First_Name, ' ', Father_Name, ' ', Grandfather_Name) as FullName " + //
+                    "FROM MEMBER_TABLE AS m " + //
+                    "WHERE m.ID = " + memberID.toString() + ";");
 
             if (retrieveIdirInfo.next()) {
                 // update personal info query panels to current member being displayed and
@@ -362,8 +364,12 @@ public class IndividualProfile extends JPanel implements ParentPanel {
 
         // update family input panels to current member being displayed and uneditable
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveFamily(" + memberID.toString() + ")");
-            
+            //ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveFamily(" + memberID.toString() + ")");
+            ResultSet retrieveIdirInfo = generalsStmt.executeQuery("SELECT CONCAT(F.First_Name, ' ' , F.Father_Name, ' ', F.Grandfather_Name) AS F_FullName, " + //
+                    "F.Relationship AS Family_Relationship, " + //
+                    "F.Phone_No AS Family_Phone_No " + //
+                    "FROM MEMBER_TABLE AS m JOIN FAMILY AS F ON m.ID = F.Member_ID " + //
+                    "WHERE m.ID = " + memberID.toString() + ";");
 
             familiesSize = 0;// as long there is a panel already created just update the data on it set it
                              // visible
@@ -412,9 +418,12 @@ public class IndividualProfile extends JPanel implements ParentPanel {
 
             } else {
                 try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-                    generalsStmt.executeQuery("call addMember('" + name + "','" + address + "','" + phone + "'," + age
-                            + ",'" + gender + "','" + occupation + "','" + religion + "','" + photoPath + "')");
-                    
+                    //generalsStmt.executeQuery("call addMember('" + name + "','" + address + "','" + phone + "'," + age
+                     //       + ",'" + gender + "','" + occupation + "','" + religion + "','" + photoPath + "')");
+                     String[] splittedName =  name.split(" ");
+
+                     generalsStmt.executeUpdate("INSERT INTO MEMBER_TABLE (First_Name, Father_Name, Grandfather_Name, Member_Address, Phone_No, Age, Gender, Occupation, Religion, Photo) " + //
+                     "VALUES ('" + splittedName[0] + "', '" + splittedName[1] + "', '" + splittedName[2] + "', '" + address + "', '" + phone + "', " + age + ", '" + gender + "', '" + occupation + "', '" + religion + "', '" + photoPath + "');");
                     
                             
                     ResultSet resultSet = generalsStmt.executeQuery("SELECT LAST_INSERT_ID()");
@@ -425,10 +434,10 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                             phone = x.getData()[1];
                             String relation = x.getData()[2];
                             try {
-                                generalsStmt.executeQuery("call addFamily(" + lastGeneratedID + ",'" + name + "','" + relation
-                                                        + "','" + phone + "')");
-
-                                
+                                //generalsStmt.executeQuery("call addFamily(" + lastGeneratedID + ",'" + name + "','" + relation
+                                //                        + "','" + phone + "')");
+                                generalsStmt.executeQuery("INSERT INTO FAMILY (First_Name, Father_Name, Grandfather_Name, Relationship, Member_ID, Phone_No) " + //
+                                "VALUES ('" + splittedName[0] + "', '" + splittedName[1] + "', '" + splittedName[2] + "', '" + relation + "', " + lastGeneratedID + ", '" + phone + "');");
                                 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -452,9 +461,16 @@ public class IndividualProfile extends JPanel implements ParentPanel {
             String id = personalInfoInputFields.get(0).getTextField().getText();
 
             try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
-                generalsStmt.executeQuery("call updateMember('" + id + "','" + address + "','" + phone + "'," + age
-                        + ",'" + gender + "','" + occupation + "','" + religion + "')");
-                
+                //generalsStmt.executeQuery("call updateMember('" + id + "','" + address + "','" + phone + "'," + age
+                //        + ",'" + gender + "','" + occupation + "','" + religion + "')");
+                generalsStmt.executeQuery("UPDATE MEMBER_TABLE SET " + //
+                    "Member_Address = '" + address + "', " + //
+                    "Phone_No = '" + phone + "', " + //
+                    "Age = " + age + ", " + //
+                    "Gender = '" + gender + "', " + //
+                    "Occupation = '" + occupation + "', " + //
+                    "Religion = '" + religion + "' " + //
+                    "WHERE ID = " + id + ";");
                 
 
                 for (FamilyInfoInputPanel x : familyInfoInputPanels) {
@@ -462,8 +478,11 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                     phone = x.getData()[1];
                     String relation = x.getData()[2];
                     try {
-                        generalsStmt.executeQuery("call addFamily(" + id + ",'" + name + "','" + relation
-                                + "','" + phone + "')");
+                        //generalsStmt.executeQuery("call addFamily(" + id + ",'" + name + "','" + relation
+                        //        + "','" + phone + "')");
+                        String[] splittedName =  name.split(" ");
+                        generalsStmt.executeQuery("INSERT INTO FAMILY (First_Name, Father_Name, Grandfather_Name, Relationship, Member_ID, Phone_No) " + //
+                                "VALUES ('" + splittedName[0] + "', '" + splittedName[1] + "', '" + splittedName[2] + "', '" + relation + "', " + id + ", '" + phone + "');");
                         
                     } catch (Exception e) {
                         e.printStackTrace();
