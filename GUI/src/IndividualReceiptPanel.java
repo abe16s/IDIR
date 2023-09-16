@@ -216,7 +216,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
                     if (insertionError) {
                         JOptionPane.showMessageDialog(displayPanel,
                                 "Check if the specified IDs correctly represent members and also enter other values correctly!",
-                                "Check Inputs", JOptionPane.INFORMATION_MESSAGE);
+                                "Check Inputs", JOptionPane.WARNING_MESSAGE);
                         insertionError = false;
                     } else {
                         customTrigger();
@@ -586,7 +586,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
             if (queryPanel.getTextField().getText().equals("")) {
                 JOptionPane.showMessageDialog(displayPanel,
                         "Please Enter " + queryPanel.getCaption().getText() + " Value!", "Required",
-                        JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE);
                 return false;
             }
         }
@@ -594,7 +594,7 @@ public class IndividualReceiptPanel extends JPanel implements ParentPanel {
         if ((other.isVisible() && other.getText().equals("Reason"))
                 || (quantity.getTextField().isVisible() && quantity.getTextField().getText().equals("Qty"))) {
             JOptionPane.showMessageDialog(displayPanel, "Please Enter All Reason Fields!", "Required",
-                    JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.WARNING_MESSAGE);
             return false;
         }
 

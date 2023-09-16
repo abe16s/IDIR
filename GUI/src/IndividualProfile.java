@@ -329,6 +329,8 @@ public class IndividualProfile extends JPanel implements ParentPanel {
 
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveMember(" + memberID.toString() + ")");
+           
+
             if (retrieveIdirInfo.next()) {
                 // update personal info query panels to current member being displayed and
                 // uneditable
@@ -337,7 +339,12 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                     t.setText(retrieveIdirInfo.getString(i + 1));
                     t.setEditable(false);
                     t.setBackground(Color.white);
-                    t.setColumns(retrieveIdirInfo.getString(i + 1).length());
+                    try {
+                        t.setColumns(retrieveIdirInfo.getString(i + 1).length());
+                    } catch (Exception e) {
+                        t.setColumns(2);
+                    }
+                    
                     t.setMaximumSize(new Dimension(t.getPreferredSize().width, 20));
                 }
                 photoPath = retrieveIdirInfo.getString(8);
@@ -357,6 +364,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
         // update family input panels to current member being displayed and uneditable
         try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
             ResultSet retrieveIdirInfo = generalsStmt.executeQuery("call retrieveFamily(" + memberID.toString() + ")");
+            
 
             familiesSize = 0;// as long there is a panel already created just update the data on it set it
                              // visible
@@ -378,7 +386,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                 familyInfoInputPanels.get(i).setVisible(false);
                 i++;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -407,6 +415,9 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                 try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
                     generalsStmt.executeQuery("call addMember('" + name + "','" + address + "','" + phone + "'," + age
                             + ",'" + gender + "','" + occupation + "','" + religion + "','" + photoPath + "')");
+                    
+                    
+                            
                     ResultSet resultSet = generalsStmt.executeQuery("SELECT LAST_INSERT_ID()");
                     if (resultSet.next()) {
                         String lastGeneratedID = resultSet.getString(1);
@@ -415,11 +426,11 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                             phone = x.getData()[1];
                             String relation = x.getData()[2];
                             try {
-                                generalsStmt
-                                        .executeQuery(
-                                                "call addFamily(" + lastGeneratedID + ",'" + name + "','" + relation
+                                generalsStmt.executeQuery("call addFamily(" + lastGeneratedID + ",'" + name + "','" + relation
                                                         + "','" + phone + "')");
 
+                                
+                                
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 return false;
@@ -428,7 +439,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                         }
                         prepareToShowProfile(Integer.parseInt(lastGeneratedID));
                     }
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -444,6 +455,9 @@ public class IndividualProfile extends JPanel implements ParentPanel {
             try (Statement generalsStmt = App.DATABASE_CONNECTION.createStatement()) {
                 generalsStmt.executeQuery("call updateMember('" + id + "','" + address + "','" + phone + "'," + age
                         + ",'" + gender + "','" + occupation + "','" + religion + "')");
+                
+                
+
                 for (FamilyInfoInputPanel x : familyInfoInputPanels) {
                     String name = x.getData()[0];
                     phone = x.getData()[1];
@@ -451,6 +465,7 @@ public class IndividualProfile extends JPanel implements ParentPanel {
                     try {
                         generalsStmt.executeQuery("call addFamily(" + id + ",'" + name + "','" + relation
                                 + "','" + phone + "')");
+                        
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
