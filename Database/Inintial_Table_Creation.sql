@@ -3,9 +3,7 @@ USE IDIR;
 
 CREATE TABLE MEMBER_TABLE (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    First_Name VARCHAR(20) NOT NULL,
-    Father_Name VARCHAR(20) NOT NULL,
-    Grandfather_Name VARCHAR(20) NOT NULL,
+    FullName VARCHAR(60) NOT NULL,
     Member_Address VARCHAR(30) NOT NULL,
     Phone_No CHAR(10) UNIQUE,
     Age INT,
@@ -83,9 +81,7 @@ CREATE TABLE RECEIPT (
 );
 
 CREATE TABLE FAMILY (
-    First_Name VARCHAR(20) NOT NULL,
-    Father_Name VARCHAR(20) NOT NULL,
-    Grandfather_Name VARCHAR(20) NOT NULL,
+    FullName VARCHAR(60) NOT NULL,
     Relationship VARCHAR(20) NOT NULL,
     Member_ID INT NOT NULL,
     Phone_No CHAR(10) UNIQUE,
