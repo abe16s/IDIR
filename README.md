@@ -1,55 +1,55 @@
 # IDIR Management App
 
 <p align="center">
-<img src="./screen-shoot/home.png" alt="Managing Members Image 1" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/home.png" alt="Home Screen" width="45%" style="margin: 0 2%;">
 </p>
 
-IDIR is a local social system in Ethiopia where people unite to provide support during times of joy or sorrow. To facilitate this, members contribute money monthly or as needed. This project aims to create a Java-based app with an SQL database for managing this social system efficiently.
+IDIR is a traditional social system in Ethiopia where communities unite to provide mutual support during times of joy and sorrow. Members contribute funds on a monthly basis or as needed. This project aims to create a Java-based application with an SQL database to efficiently manage this social system.
 
 ## Goals
 
-Develop a user-friendly program to enhance access to the local IDIR system in Ethiopia. This is a departure from the traditional method of managing data through handwritten record books, which can lead to data duplication, unnecessary record books, and potential data loss. Our program seeks to address these issues.
+Our goal is to develop a user-friendly program that enhances access to the local IDIR system in Ethiopia. By moving away from traditional handwritten record-keeping, we aim to eliminate issues such as data duplication, unnecessary record books, and potential data loss. Our program addresses these problems with modern technology.
 
 ## Features
 
 ### Managing Members
-- Adding, editing, and removing members from the IDIR system.
+- Add, edit, and remove members from the IDIR system.
 
 <p align="center">
-<img src="./screen-shoot/member.png" alt="Managing Members Image 1" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/memberList.png" alt="Member List" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/member.png" alt="Member Details" width="45%" style="margin: 0 2%;">
 </p>
-
 
 ### Managing Officials
-- Promoting and demoting officials within the IDIR system.
+- Promote and demote officials within the IDIR system.
 
 <p align="center">
-<img src="./screen-shoot/officialAdd.png" alt="Managing Officials Image 1" width="45%" style="margin: 0 2%;">
-<img src="./screen-shoot/official.png" alt="Managing Officials Image 2" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/officialAdd.png" alt="Add Official" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/official.png" alt="Officials List" width="45%" style="margin: 0 2%;">
 </p>
 
-
 ### Financials
-- General summary of total expenses, income, and assets (partitioned into types).
-- Detailed records of expenditures, including date, recipient, purpose, amount, and receipt.
-- Yearly summarized financial reports.
-- Issuing Receipts
+- Provide a general summary of total expenses, income, and assets, partitioned by type.
+- Maintain detailed records of expenditures, including the date, recipient, purpose, amount, and receipt.
+- Generate yearly summarized financial reports.
+- Issue receipts for all transactions.
 
 <p align="center">
-<img src="./screen-shoot/report.png" alt="Financials Image 1" width="45%" style="margin: 0 2%;">
-<img src="./screen-shoot/reciept.png" alt="Financials Image 2" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/report.png" alt="Financial Report" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/reciept.png" alt="Receipt" width="45%" style="margin: 0 2%;">
 </p>
 
 ### Tracking Agenda
-- Allows for filing and editing the agenda for IDIR meetings and activities.
+- File and edit the agenda for IDIR meetings and activities.
 
 <p align="center">
-<img src="./screen-shoot/agendaDetail.png" alt="Tracking Agenda Image 2" width="45%" style="margin: 0 2%;">
-<img src="./screen-shoot/agenda.png" alt="Tracking Agenda Image 1" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/agendaDetail.png" alt="Agenda Detail" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/agenda.png" alt="Agenda" width="45%" style="margin: 0 2%;">
 </p>
-
 
 ---
 
-By creating the IDIR Management App, our objective is to modernize and simplify the conventional IDIR system in Ethiopia. This should lead to better organization, communication, and support within the IDIR community. Our aspiration is that this app will contribute to a more efficient and effective IDIR experience for all members.
+By developing the IDIR Management App, our objective is to modernize and streamline the conventional IDIR system in Ethiopia. This modernization will lead to improved organization, communication, and support within the IDIR community. We hope this app will provide a more efficient and effective IDIR experience for all members.
+
+---
 
