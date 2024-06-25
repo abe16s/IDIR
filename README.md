@@ -1,7 +1,7 @@
 # IDIR Management App
 
 <p align="center">
-<img src=".src/screen-shoot/home.png" alt="Managing Members Image 1" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/home.png" alt="Managing Members Image 1" width="45%" style="margin: 0 2%;">
 </p>
 
 IDIR is a local social system in Ethiopia where people unite to provide support during times of joy or sorrow. To facilitate this, members contribute money monthly or as needed. This project aims to create a Java-based app with an SQL database for managing this social system efficiently.
@@ -16,7 +16,7 @@ Develop a user-friendly program to enhance access to the local IDIR system in Et
 - Adding, editing, and removing members from the IDIR system.
 
 <p align="center">
-<img src=".src/screen-shoot/member.png" alt="Managing Members Image 1" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/member.png" alt="Managing Members Image 1" width="45%" style="margin: 0 2%;">
 </p>
 
 
@@ -24,8 +24,8 @@ Develop a user-friendly program to enhance access to the local IDIR system in Et
 - Promoting and demoting officials within the IDIR system.
 
 <p align="center">
-<img src=".src/screen-shoot/officialAdd.png" alt="Managing Officials Image 1" width="45%" style="margin: 0 2%;">
-<img src=".src/screen-shoot/official.png" alt="Managing Officials Image 2" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/officialAdd.png" alt="Managing Officials Image 1" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/official.png" alt="Managing Officials Image 2" width="45%" style="margin: 0 2%;">
 </p>
 
 
@@ -36,16 +36,16 @@ Develop a user-friendly program to enhance access to the local IDIR system in Et
 - Issuing Receipts
 
 <p align="center">
-<img src=".src/screen-shoot/report.png" alt="Financials Image 1" width="45%" style="margin: 0 2%;">
-<img src=".src/screen-shoot/reciept.png" alt="Financials Image 2" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/report.png" alt="Financials Image 1" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/reciept.png" alt="Financials Image 2" width="45%" style="margin: 0 2%;">
 </p>
 
 ### Tracking Agenda
 - Allows for filing and editing the agenda for IDIR meetings and activities.
 
 <p align="center">
-<img src=".src/screen-shoot/agendaDetail.png" alt="Tracking Agenda Image 2" width="45%" style="margin: 0 2%;">
-<img src=".src/screen-shoot/agenda.png" alt="Tracking Agenda Image 1" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/agendaDetail.png" alt="Tracking Agenda Image 2" width="45%" style="margin: 0 2%;">
+<img src="./screen-shoot/agenda.png" alt="Tracking Agenda Image 1" width="45%" style="margin: 0 2%;">
 </p>
 
 
